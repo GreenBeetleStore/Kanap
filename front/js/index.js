@@ -1,15 +1,25 @@
-fetch
-var elementosAcumules=0;
-var elementos=[1, 2, 3, 4, 5, 6, 7, 8,];
-      for(var i=0; i<elementos.length; i++){
-            // elementosAcumules=elementos[i]+elementosAcumules;
-            elementosAcumules+=elementos[i];
-            document.getElementById("items").innerHTML+=`<a href="./product.html?id=42">
+// Declarar una constant amb l'url de l'API 
+const urlhost = "http://localhost:3000/api/products/";
+
+// Funció per capturar les dades dels productes amb l'API Fetch
+let dadesRecull = function() {
+	fetch (urlhost)
+	.then(response => response.json())
+	.then((dades) => { console.log(dades);
+
+	  // Identificar i assignar les diferents característiques del productes
+	  let caracteristiques = document.getElementById("items");
+	  for (i=0; i < dades.length; i++) {
+		const identitatProducte=`<a href="./product.html?id=${dades[i]._id}">
             <article>
-              <img src=".../product01.jpg" alt="Lorem ipsum dolor sit amet, Kanap name1">
-              <h3 class="productName">Kanap ${elementos[i]} </h3>
-              <p class="productDescription">Dis enim malesuada risus sapien gravida nulla nisl arcu. Dis enim malesuada risus sapien gravida nulla nisl arcu.</p>
+              <img src="${dades[i].imageUrl}" alt="${dades[i].altTxt}", "${dades[i].name}">
+              <h3 class="productName">${dades[i].name}</h3>
+              <p class="productDescription">${dades[i].description}</p>
             </article>
-            </a>`;      
-      }
-      // document.getElementById("items").innerText=elementosAcumules;
+            </a>`;    
+		caracteristiques.innerHTML += identitatProducte;
+	  }
+	});
+};
+// Crida a la variable dadesRecull
+dadesRecull ();
