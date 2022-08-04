@@ -7,7 +7,7 @@ let dadesRecull = function() {
 	.then(resposta => resposta.json())
 	.then((dades) => { console.log(dades);
 
-	  // Identificar i assignar les diferents característiques del productes dins d'una Array
+	  // Identificar dins d'una Array, i assignar al codi html les diferents característiques del productes 
 	  let caracteristiques = document.getElementById("items");
 	  for (i=0; i < dades.length; i++) {
 		const identitatProducte=`<a href="./product.html?id=${dades[i]._id}">
