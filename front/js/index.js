@@ -4,10 +4,10 @@ const urlhost = "http://localhost:3000/api/products/";
 // Funció per capturar les dades dels productes amb l'API Fetch
 let dadesRecull = function() {
 	fetch (urlhost)
-	.then(response => response.json())
+	.then(resposta => resposta.json())
 	.then((dades) => { console.log(dades);
 
-	  // Identificar i assignar les diferents característiques del productes
+	  // Identificar i assignar les diferents característiques del productes dins d'una Array
 	  let caracteristiques = document.getElementById("items");
 	  for (i=0; i < dades.length; i++) {
 		const identitatProducte=`<a href="./product.html?id=${dades[i]._id}">
