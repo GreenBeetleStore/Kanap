@@ -1,11 +1,16 @@
-// Recuperar els valors dels paràmetres de la URL d'entrada 
+  // Recupera la URL de la pàgina actual
+  var str = window.location.href;
 
-var str = window.location.href;       // Recupera la URL de la pàgina actual
-var url = new URL(str);               // Declara la nova variable d'URL
-var id = url.searchParams.get("id");  // Retorna un objecte URLSearchParams permetent l'accés als arguments de la consulta get, en aquest cas "id"
-const urlhost = "http://localhost:3000/api/products/" + id; // L'adreça API + id
+  // Declara la nova variable d'URL
+  var url = new URL(str);
 
-// Funció per capturar les dades dels productes amb l'API Fetch
+  // Retorna un objecte URLSearchParams permetent l'accés als arguments de la consulta get, en aquest cas "id"
+  var id = url.searchParams.get("id");  
+
+  // L'adreça API + id
+  const urlhost = "http://localhost:3000/api/products/" + id; 
+
+// Capturar les dades dels productes amb l'API Fetch
 let dadesRecull = function() {
 	fetch (urlhost)
 	.then(resposta => resposta.json())
@@ -28,77 +33,33 @@ let dadesRecull = function() {
     descripcioProducte.innerHTML = dades.description;
 
     // Idem, color del producte. Html:70 i 71
-    // Atenció: la característica colors= Array dins Array Principal. Crear variable i bucle per presentar valors disponibles.
+      // Atenció: la característica colors= Array dins Array Principal. Crear variable i bucle per presentar valors disponibles.
     let colorProducte = document.getElementById ("colors");
     for (i=0; i < dades.colors.length; i++) {
-    identitatColor = `<option value="${dades.colors[i]}"> ${dades.colors[i]} </option>`;
-    colorProducte.innerHTML += identitatColor;
-
-//---------------------------------------
-
-    // Declarar la constant per al color escollit per l'utilisador
-    const colorEscollit = document.querySelector("identitatColor");
-
-    // Declarar la constant de la quantitat de producte desitjada
-    const quantitatEscollida = document.querySelector("#quantity");
+      colorProducte.innerHTML += `<option value="${dades.colors[i]}"> ${dades.colors[i]} </option>`;
     }
+    console.log(dades.colors)
 	});
 };
 // Crida a la variable dadesRecull
 dadesRecull ();
 
-//=======================================================================
+// Funció obtenir el valor seleccionat de la llista desplegable de color
+document.getElementById("addToCart").onclick = 
+function colorKanap() {
+  let colorSeleccionat = document.getElementById("colors");
+  let value = colorSeleccionat.options[colorSeleccionat.selectedIndex].value;
+  return colorSeleccionat.value;
 
-// Html:75 a 78. <input type="number" name="itemQuantity" min="1" max="100" value="0" id="quantity">
-
-// Html:81 a 83 . <button id="addToCart">Ajouter au panier</button>
-
-//========================================================================
-
-
-
-// ==================================================================
-let objecteJson= "";
-
-
-
-function afegirALaCistella() {
-
-  // Declarar la constant per identificar el botó d'afegir a la cistella
-  const botoAfegirALaCistella = document.querySelectorAll("#addToCart");
-
-  // Ficar en escolta el botó en rebre els esdeveniments de color escollit i quantitat desitjada
-  botoAfegirALaCistella.addEventListener("click", () => {
-    
-    // Entrada de quantitat
-    if (quantitatEscollida.value > 0 && quantitatEscollida <= 100){
-
-      let eleccioColor = colors[i].value;
-
-      let quantitatFinal = quantitatEscollida.value;
-
-      // Definir i Memoritzar l'objecte a enviar a la cistella amb LocalStorage
-      let objecteJson = {
-        idProducte: dades.id,
-        fotoProducte: dades.imageUrl,
-        nomProducte: dades.name,
-        preuProducte: dades.price,
-        descripcioProducte: dades.description,
-        colorProducte: eleccioColor,
-        quantitatFinal: quantitatEscollida,
-      };
-      let objecteLinia = JSON.stringify(objecteJson);
-      localStorage.setItem("objecteJson", objecteLinia);
-
-      console.log(objecteJson);
-
-    };
-  });
+// Funció: obtenir el valor seleccionat de la llista desplegable de quantitat
+function quantitatKanap() {
+  let quantitat = document.getElementById("quantity");
+  return quantitat.value;
+}
 }
 
-
-
-
-
-
-
+// Botó afegeix a la cistella
+const botoCistella = document.getElementById("addToCart");
+botoCistella.addEventListener("click", () =>{
+  window.location.href = "./cart.html";
+});
