@@ -33,13 +33,72 @@ let dadesRecull = function() {
     for (i=0; i < dades.colors.length; i++) {
     identitatColor = `<option value="${dades.colors[i]}"> ${dades.colors[i]} </option>`;
     colorProducte.innerHTML += identitatColor;
+
+//---------------------------------------
+
+    // Declarar la constant per al color escollit per l'utilisador
+    const colorEscollit = document.querySelector("identitatColor");
+
+    // Declarar la constant de la quantitat de producte desitjada
+    const quantitatEscollida = document.querySelector("#quantity");
     }
 	});
 };
 // Crida a la variable dadesRecull
 dadesRecull ();
 
+//=======================================================================
+
 // Html:75 a 78. <input type="number" name="itemQuantity" min="1" max="100" value="0" id="quantity">
 
 // Html:81 a 83 . <button id="addToCart">Ajouter au panier</button>
+
+//========================================================================
+
+
+
+// ==================================================================
+let objecteJson= "";
+
+
+
+function afegirALaCistella() {
+
+  // Declarar la constant per identificar el botó d'afegir a la cistella
+  const botoAfegirALaCistella = document.querySelectorAll("#addToCart");
+
+  // Ficar en escolta el botó en rebre els esdeveniments de color escollit i quantitat desitjada
+  botoAfegirALaCistella.addEventListener("click", () => {
+    
+    // Entrada de quantitat
+    if (quantitatEscollida.value > 0 && quantitatEscollida <= 100){
+
+      let eleccioColor = colors[i].value;
+
+      let quantitatFinal = quantitatEscollida.value;
+
+      // Definir i Memoritzar l'objecte a enviar a la cistella amb LocalStorage
+      let objecteJson = {
+        idProducte: dades.id,
+        fotoProducte: dades.imageUrl,
+        nomProducte: dades.name,
+        preuProducte: dades.price,
+        descripcioProducte: dades.description,
+        colorProducte: eleccioColor,
+        quantitatFinal: quantitatEscollida,
+      };
+      let objecteLinia = JSON.stringify(objecteJson);
+      localStorage.setItem("objecteJson", objecteLinia);
+
+      console.log(objecteJson);
+
+    };
+  });
+}
+
+
+
+
+
+
 
