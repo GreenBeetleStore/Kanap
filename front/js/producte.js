@@ -59,35 +59,73 @@ let dadesRecull = function() {
     function quantitatKanap() {
       let quantitat = document.getElementById("quantity");
       let value = quantitat.options[quantitat.selectedIndex].value;
-      return quantitat.value;
-    }    
+      quantitat.innerHTML += quantity.value;
+    
+
+
+      // ATENCIÓ !!!: No sé si FUNCIONA perquè la quantitat no apareix:
+      console.log(value);
+      alert("quantitat");
+
+
+
+    }
   });
 };
+
 // Crida a la variable dadesRecull ¿És correcta la posició?
 dadesRecull ();
 
-// ==============================================================
-// OBJECTE = Local Storage
 
-// Declarar variable per guardar la CLAU i els VALORS de local storage
-let productesLocalStorage = JSON.parse(localStorage.getItem("objecte"));
 
-// Si(ja hi han productes dins de local storage)
-if(productesLocalStorage){
-
-}
-
-// Si No (hi han productes dins de local storage)
-else{
-  productesLocalStorage = [];
-  productesLocalStorage.push(dadesRecull);
-  localStorage.setItem("objecte",JSON.stringify(productesLocalStorage));
-  console.log(productesLocalStorage);
-}
-// ==============================================================
 
 // Botó afegeix a la cistella
 const botoCistella = document.getElementById("addToCart");
 botoCistella.addEventListener("click", () =>{
   window.location //.href = "./cart.html";
+
+  // ==============================================================
+  // OBJECTE = Local Storage
+
+  // Declarar variable per guardar la CLAU i els VALORS de local storage
+  let productesLocalStorage = JSON.parse(localStorage.getItem("objecte"));
+
+  console.log(productesLocalStorage);
+
+
+  
+  // Funció finestra de confirmació popup
+  // =======================================================
+  const popupConfirmació = () =>{
+    if(window.confirm(`${dadesRecull.nomProducte} option: ${colorSeleccionat} a été ajouté au panier 
+    Aller au panier OK ou revenir a l'accueil RETOUR`)){
+      window.location.href = "./cart.html";
+    }else{
+      window.location.href = "./index.html";
+    }
+  }
+// =======================================================
+
+
+
+  // Si(ja hi han productes dins de local storage)
+  if(productesLocalStorage){
+    productesLocalStorage.push(dadesRecull);
+    localStorage.setItem("objecte",JSON.stringify(productesLocalStorage));
+    popupConfirmació();
+
+    console.log(productesLocalStorage);
+  }
+
+  // Si No (hi han productes dins de local storage)
+  else{
+    productesLocalStorage = [];
+    productesLocalStorage.push(dadesRecull); // 92: Tinc un dubte entre "dadesRecull" i "dades", o una altra variable ???
+    localStorage.setItem("objecte",JSON.stringify(productesLocalStorage));
+    popupConfirmació();
+
+    console.log(productesLocalStorage);
+  }
+  // ==============================================================
+
 });
