@@ -26,11 +26,11 @@ let dadesRecull = function() {
 
             const cistella = `<article class="cart__item" data-id={product-ID}" data-color="{product-color}">
             <div class="cart__item__img">
-            <img src="../images/product01.jpg" alt="Photographie d'un canapé">
+            <img src="${fotoProducte}" alt=${dades.altTxt}>
             </div>
             <div class="cart__item__content">
             <div class="cart__item__content__description">
-            <h2>Nom du produit</h2>
+            <h2>${dades[i].name}</h2>
             <p>Vert</p>
             <p>42,00 €</p>
             </div>

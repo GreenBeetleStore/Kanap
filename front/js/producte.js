@@ -39,24 +39,48 @@ let dadesRecull = function() {
       colorProducte.innerHTML += `<option value="${dades.colors[i]}"> ${dades.colors[i]} </option>`;
     }
     console.log(dades.colors)
-	});
+
+
+    // Funció obtenir el valor seleccionat de la llista desplegable de color
+    document.getElementById("addToCart").onclick = 
+    function colorKanap() {
+      let colorSeleccionat = document.getElementById("colors");
+      let value = colorSeleccionat.options[colorSeleccionat.selectedIndex].value;
+      return colorSeleccionat.value;
+    }
+
+    // Funció: obtenir el valor seleccionat de la llista desplegable de quantitat
+    function quantitatKanap() {
+      let quantitat = document.getElementById("quantity");
+      return quantitat.value;
+    }
+  });
 };
 // Crida a la variable dadesRecull
 dadesRecull ();
 
-// Funció obtenir el valor seleccionat de la llista desplegable de color
-document.getElementById("addToCart").onclick = 
-function colorKanap() {
-  let colorSeleccionat = document.getElementById("colors");
-  let value = colorSeleccionat.options[colorSeleccionat.selectedIndex].value;
-  return colorSeleccionat.value;
+// ==============================================================
+// OBJECTE = Local Storage
 
-// Funció: obtenir el valor seleccionat de la llista desplegable de quantitat
-function quantitatKanap() {
-  let quantitat = document.getElementById("quantity");
-  return quantitat.value;
+// Declarar variable per guardar la CLAU i els VALORS de local storage
+let productesLocalStorage = JSON.parse(localStorage.getItem("objecte"));
+
+console.log(productesLocalStorage);
+
+// Si(ja hi han productes dins de local storage)
+if(productesLocalStorage){
+
 }
+
+// Si No (hi han productes dins de local storage)
+else{
+  productesLocalStorage = [];
+  productesLocalStorage.push(dadesRecull);
+  localStorage.setItem("objecte",JSON.stringify(productesLocalStorage));
+
+  console.log(productesLocalStorage);
 }
+// ==============================================================
 
 // Botó afegeix a la cistella
 const botoCistella = document.getElementById("addToCart");
