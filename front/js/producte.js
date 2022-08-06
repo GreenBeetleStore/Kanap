@@ -62,11 +62,13 @@ let dadesRecull = function() {
       quantitat.innerHTML += quantity.value;
     
 
+      // =======================================================
 
       // ATENCIÓ !!!: No sé si FUNCIONA perquè la quantitat no apareix:
       console.log(value);
       alert("quantitat");
 
+      // =======================================================
 
 
     }
@@ -93,26 +95,26 @@ botoCistella.addEventListener("click", () =>{
   console.log(productesLocalStorage);
 
 
-  
+
   // Funció finestra de confirmació popup
   // =======================================================
-  const popupConfirmació = () =>{
-    if(window.confirm(`${dadesRecull.nomProducte} option: ${colorSeleccionat} a été ajouté au panier 
-    Aller au panier OK ou revenir a l'accueil RETOUR`)){
-      window.location.href = "./cart.html";
-    }else{
-      window.location.href = "./index.html";
-    }
-  }
+  // const popupConfirmació = () =>{
+  //   if(window.confirm(`${dadesRecull.nomProducte} option: ${colorSeleccionat} a été ajouté au panier 
+  //   Aller au panier OK ou revenir a l'accueil RETOUR`)){
+  //     window.location.href = "./cart.html";
+  //   }else{
+  //     window.location.href = "./index.html";
+  //   }
+  // }
 // =======================================================
 
 
 
   // Si(ja hi han productes dins de local storage)
   if(productesLocalStorage){
-    productesLocalStorage.push(dadesRecull);
+    productesLocalStorage.push([id]);
     localStorage.setItem("objecte",JSON.stringify(productesLocalStorage));
-    popupConfirmació();
+    // popupConfirmació();
 
     console.log(productesLocalStorage);
   }
@@ -122,7 +124,7 @@ botoCistella.addEventListener("click", () =>{
     productesLocalStorage = [];
     productesLocalStorage.push(dadesRecull); // 92: Tinc un dubte entre "dadesRecull" i "dades", o una altra variable ???
     localStorage.setItem("objecte",JSON.stringify(productesLocalStorage));
-    popupConfirmació();
+    // popupConfirmació();
 
     console.log(productesLocalStorage);
   }
