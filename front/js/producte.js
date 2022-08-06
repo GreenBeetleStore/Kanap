@@ -52,7 +52,8 @@ let dadesRecull = function() {
     // Funció: obtenir el valor seleccionat de la llista desplegable de quantitat
     function quantitatKanap() {
       let quantitat = document.getElementById("quantity");
-      return quantitat.value;
+      
+      console.log(quantitatKanap);
     }
   });
 };
