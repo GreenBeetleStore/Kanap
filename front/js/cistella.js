@@ -15,7 +15,7 @@ let dadesRecull = function() {
 	fetch (urlhost)
 	.then(resposta => resposta.json())
 	.then((dades) => { console.log(dades);
-
+      .catch((error) => console.log(error, no hi han dades!));
 
 
 

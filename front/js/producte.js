@@ -6,6 +6,7 @@
 
   // Retorna un objecte URLSearchParams permetent l'accés als arguments de la consulta get, en aquest cas "id"
   const id = url.searchParams.get("id");
+  //Mostra el producte escollit a la pagina index
   console.log(id);
 
   // L'adreça API + id
@@ -17,7 +18,7 @@ let dadesRecull = function() {
 	.then(resposta => resposta.json())
 	.then((dades) => { 
     
-    //Mostra totes les característiques del producte
+    //Mostra les característiques del producte
     console.log(dades);
 
 	  // Identificar dins de l'Array, i assignar al codi html la foto i la descripció (alt) de la foto. Html:51
@@ -36,86 +37,73 @@ let dadesRecull = function() {
     let descripcioProducte = document.getElementById ("description");
     descripcioProducte.innerHTML = dades.description;
 
-    // Idem, color del producte. Html:70 i 71
-      // Atenció: la característica colors= Array dins Array Principal. Crear variable i bucle per presentar valors disponibles.
+    // Idem, colors del producte. Html:70 i 71
+      // Atenció: la característica colors=Array dins d'Array Principal. Crear variable i bucle per obtenir els valors disponibles.
     let colorProducte = document.getElementById ("colors");
     for (i=0; i < dades.colors.length; i++) {
       colorProducte.innerHTML += `<option value="${dades.colors[i]}"> ${dades.colors[i]} </option>`;
     }
-    // Mostra en consola els colors disponibles del article
+    // Mostra en consola els colors disponibles del producte
     console.log(dades.colors)
 
-    // Funció obtenir el valor seleccionat de la llista desplegable de color
+    // Botó "Ajouter au panier" a l'escolta, esperant un click
     document.getElementById("addToCart").onclick = 
-    function colorKanap() {
+
+    // Funció obtenir els valor seleccionats de les llistes desplegables; color i quantitat
+    function opcionsKanap() {
+      // Obté el color seleccionat
       let colorSeleccionat = document.getElementById("colors");
       let value = colorSeleccionat.options[colorSeleccionat.selectedIndex].value;
-
       // Mostra el color seleccionat
       console.log(value);
-    }
+      // Mostra finestra ADVERTÈNCIA
+      if (value == false){
+        alert("Vous devez choisir un couleur et un nombre");
+      }
 
-    // Obtenir el valor seleccionat de la llista desplegable de quantitat
-    function quantitatKanap() {
-      let quantitat = document.getElementById("quantity");
-      let value = quantitat.options[quantitat.selectedIndex].value;
-      quantitat.innerHTML += quantity.value;
-    
-
-      // =======================================================
-
-      // ATENCIÓ !!!: No sé si FUNCIONA perquè la quantitat no apareix:
-      console.log(value);
-      alert("quantitat");
-
-      // =======================================================
-
-
+      // Obtenir el valor seleccionat de la llista desplegable de quantitat. Html: 77
+      let quantitatValor = document.getElementById("quantity");
+      if (quantitatValor.value != 0 && quantitatValor.value > 0 && quantitatValor.value <= 100) {
+        quantitatValor.value.push = quantitatValor.value;
+      }
+      // Mostra la quantitat seleccionada
+      console.log(quantitatValor.value);
+      // Mostra finestra ADVERTÈNCIA
+      if (quantitatValor.value == 0){
+        alert("Vous devez choisir un couleur et un nombre");
+      }
     }
   });
-};
-
-// Crida a la variable dadesRecull ¿És correcta la posició?
+}
+// Crida a la variable dadesRecull
 dadesRecull ();
-
-
-
 
 // Botó afegeix a la cistella
 const botoCistella = document.getElementById("addToCart");
 botoCistella.addEventListener("click", () =>{
-  window.location //.href = "./cart.html";
-
-  // ==============================================================
-  // OBJECTE = Local Storage
-
-  // Declarar variable per guardar la CLAU i els VALORS de local storage
-  let productesLocalStorage = JSON.parse(localStorage.getItem("objecte"));
-
-  console.log(productesLocalStorage);
-
-
 
   // Funció finestra de confirmació popup
-  // =======================================================
-  // const popupConfirmació = () =>{
-  //   if(window.confirm(`${dadesRecull.nomProducte} option: ${colorSeleccionat} a été ajouté au panier 
-  //   Aller au panier OK ou revenir a l'accueil RETOUR`)){
-  //     window.location.href = "./cart.html";
-  //   }else{
-  //     window.location.href = "./index.html";
-  //   }
-  // }
-// =======================================================
+  function finestraConfirmació() {
+    if (window.confirm("Ajouté au Panier ! . Aller au Panier: Accepter, ou continuer vos achats: Annuler")) {
+      window.location; //.href = "./cart.html";
+    }else{
+      window.location.href = "./index.html";
+    }
+  }
+  
+  // ============ OBJECTE-CISTELLA = Local Storage ============
 
+  // Declarar variable per guardar la CLAU i els VALORS de Local Storage
+  let productesLocalStorage = JSON.parse(localStorage.getItem("objecteCistella"));
 
-
-  // Si(ja hi han productes dins de local storage)
+  // Si (ja hi han productes dins de local storage)
   if(productesLocalStorage){
     productesLocalStorage.push([id]);
-    localStorage.setItem("objecte",JSON.stringify(productesLocalStorage));
-    // popupConfirmació();
+    localStorage.setItem("objecteCistella",JSON.stringify(productesLocalStorage));
+    finestraConfirmació();
 
+
+    // Mostrarà els articles afegits a LocalStorage a partir del segon article
     console.log(productesLocalStorage);
   }
 
@@ -123,11 +111,10 @@ botoCistella.addEventListener("click", () =>{
   else{
     productesLocalStorage = [];
     productesLocalStorage.push(dadesRecull); // 92: Tinc un dubte entre "dadesRecull" i "dades", o una altra variable ???
-    localStorage.setItem("objecte",JSON.stringify(productesLocalStorage));
-    // popupConfirmació();
+    localStorage.setItem("objecteCistella",JSON.stringify(productesLocalStorage));
+    finestraConfirmació();
 
+    // Mostrarà el primer producte que s'afegeix a LocalStorage
     console.log(productesLocalStorage);
   }
-  // ==============================================================
-
 });
