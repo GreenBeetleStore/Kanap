@@ -56,10 +56,12 @@ let dadesRecull = function() {
       let value = colorSeleccionat.options[colorSeleccionat.selectedIndex].value;
       // Mostra el color seleccionat
       console.log(value);
+//=================================================================
       // Mostra finestra ADVERTÈNCIA
       if (value == false){
-        alert("Vous devez choisir un couleur et un nombre");
+        alert("Vous devez choisir un couleur");
       }
+//=================================================================
 
       // Obtenir el valor seleccionat de la llista desplegable de quantitat. Html: 77
       let quantitatValor = document.getElementById("quantity");
@@ -68,10 +70,12 @@ let dadesRecull = function() {
       }
       // Mostra la quantitat seleccionada
       console.log(quantitatValor.value);
+//=================================================================
       // Mostra finestra ADVERTÈNCIA
       if (quantitatValor.value == 0){
-        alert("Vous devez choisir un couleur et un nombre");
+        alert("Vous devez choisir un nombre");
       }
+//=================================================================
     }
   });
 }
@@ -81,7 +85,7 @@ dadesRecull ();
 // Botó afegeix a la cistella
 const botoCistella = document.getElementById("addToCart");
 botoCistella.addEventListener("click", () =>{
-
+  opcionsKanap();
   // Funció finestra de confirmació popup
   function finestraConfirmació() {
     if (window.confirm("Ajouté au Panier ! . Aller au Panier: Accepter, ou continuer vos achats: Annuler")) {
