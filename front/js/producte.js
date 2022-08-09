@@ -46,38 +46,34 @@ let dadesRecull = function() {
     // Mostra en consola els colors disponibles del producte
     console.log(dades.colors)
 
-    // Botó "Ajouter au panier" a l'escolta, esperant un click
+    // Botó afegeix a la cistella a l'escolta, esperant un click
+    const botoCistella = document.getElementById("addToCart");
     document.getElementById("addToCart").onclick = 
 
     // Funció obtenir els valor seleccionats de les llistes desplegables; color i quantitat
     function opcionsKanap() {
+
       // Obté el color seleccionat
       let colorSeleccionat = document.getElementById("colors");
       let value = colorSeleccionat.options[colorSeleccionat.selectedIndex].value;
       // Mostra el color seleccionat
       console.log(value);
-//=================================================================
       // Mostra finestra ADVERTÈNCIA
       if (value == false){
         alert("Vous devez choisir un couleur");
       }
-//=================================================================
 
       // Obtenir el valor seleccionat de la llista desplegable de quantitat. Html: 77
       let quantitatValor = document.getElementById("quantity");
-      if (quantitatValor.value != 0 && quantitatValor.value > 0 && quantitatValor.value <= 100) {
-        quantitatValor.value.push = quantitatValor.value;
-      }
+      if (quantitatValor.value != 0 && quantitatValor.value > 0 && quantitatValor.value <= 100) {}
       // Mostra la quantitat seleccionada
       console.log(quantitatValor.value);
-//=================================================================
       // Mostra finestra ADVERTÈNCIA
       if (quantitatValor.value == 0){
         alert("Vous devez choisir un nombre");
-      }
-//=================================================================
+      } 
     }
-  });
+  });finestraConfirmació();
 }
 // Crida a la variable dadesRecull
 dadesRecull ();
@@ -85,7 +81,7 @@ dadesRecull ();
 // Botó afegeix a la cistella
 const botoCistella = document.getElementById("addToCart");
 botoCistella.addEventListener("click", () =>{
-  opcionsKanap();
+  
   // Funció finestra de confirmació popup
   function finestraConfirmació() {
     if (window.confirm("Ajouté au Panier ! . Aller au Panier: Accepter, ou continuer vos achats: Annuler")) {
@@ -94,31 +90,29 @@ botoCistella.addEventListener("click", () =>{
       window.location.href = "./index.html";
     }
   }
-  
-  // ============ OBJECTE-CISTELLA = Local Storage ============
-
-  // Declarar variable per guardar la CLAU i els VALORS de Local Storage
-  let productesLocalStorage = JSON.parse(localStorage.getItem("objecteCistella"));
-
-  // Si (ja hi han productes dins de local storage)
-  if(productesLocalStorage){
-    productesLocalStorage.push([id]);
-    localStorage.setItem("objecteCistella",JSON.stringify(productesLocalStorage));
-    finestraConfirmació();
-
-
-    // Mostrarà els articles afegits a LocalStorage a partir del segon article
-    console.log(productesLocalStorage);
-  }
-
-  // Si No (hi han productes dins de local storage)
-  else{
-    productesLocalStorage = [];
-    productesLocalStorage.push(dadesRecull); // 92: Tinc un dubte entre "dadesRecull" i "dades", o una altra variable ???
-    localStorage.setItem("objecteCistella",JSON.stringify(productesLocalStorage));
-    finestraConfirmació();
-
-    // Mostrarà el primer producte que s'afegeix a LocalStorage
-    console.log(productesLocalStorage);
-  }
 });
+    // ============ OBJECTE-CISTELLA = Local Storage ============
+
+    // Declarar variable per guardar la CLAU i els VALORS de Local Storage
+    let productesLocalStorage = JSON.parse(localStorage.getItem("objecteCistella"));
+
+    // Si (ja hi han productes dins de local storage)
+    if(productesLocalStorage){
+      productesLocalStorage.push([id]);
+      localStorage.setItem("objecteCistella",JSON.stringify(productesLocalStorage));
+      // finestraConfirmació();
+
+      // Mostrarà els articles afegits a LocalStorage a partir del segon article
+      console.log(productesLocalStorage);
+    }
+
+    // Si No (hi han productes dins de local storage)
+    else{
+      productesLocalStorage = [];
+      productesLocalStorage.push(dadesRecull); // 92: Tinc un dubte entre "dadesRecull" i "dades", o una altra variable ???
+      localStorage.setItem("objecteCistella",JSON.stringify(productesLocalStorage));
+      // finestraConfirmació();
+
+      // Mostrarà el primer producte que s'afegeix a LocalStorage
+      console.log(productesLocalStorage);
+    }  
