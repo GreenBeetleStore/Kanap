@@ -48,7 +48,6 @@ let dadesRecull = function () {
       // Botó afegeix a la cistella a l'escolta, esperant un click
       const botoCistella = document.getElementById("addToCart");
       document.getElementById("addToCart").onclick =
-      
         // Funció obtenir els valor seleccionats de les llistes desplegables; color i quantitat
         function opcionsKanap() {
           // Obté el color seleccionat
@@ -58,10 +57,11 @@ let dadesRecull = function () {
           // Mostra el color seleccionat
           console.log(value);
           colorSeleccionat = value;
-          // Mostra finestra ADVERTÈNCIA
+          // Mostra finestra ADVERTÈNCIA COLOR
           if (value == false) {
             alert("Vous devez choisir un couleur");
             colorSeleccionat = false;
+            return;
           }
 
           // Obtenir el valor seleccionat de la llista desplegable de quantitat. Html: 77
@@ -75,13 +75,14 @@ let dadesRecull = function () {
             console.log(quantitatValor.value);
             quantitatValor = quantitatValor.value;
           } else {
-            // Mostra finestra ADVERTÈNCIA
+            // Mostra finestra ADVERTÈNCIA QUANTITAT
             if (quantitatValor.value == 0) {
               alert("Vous devez choisir un nombre");
               quantitatValor = false;
+              return;
             }
           }
-           
+
           // ============ OBJECTE-CISTELLA = Local Storage ============
 
           // Declarar variable per guardar la CLAU i els VALORS de Local Storage
@@ -91,7 +92,12 @@ let dadesRecull = function () {
 
           // Si (ja hi han productes dins de local storage)
           if (productesLocalStorage) {
-            productesLocalStorage.push([id]);
+            productesLocalStorage.push(
+              [id],
+              [colorSeleccionat],
+              [quantitatValor],
+              [dades.price]
+            );
             localStorage.setItem(
               "objecteCistella",
               JSON.stringify(productesLocalStorage)
@@ -99,13 +105,18 @@ let dadesRecull = function () {
             finestraConfirmació();
 
             // Mostrarà els articles afegits a LocalStorage a partir del segon article
-            console.log(productesLocalStorage);
+            console.log(localStorage);
           }
 
           // Si No (hi han productes dins de local storage)
           else {
             productesLocalStorage = [];
-            productesLocalStorage.push(dadesRecull); // 92: Tinc un dubte entre "dadesRecull" i "dades", o una altra variable ???
+            productesLocalStorage.push(
+              [id],
+              [colorSeleccionat],
+              [quantitatValor],
+              [dades.price]
+            ); // 92: Tinc un dubte entre "dadesRecull" i "dades", o una altra variable ???
             localStorage.setItem(
               "objecteCistella",
               JSON.stringify(productesLocalStorage)
@@ -113,22 +124,21 @@ let dadesRecull = function () {
             finestraConfirmació();
 
             // Mostrarà el primer producte que s'afegeix a LocalStorage
-            console.log(productesLocalStorage);
+            console.log(localStorage);
           }
-        
+
           // Funció finestra de confirmació popup
           function finestraConfirmació() {
             if (
               window.confirm(
-                "Ajouté au Panier ! . Aller au Panier: Accepter, ou continuer vos achats: Annuler"
+                "Votre article a bien été ajouté au Panier !.                                                                    Pour aller directement au panier appuyez sur:      Accepter.                                          Ou si vous souhaitez continuer vos achats, appuyez sur:     Annuler"
               )
             ) {
-              window.location; //.href = "./cart.html";
+              window.location.href = "./cart.html";
             } else {
               window.location.href = "./index.html";
             }
           }
-        
         };
     });
 };
