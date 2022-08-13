@@ -6,7 +6,7 @@ const url = new URL(consultaStringUrlId);
 
 // Retorna un objecte URLSearchParams permetent l'accés als arguments de la consulta get, en aquest cas "id"
 const id = url.searchParams.get("id");
-//Mostra el producte escollit a la pagina index
+//Mostra el ID producte escollit a la pagina index
 console.log(id);
 
 // L'adreça API + id
@@ -20,21 +20,29 @@ let dadesRecull = function () {
       //Mostra les característiques del producte
       console.log(dades);
 
+      // Declarar variable d'identitat producte
+      idProducte=dades._id;
+
       // Identificar dins de l'Array, i assignar al codi html la foto i la descripció (alt) de la foto. Html:51
       let fotoProducte = document.querySelector(".item__img");
       fotoProducte.innerHTML = `<img src="${dades.imageUrl}" alt="${dades.altTxt}">`;
+      fotoProducte = dades.imageUrl;
+      altTexte = dades.altTxt;
 
       // Idem, nom del producte. Html:56
       let nomProducte = document.getElementById("title");
       nomProducte.innerHTML = dades.name;
+      nomProducte = dades.name;
 
       // Idem, preu del producte. Html:57
       let preuProducte = document.getElementById("price");
       preuProducte.innerHTML = dades.price;
+      preuProducte = dades.price;
 
       // Idem, descripció del producte. Html:62
       let descripcioProducte = document.getElementById("description");
       descripcioProducte.innerHTML = dades.description;
+      descripcioProducte = dades.description;
 
       // Idem, colors del producte. Html:70 i 71
       // Atenció: la característica colors=Array dins d'Array Principal. Crear variable i bucle per obtenir els valors disponibles.
@@ -55,8 +63,8 @@ let dadesRecull = function () {
           let value =
             colorSeleccionat.options[colorSeleccionat.selectedIndex].value;
           // Mostra el color seleccionat
-          console.log(value);
           colorSeleccionat = value;
+          console.log(colorSeleccionat);
           // Mostra finestra ADVERTÈNCIA COLOR
           if (value == false) {
             alert("Vous devez choisir un couleur");
@@ -86,21 +94,20 @@ let dadesRecull = function () {
           // ============ OBJECTE-CISTELLA = Local Storage ============
 
           // Declarar variable per guardar la CLAU i els VALORS de Local Storage
-          let productesLocalStorage = JSON.parse(
-            localStorage.getItem("objecteCistella")
+          let articlesCistella = JSON.parse(
+            localStorage.getItem("Cistella")
           );
 
           // Si (ja hi han productes dins de local storage)
-          if (productesLocalStorage) {
-            productesLocalStorage.push(
-              [id],
+          if (articlesCistella) {
+            articlesCistella.push(
+              [idProducte],
               [colorSeleccionat],
-              [quantitatValor],
-              [dades.price]
+              [quantitatValor]
             );
             localStorage.setItem(
-              "objecteCistella",
-              JSON.stringify(productesLocalStorage)
+              "Cistella",
+              JSON.stringify(articlesCistella)
             );
             finestraConfirmació();
 
@@ -110,16 +117,15 @@ let dadesRecull = function () {
 
           // Si No (hi han productes dins de local storage)
           else {
-            productesLocalStorage = [];
-            productesLocalStorage.push(
-              [id],
+            articlesCistella = [];
+            articlesCistella.push(
+              [idProducte],
               [colorSeleccionat],
-              [quantitatValor],
-              [dades.price]
-            ); // 92: Tinc un dubte entre "dadesRecull" i "dades", o una altra variable ???
+              [quantitatValor]
+            ); 
             localStorage.setItem(
-              "objecteCistella",
-              JSON.stringify(productesLocalStorage)
+              "Cistella",
+              JSON.stringify(articlesCistella)
             );
             finestraConfirmació();
 
