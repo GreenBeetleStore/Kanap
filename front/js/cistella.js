@@ -1,7 +1,10 @@
 console.log(localStorage);
 
+
+
+
 // Obtenir els productes de la cistella des de Local Storage
-let articlesCistella = JSON.parse(localStorage.getItem("Cistella"));
+let articlesCistella = JSON.parse(localStorage.getItem("Cistella",cistell));
 // Mostra els productes adquirits a la cistella
 console.log(articlesCistella);
 
