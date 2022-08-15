@@ -59,3 +59,5 @@ class Cistell {
     return importTotal;
   }
 }
+
+export default function () { console.log("Bon treball") };
