@@ -11,7 +11,7 @@ const id = url.searchParams.get("id");
 const urlhost = "http://localhost:3000/api/products/" + id;
 
 // Declarar variables globals
-let cistella = [];
+let sofa = "";
 const colorSeleccionat = document.querySelector("#colors");
 const quantitat = document.querySelector("#quantity");
 
@@ -90,48 +90,6 @@ botoCistella.addEventListener("click", (e) => {
     }
   }
 
-  // ============ OBJECTE-CISTELLA & Local Storage ============
-
-  let dadesArticle = [idProducte, colorSeleccionat, quantitat];
-
-  // Funció per guardar la CLAU(Cistella) i els VALORS(variable: Cistell) de Local Storage
-  function guardarCistella(dadesLocalStorage) {
-    localStorage.setItem("Cistella", JSON.stringify(dadesLocalStorage));
-  }
-
-  // Declarar variable per guardar la CLAU i els VALORS de Local Storage
-  let dadesLocalStorage = JSON.parse(localStorage.getItem("Cistella"));
-  console.log(dadesLocalStorage);
-
-  // Si (ja hi han productes dins de local storage)
-  if (dadesLocalStorage) {
-    dadesLocalStorage.push(dadesArticle);
-    localStorage.setItem("Cistella", JSON.stringify(dadesLocalStorage));
-
-    // Afegir productes sumant quantitats si son iguals
-    let trovarProducte =
-      dadesLocalStorage.find(
-        (pr) => pr.idProducte == dadesArticle.idProducte
-      ) && ((pr) => pr.colorSeleccionat == dadesArticle.colorSeleccionat);
-    if (trovarProducte != undefined) {
-      trovarProducte.quantitat++;
-    } else {
-      dadesArticle.quantitat = 1;
-      dadesLocalStorage.push(dadesArticle);
-    }
-    finestraConfirmació();
-    guardarCistella(dadesLocalStorage);
-  }
-
-  // Si No (hi han productes dins de local storage)
-  else {
-    dadesLocalStorage = [];
-    dadesLocalStorage.push(dadesArticle);
-    localStorage.setItem("Cistella", JSON.stringify(dadesLocalStorage));
-    finestraConfirmació();
-    guardarCistella(dadesLocalStorage);
-  }
-
   // Funció finestra de confirmació popup
   function finestraConfirmació() {
     if (
@@ -144,4 +102,49 @@ botoCistella.addEventListener("click", (e) => {
       window.location.href = "./index.html";
     }
   }
+
+  // ============ OBJECTE-CISTELLA = Local Storage ============
+
+  // Funció per guardar la CLAU(Cistella) i els VALORS(variable: Cistell) de Local Storage
+  function guardarCistella(cistell) {
+    localStorage.setItem("Cistella", JSON.stringify(cistell));
+  }
+  guardarCistella(cistell);
+  // Funció per recuperar els valors que porten la CLAU(Cistella)
+  function obtenirCistella() {
+    let cistell = localStorage.getItem("Cistella");
+    if (cistell == null) {
+      return [];
+    } else {
+      return JSON.parse(cistell);
+    }
+  }
 });
+
+// // Declarar variable per guardar la CLAU "Cistella" i els VALORS(Cistell) de Local Storage
+// localStorage.setItem("Cistella", JSON.stringify(cistell));
+
+// let opcionsCistell = {
+//   id,
+//   colorSeleccionat,
+//   quantitat,
+// };
+
+// // Si (ja hi han productes dins de local storage)
+// if (sofa) {
+//   sofa.push(opcionsCistell);
+//   guardarCistella();
+
+//   // Mostrarà els articles afegits a LocalStorage a partir del segon article
+//   console.log(opcionsCistell);
+// }
+// // Si No (hi han productes dins de local storage)
+// else {
+//   sofa = [];
+//   sofa.push(opcionsCistell);
+
+//   guardarCistella();
+
+//   // Mostrarà el primer producte que s'afegeix a LocalStorage
+//   console.log(opcionsCistell);
+// }
