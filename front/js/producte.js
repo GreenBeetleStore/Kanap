@@ -105,8 +105,8 @@ botoCistella.addEventListener("click", (e) => {
 
   // Si (ja hi han productes dins de local storage)
   if (dadesLocalStorage) {
-    // dadesLocalStorage.push(dadesArticle);
-    // localStorage.setItem("Cistella", JSON.stringify(dadesLocalStorage));
+    dadesLocalStorage.push(dadesArticle);
+    localStorage.setItem("Cistella", JSON.stringify(dadesLocalStorage));
 
     // Afegir productes sumant quantitats si son iguals
     let trovarProducte =
@@ -118,7 +118,6 @@ botoCistella.addEventListener("click", (e) => {
     } else {
       dadesArticle.quantitat = 1;
       dadesLocalStorage.push(dadesArticle);
-      localStorage.setItem("Cistella", JSON.stringify(dadesLocalStorage));
     }
     finestraConfirmació();
     guardarCistella(dadesLocalStorage);

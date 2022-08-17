@@ -14,29 +14,29 @@ function obtenirCistella() {
 }
 
 // Funció per afegir articles a la Cistella
-function afegirACistella(sofa) {
+function afegirACistella(articleSofa) {
   let cistell = obtenirCistella();
-  let trovarProducte = cistell.find((pr) => pr.id == sofa.id);
+  let trovarProducte = cistell.find(pr => pr.id == articleSofa.id);
   if (trovarProducte != undefined) {
     trovarProducte.quantitat++;
   } else {
-    sofa.quantitat = 1;
-    cistell.push(sofa);
+    articleSofa.quantitat = 1;
+    cistell.push(articleSofa);
   }
   guardarCistella(cistell);
 }
 
 // Funció per eliminar articles de la Cistella
-function eliminarDeCistella(sofa) {
+function eliminarDeCistella(articleSofa) {
   let cistell = obtenirCistella();
-  cistell = cistell.filter((pr) => pr.id != sofa.id);
+  cistell = cistell.filter(pr => pr.id != articleSofa.id);
   guardarCistella(cistell);
 }
 
 // Funció per canviar la quantitat d'articles de la Cistella
-function canviarQuantitat(sofa, quantitat) {
+function canviarQuantitat(articleSofa, quantitat) {
   let cistell = obtenirCistella();
-  let trovarProducte = cistell.find((pr) => pr.id == sofa.id);
+  let trovarProducte = cistell.find((pr) => pr.id == articleSofa.id);
   if (trovarProducte != undefined) {
     trovarProducte.quantitat += quantitat;
     if (trovarProducte.quantitat <= 0) {
@@ -51,8 +51,8 @@ function canviarQuantitat(sofa, quantitat) {
 function obtenirNumeroDeSofas() {
   let cistell = obtenirCistella();
   let numero = 0;
-  for (let sofa of cistell) {
-    numero += sofa.quantitat;
+  for (let articleSofa of cistell) {
+    numero += articleSofa.quantitat;
   }
   return numero;
 }
@@ -61,8 +61,8 @@ function obtenirNumeroDeSofas() {
 function obtenirPreuTotal() {
   let cistell = obtenirCistella();
   let importTotal = 0;
-  for (let sofa of cistell) {
-    importTotal += sofa.quantitat * sofa.preu;
+  for (let articleSofa of cistell) {
+    importTotal += articleSofa.quantitat * articleSofa.preu;
   }
   return importTotal;
 }
