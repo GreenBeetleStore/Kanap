@@ -1,3 +1,10 @@
+// Importar la classe Cistell
+import { Cistell } from "./gestor_cistella_poo.js";
+// Creació d'un objecte de la clase Cistell.
+// Es a partir d'aquí que podríem cridar a les diferents funcions de la classe, per exemple la función 'guardar()'
+const cistell = new Cistell();
+// Ara ja podem explotar les funcions de la classe cridant a 'cistell.guardar()' per exemple
+
 // Recupera la URL de la pàgina actual
 const consultaStringUrlId = window.location.href;
 
@@ -10,8 +17,7 @@ const id = url.searchParams.get("id");
 // L'adreça API + id
 const urlhost = "http://localhost:3000/api/products/" + id;
 
-// Declarar variables globals
-let cistella = [];
+// Declarar variables globals.
 const colorSeleccionat = document.querySelector("#colors");
 const quantitat = document.querySelector("#quantity");
 
@@ -21,16 +27,16 @@ let dadesRecull = function () {
     .then((resposta) => resposta.json())
     .then((dades) => {
       // Mostra les característiques del producte
-      // console.log(dades);
+      console.log(dades);
 
       // Declarar variable d'identitat producte
-      idProducte = dades._id;
+      let idProducte = dades._id;
 
       // Identificar dins de l'Array, i assignar al codi html la foto i la descripció (alt) de la foto. Html:51
       let fotoProducte = document.querySelector(".item__img");
       fotoProducte.innerHTML = `<img src="${dades.imageUrl}" alt="${dades.altTxt}">`;
       fotoProducte = dades.imageUrl;
-      altTexte = dades.altTxt;
+      let altTexte = dades.altTxt;
 
       // Idem, nom del producte. Html:56
       let nomProducte = document.getElementById("title");
@@ -92,44 +98,29 @@ botoCistella.addEventListener("click", (e) => {
 
   // ============ OBJECTE-CISTELLA & Local Storage ============
 
-  let dadesArticle = [idProducte, colorSeleccionat, quantitat];
-
-  // Funció per guardar la CLAU(Cistella) i els VALORS(variable: Cistell) de Local Storage
-  function guardarCistella(dadesLocalStorage) {
-    localStorage.setItem("Cistella", JSON.stringify(dadesLocalStorage));
-  }
+  let articleSofa = [idProducte, colorSeleccionat, quantitat];
 
   // Declarar variable per guardar la CLAU i els VALORS de Local Storage
-  let dadesLocalStorage = JSON.parse(localStorage.getItem("Cistella"));
-  console.log(dadesLocalStorage);
+  let cistell = JSON.parse(localStorage.getItem("Cistella"));
+  console.log(cistell);
 
   // Si (ja hi han productes dins de local storage)
-  if (dadesLocalStorage) {
-    dadesLocalStorage.push(dadesArticle);
-    localStorage.setItem("Cistella", JSON.stringify(dadesLocalStorage));
-
-    // Afegir productes sumant quantitats si son iguals
-    let trovarProducte =
-      dadesLocalStorage.find(
-        (pr) => pr.idProducte == dadesArticle.idProducte
-      ) && ((pr) => pr.colorSeleccionat == dadesArticle.colorSeleccionat);
-    if (trovarProducte != undefined) {
-      trovarProducte.quantitat++;
-    } else {
-      dadesArticle.quantitat = 1;
-      dadesLocalStorage.push(dadesArticle);
-    }
+  if (cistell) {
+    Cistell.obtenir(cistell);
+    console.log(cistell);
     finestraConfirmació();
-    guardarCistella(dadesLocalStorage);
+    afegir(cistell);
   }
 
   // Si No (hi han productes dins de local storage)
   else {
-    dadesLocalStorage = [];
-    dadesLocalStorage.push(dadesArticle);
-    localStorage.setItem("Cistella", JSON.stringify(dadesLocalStorage));
+    cistell = [];
+
+    console.log(cistell);
+    // cistell.push(dadesArticle);
+    // localStorage.setItem("Cistella", JSON.stringify(cistell));
     finestraConfirmació();
-    guardarCistella(dadesLocalStorage);
+    guardar(cistell);
   }
 
   // Funció finestra de confirmació popup

@@ -1,7 +1,7 @@
 // Programació Orientada a Objectes (POO) Gestor de la Cistella
 
 // Declarar la class Cistell i crear un constructor
-class Cistell {
+export class Cistell {
   constructor() {
     let cistell = localStorage.getItem("Cistella");
     if (cistell == null) {
@@ -15,24 +15,26 @@ class Cistell {
     localStorage.setItem("Cistella", JSON.stringify(this.cistell));
   }
   // Funció per afegir articles a la Cistella
-  afegir(sofa) {
-    let trovarProducte = this.cistell.find((pr) => pr.id == sofa.id);
+  afegir(articleSofa) {
+    let trovarProducte =
+      this.cistell.find((pr) => pr.id == articleSofa.idProducte) &&
+      ((pr) => pr.colorSeleccionat == articleSofa.colorSeleccionat);
     if (trovarProducte != undefined) {
       trovarProducte.quantitat++;
     } else {
-      sofa.quantitat = 1;
-      this.cistell.push(sofa);
+      articleSofa.quantitat = 1;
+      this.cistell.push(articleSofa);
     }
     this.guardar();
   }
   // Funció per eliminar articles de la Cistella
-  eliminar(sofa) {
-    this.cistell = this.cistell.filter((pr) => pr.id != sofa.id);
+  eliminar(articleSofa) {
+    this.cistell = this.cistell.filter((pr) => pr.id != articleSofa.id);
     this.guardar();
   }
   // Funció per canviar la quantitat d'articles de la Cistella
-  canviarQuantitat(sofa, quantitat) {
-    let trovarProducte = this.cistell.find((pr) => pr.id == sofa.id);
+  canviarQuantitat(articleSofa, quantitat) {
+    let trovarProducte = this.cistell.find((pr) => pr.id == articleSofa.id);
     if (trovarProducte != undefined) {
       trovarProducte.quantitat += quantitat;
       if (trovarProducte.quantitat <= 0) {
@@ -45,19 +47,17 @@ class Cistell {
   // Funció per calcular la quantitat d'articles de la Cistella
   obtenirNumeroDeSofas() {
     let numero = 0;
-    for (let sofa of this.cistell) {
-      numero += sofa.quantitat;
+    for (let articleSofa of this.cistell) {
+      numero += articleSofa.quantitat;
     }
     return numero;
   }
   // Funció per calcular el preu total de la Cistella
   obtenirPreuTotal() {
     let importTotal = 0;
-    for (let sofa of this.cistell) {
-      importTotal += sofa.quantitat * sofa.preu;
+    for (let articleSofa of this.cistell) {
+      importTotal += articleSofa.quantitat * articleSofa.preu;
     }
     return importTotal;
   }
 }
-
-export default function () { console.log("Bon treball") };
