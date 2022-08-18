@@ -56,7 +56,7 @@ export class Cistell {
     return { numero, importTotal };
   }
 
-  // Funció per calcular el preu total de la Cistella. Ha estat inclosa amb la funció obtenirNumeroDeSofas
+  // Funció per calcular el preu total de la Cistella. Ha estat inclosa amb la funció obtenirNumeroDeSofas: línies 51, 54 i 56
   // obtenirPreuTotal() {
   //   let importTotal = 0;
   //   for (let articleSofa of this.cistell) {

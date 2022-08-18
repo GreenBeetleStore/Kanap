@@ -27,7 +27,7 @@ let dadesRecull = function () {
     .then((resposta) => resposta.json())
     .then((dades) => {
       // Mostra les característiques del producte
-      console.log(dades);
+      //  console.log(dades);
 
       // Identificar dins de l'Array, i assignar al codi html la foto i la descripció (alt) de la foto. Html:51
       let fotoProducte = document.querySelector(".item__img");
@@ -56,7 +56,7 @@ let dadesRecull = function () {
         colorProducte.innerHTML += `<option value="${dades.colors[i]}"> ${dades.colors[i]} </option>`;
       }
       // Mostra en consola els colors disponibles del producte
-      console.log(dades.colors);
+      // console.log(dades.colors);
     });
 };
 // Crida a la variable dadesRecull
@@ -65,12 +65,13 @@ dadesRecull();
 // Botó afegeix a la cistella a l'escolta, esperant un click
 const botoCistella = document.getElementById("addToCart");
 botoCistella.addEventListener("click", (e) => {
-  // Obté el color seleccionat
+  // Obtenir el color seleccionat
   let colorSeleccionat = document.getElementById("colors");
   let value = colorSeleccionat.options[colorSeleccionat.selectedIndex].value;
-  // Mostra el color seleccionat
   colorSeleccionat = value;
-  console.log(colorSeleccionat);
+  // Mostra el color seleccionat
+  // console.log(colorSeleccionat);
+
   // Mostra finestra ADVERTÈNCIA COLOR
   if (value == false) {
     alert("Vous devez choisir un couleur");
@@ -81,9 +82,9 @@ botoCistella.addEventListener("click", (e) => {
   // Obtenir la quantitat seleccionada. Html: 77
   let quantitat = document.getElementById("quantity");
   if (quantitat.value != 0 && quantitat.value > 0 && quantitat.value <= 100) {
-    // Mostra la quantitat seleccionada
     quantitat = parseInt(quantitat.value);
-    console.log(quantitat);
+    // Mostra la quantitat seleccionada
+    // console.log(quantitat);
   } else {
     // Mostra finestra ADVERTÈNCIA QUANTITAT
     if (quantitat.value == 0) {
@@ -93,30 +94,28 @@ botoCistella.addEventListener("click", (e) => {
     }
   }
 
-  // ============ OBJECTE-CISTELLA & Local Storage ============
-
-  let articleSofa = { id, colorSeleccionat, quantitat };
-  /**
-   * {
-   *  id: "99827397249238",
-   *  colorSeleccionat: "Blue",
-   *  quantitat: 6
-   * }
+  // =========== OBJECTE-CISTELLA & Local Storage // ===========
+  /** Declaració de l'objecte a incloure a LocalStorage, 
+   * Exemple: { id: "99827397249238", colorSeleccionat: "Blue", quantitat: 6 }
    */
+  
+  let articleSofa = { id, colorSeleccionat, quantitat };
+
+  // Cridar POO a la funció afegir producte
   cistell.afegir(articleSofa);
 
+  // Cridar a la funció de la finestra de confirmació
   finestraConfirmació();
-
-  // Funció finestra de confirmació popup
 });
 
+// Funció finestra de confirmació popup
 function finestraConfirmació() {
   if (
     window.confirm(
       "Votre article a bien été ajouté au Panier !.                                                                    Pour aller directement au panier appuyez sur:      Accepter.                                          Ou si vous souhaitez continuer vos achats, appuyez sur:     Annuler"
     )
   ) {
-    window.location.href; // = "./cart.html";
+    window.location.href = "./cart.html";
   } else {
     window.location.href = "./index.html";
   }
