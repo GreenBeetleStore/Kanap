@@ -46,7 +46,7 @@ export class Cistell {
     }
   }
   // Funció per calcular la quantitat d'articles de la Cistella
-  obtenirNumeroDeSofas() {
+  obtenirTotalsNumPreu() {
     let numero = 0;
     let importTotal = 0;
     for (let articleSofa of this.cistell) {
@@ -55,7 +55,8 @@ export class Cistell {
     }
     return { numero, importTotal };
   }
-  // Funció per calcular el preu total de la Cistella
+
+  // Funció per calcular el preu total de la Cistella. Ha estat inclosa amb la funció obtenirNumeroDeSofas
   // obtenirPreuTotal() {
   //   let importTotal = 0;
   //   for (let articleSofa of this.cistell) {

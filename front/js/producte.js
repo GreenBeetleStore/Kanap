@@ -29,9 +29,6 @@ let dadesRecull = function () {
       // Mostra les característiques del producte
       console.log(dades);
 
-      // Declarar variable d'identitat producte
-      // let idProducte = dades._id;
-
       // Identificar dins de l'Array, i assignar al codi html la foto i la descripció (alt) de la foto. Html:51
       let fotoProducte = document.querySelector(".item__img");
       fotoProducte.innerHTML = `<img src="${dades.imageUrl}" alt="${dades.altTxt}">`;
