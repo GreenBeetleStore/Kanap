@@ -16,13 +16,14 @@ export class Cistell {
   }
   // Funció per afegir articles a la Cistella
   afegir(articleSofa) {
-    let trovarProducte =
-      this.cistell.find((pr) => pr.id == articleSofa.idProducte) &&
-      ((pr) => pr.colorSeleccionat == articleSofa.colorSeleccionat);
+    let trovarProducte = this.cistell.find(
+      (pr) =>
+        pr.id == articleSofa.id &&
+        pr.colorSeleccionat == articleSofa.colorSeleccionat
+    );
     if (trovarProducte != undefined) {
-      trovarProducte.quantitat++;
+      trovarProducte.quantitat += articleSofa.quantitat;
     } else {
-      articleSofa.quantitat = 1;
       this.cistell.push(articleSofa);
     }
     this.guardar();
@@ -47,17 +48,19 @@ export class Cistell {
   // Funció per calcular la quantitat d'articles de la Cistella
   obtenirNumeroDeSofas() {
     let numero = 0;
-    for (let articleSofa of this.cistell) {
-      numero += articleSofa.quantitat;
-    }
-    return numero;
-  }
-  // Funció per calcular el preu total de la Cistella
-  obtenirPreuTotal() {
     let importTotal = 0;
     for (let articleSofa of this.cistell) {
+      numero += articleSofa.quantitat;
       importTotal += articleSofa.quantitat * articleSofa.preu;
     }
-    return importTotal;
+    return { numero, importTotal };
   }
+  // Funció per calcular el preu total de la Cistella
+  // obtenirPreuTotal() {
+  //   let importTotal = 0;
+  //   for (let articleSofa of this.cistell) {
+  //     importTotal += articleSofa.quantitat * articleSofa.preu;
+  //   }
+  //   return importTotal;
+  // }
 }

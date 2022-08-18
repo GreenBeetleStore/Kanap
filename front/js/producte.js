@@ -30,7 +30,7 @@ let dadesRecull = function () {
       console.log(dades);
 
       // Declarar variable d'identitat producte
-      let idProducte = dades._id;
+      // let idProducte = dades._id;
 
       // Identificar dins de l'Array, i assignar al codi html la foto i la descripció (alt) de la foto. Html:51
       let fotoProducte = document.querySelector(".item__img");
@@ -55,7 +55,7 @@ let dadesRecull = function () {
 
       // Idem, colors del producte. Html:70 i 71. Crear variable i bucle per obtenir els valors disponibles.
       let colorProducte = document.getElementById("colors");
-      for (i = 0; i < dades.colors.length; i++) {
+      for (let i = 0; i < dades.colors.length; i++) {
         colorProducte.innerHTML += `<option value="${dades.colors[i]}"> ${dades.colors[i]} </option>`;
       }
       // Mostra en consola els colors disponibles del producte
@@ -85,7 +85,7 @@ botoCistella.addEventListener("click", (e) => {
   let quantitat = document.getElementById("quantity");
   if (quantitat.value != 0 && quantitat.value > 0 && quantitat.value <= 100) {
     // Mostra la quantitat seleccionada
-    quantitat = quantitat.value;
+    quantitat = parseInt(quantitat.value);
     console.log(quantitat);
   } else {
     // Mostra finestra ADVERTÈNCIA QUANTITAT
@@ -98,41 +98,29 @@ botoCistella.addEventListener("click", (e) => {
 
   // ============ OBJECTE-CISTELLA & Local Storage ============
 
-  let articleSofa = [idProducte, colorSeleccionat, quantitat];
+  let articleSofa = { id, colorSeleccionat, quantitat };
+  /**
+   * {
+   *  id: "99827397249238",
+   *  colorSeleccionat: "Blue",
+   *  quantitat: 6
+   * }
+   */
+  cistell.afegir(articleSofa);
 
-  // Declarar variable per guardar la CLAU i els VALORS de Local Storage
-  let cistell = JSON.parse(localStorage.getItem("Cistella"));
-  console.log(cistell);
-
-  // Si (ja hi han productes dins de local storage)
-  if (cistell) {
-    Cistell.obtenir(cistell);
-    console.log(cistell);
-    finestraConfirmació();
-    afegir(cistell);
-  }
-
-  // Si No (hi han productes dins de local storage)
-  else {
-    cistell = [];
-
-    console.log(cistell);
-    // cistell.push(dadesArticle);
-    // localStorage.setItem("Cistella", JSON.stringify(cistell));
-    finestraConfirmació();
-    guardar(cistell);
-  }
+  finestraConfirmació();
 
   // Funció finestra de confirmació popup
-  function finestraConfirmació() {
-    if (
-      window.confirm(
-        "Votre article a bien été ajouté au Panier !.                                                                    Pour aller directement au panier appuyez sur:      Accepter.                                          Ou si vous souhaitez continuer vos achats, appuyez sur:     Annuler"
-      )
-    ) {
-      window.location.href; // = "./cart.html";
-    } else {
-      window.location.href = "./index.html";
-    }
-  }
 });
+
+function finestraConfirmació() {
+  if (
+    window.confirm(
+      "Votre article a bien été ajouté au Panier !.                                                                    Pour aller directement au panier appuyez sur:      Accepter.                                          Ou si vous souhaitez continuer vos achats, appuyez sur:     Annuler"
+    )
+  ) {
+    window.location.href; // = "./cart.html";
+  } else {
+    window.location.href = "./index.html";
+  }
+}
