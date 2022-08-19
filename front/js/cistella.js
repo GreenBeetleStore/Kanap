@@ -69,11 +69,14 @@ let dadesRecull = function () {
           // Funció per canviar la quantitat d'articles de la Cistella
           const definirQuantitats =
             document.getElementsByClassName("itemQuantity");
-          for (let q = 0; q < articleSofa[i].quantitat.length; q++) {
-            cistell.canviarQuantitat(articleSofa[i].quantitat);
+          for (let i = 0; i < articleSofa[i].quantitat.length; i++) {
+            definirQuantitats.addEventListener("change", () => cistell.canviarQuantitat(articleSofa, quantitat));
+            console.log("change");
           }
+          console.log(articleSofa[i].quantitat);
+        
 
-
+           
 
 
           let totalArticles = [];
