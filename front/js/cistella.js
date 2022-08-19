@@ -23,12 +23,12 @@ let dadesRecull = function () {
   fetch(urlhost)
     .then((resposta) => resposta.json())
     .then((dades) => {
+      console.log(dades);
       // Obtenir els productes de la cistella des de Local Storage
       let articleSofa = JSON.parse(localStorage.getItem("Cistella", cistell));
       // Mostra els productes adquirits a la cistella
       console.log(articleSofa);
 
-      // let articleSofa = { id, colorSeleccionat, quantitat };
       // Si la cistella està buida canvia el títol <h1>
       if (articleSofa == null) {
         document.getElementById(
@@ -39,31 +39,42 @@ let dadesRecull = function () {
       else {
         document.getElementById("titolCistella").innerHTML += `Votre panier`;
 
-        // Bucle per mostrar els articles de la cistella
+        // Bucle per mostrar els articles de la cistella. Adjuntem les característiques del producte al HTML
         for (let i = 0; i < articleSofa.length; i++) {
           document.querySelector(
             "#cart__items"
           ).innerHTML += `<article class="cart__item" data-id="${articleSofa[i].id}" data-color="${articleSofa[i].colorSeleccionat}">
        <div class="cart__item__img">
-         <img src="${articleSofa[i].fotoProducte}" alt="${articleSofa[i].altTexte}">
+         <img src="${dades[i].imageUrl}" alt="${dades[i].altTxt}">
        </div>
        <div class="cart__item__content">
          <div class="cart__item__content__description">
-           <h2>"${articleSofa[i].nomProducte}"</h2>
+           <h2>"${dades[i].name}"</h2>
            <p>"${articleSofa[i].colorSeleccionat}"</p>
-           <p>"${articleSofa[i].preuProducte}" €</p>
+           <p>"${dades[i].price}" €</p>
          </div>
          <div class="cart__item__content__settings">
            <div class="cart__item__content__settings__quantity">
              <p>Qté : </p>
-             <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="42">
+             <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${articleSofa[i].quantitat}">
            </div>
            <div class="cart__item__content__settings__delete">
+             <br/>
              <p class="deleteItem">Supprimer</p>
            </div>
          </div>
        </div>
      </article> `;
+
+          // Funció per canviar la quantitat d'articles de la Cistella
+          const definirQuantitats =
+            document.getElementsByClassName("itemQuantity");
+          for (let q = 0; q < articleSofa[i].quantitat.length; q++) {
+            cistell.canviarQuantitat(articleSofa[i].quantitat);
+          }
+
+
+
 
           let totalArticles = [];
           let preuTotal = [];
@@ -73,14 +84,3 @@ let dadesRecull = function () {
 };
 // Crida a la variable dadesRecull
 dadesRecull();
-
-/**
- * [id],
- * [nomProducte],
- * [preuProducte],
- * [fotoProducte],
- * [altTexte],
- * [descripcioProducte],
- * [colorSeleccionat],
- * [quantitatValor]
- */
