@@ -66,21 +66,42 @@ let dadesRecull = function () {
        </div>
      </article> `;
 
-          // Funció per canviar la quantitat d'articles de la Cistella
-          const definirQuantitats =
-            document.getElementsByClassName("itemQuantity");
-          for (let i = 0; i < articleSofa[i].quantitat.length; i++) {
-            definirQuantitats.addEventListener("change", () => cistell.canviarQuantitat(articleSofa, quantitat));
-            console.log("change");
-          }
+          // Funció per canviar la quantitat d'articles de la Cistella en escolta del botó de l'input
+          let botoSelector = document.querySelector(
+            "input",
+            articleSofa[i].quantitat
+          );
+          let novaQuantitat = document.getElementsByClassName(".itemQuantity");
+          
+          botoSelector.addEventListener("change", (e) => {
+            cistell.canviarQuantitat(articleSofa[i].quantitat)
+            for (let i = 0; i < articleSofa[i].quantitat.length; i++);
+            
+            console.log(novaQuantitat);
+
+            return (e);
+          });
+          // novaQuantitat.number = e.target.value;
+
           console.log(articleSofa[i].quantitat);
-        
-
-           
 
 
-          let totalArticles = [];
-          let preuTotal = [];
+
+
+// =======================================================
+
+
+
+          // Funció per eliminar articles de la Cistella
+          //  const eliminar = document.getElementsByClassName("cart__item__content__settings__delete");
+          //  eliminar.addEventListener ("click", (e) => {
+          //    cistell.eliminar(articleSofa)
+          //  });
+
+          // obtenirTotalsNumPreu(numero, importTotal)
+          // document.getElementsByClassName("totalQuantity");
+
+          // let importTotal = [];
         }
       }
     });

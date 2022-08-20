@@ -35,7 +35,7 @@ export class Cistell {
   }
   // Funció per canviar la quantitat d'articles de la Cistella
   canviarQuantitat(articleSofa, quantitat) {
-    let trovarProducte = this.cistell.find((pr) => pr.id == articleSofa.id);
+    let trovarProducte = this.cistell.find(pr => pr.id == articleSofa.id);
     if (trovarProducte != undefined) {
       trovarProducte.quantitat += quantitat;
       if (trovarProducte.quantitat <= 0) {
@@ -47,13 +47,13 @@ export class Cistell {
   }
   // Funció per calcular la quantitat d'articles de la Cistella
   obtenirTotalsNumPreu() {
-    let numero = 0;
+    let quantitatTotal = 0;
     let importTotal = 0;
     for (let articleSofa of this.cistell) {
-      numero += articleSofa.quantitat;
+      quantitatTotal += articleSofa.quantitat;
       importTotal += articleSofa.quantitat * articleSofa.preu;
     }
-    return { numero, importTotal };
+    return { quantitatTotal, importTotal };
   }
 
   // Funció per calcular el preu total de la Cistella. Ha estat inclosa amb la funció obtenirNumeroDeSofas: línies 51, 54 i 56
