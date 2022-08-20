@@ -74,15 +74,13 @@ let dadesRecull = function () {
           let novaQuantitat = document.getElementsByClassName(".itemQuantity");
           
           botoSelector.addEventListener("change", (e) => {
-            cistell.canviarQuantitat(articleSofa[i].quantitat)
+            cistell.canviarQuantitat(articleSofa[i].quantitat);
             for (let i = 0; i < articleSofa[i].quantitat.length; i++);
             
-            console.log(novaQuantitat);
-
-            return (e);
+            return (articleSofa.quantitat);
           });
           // novaQuantitat.number = e.target.value;
-
+          console.log(novaQuantitat);
           console.log(articleSofa[i].quantitat);
 
 
