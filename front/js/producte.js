@@ -22,7 +22,7 @@ export function dadesProducte(urlhost) {
   return fetch(urlhost).then((resposta) => resposta.json());
 }
 
-// Funció per integrar les dades del producte en la pàgina html.
+// Funció per integrar les dades del producte a la pàgina html.
 function integrarDades(dades) {
   // Identificar dins de l'Array, i assignar al codi html la foto i la descripció (alt) de la foto. Html:51.
   let fotoProducte = document.querySelector(".item__img");
