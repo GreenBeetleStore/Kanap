@@ -83,12 +83,7 @@ let dadesRecull = function () {
           console.log(novaQuantitat);
           console.log(articleSofa[i].quantitat);
 
-
-
-
 // =======================================================
-
-
 
           // Funció per eliminar articles de la Cistella
           //  const eliminar = document.getElementsByClassName("cart__item__content__settings__delete");
@@ -98,6 +93,9 @@ let dadesRecull = function () {
 
           // obtenirTotalsNumPreu(numero, importTotal)
           // document.getElementsByClassName("totalQuantity");
+
+          // ====================================================
+
 
           // let importTotal = [];
         }
