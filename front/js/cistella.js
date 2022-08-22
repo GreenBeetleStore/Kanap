@@ -20,7 +20,7 @@ const urlhost = "http://localhost:3000/api/products/";
 import { dadesProducte } from "./producte.js";
 
 // Funció per integrar les dades del producte a la pàgina html.
-function incrustarDades(dades) {
+function integrarDades(dades) {
   // Mostrar en consola totes les dades dels productes.
   console.log(dades);
 
@@ -109,5 +109,5 @@ function incrustarDades(dades) {
 
 // Execució de les funcions.
 dadesProducte(urlhost)
-  .then((dades) => incrustarDades(dades))
-  .then(() => canviDeQuantitats());
+  .then((dades) => integrarDades(dades))
+  .then(() => afegirACistella());
