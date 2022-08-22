@@ -69,36 +69,46 @@ function integrarDades(dades) {
     }
   }
 
-  // Funció per canviar quantitats dels productes
-  function canviDeQuantitats() {
+  // Funció per eliminar articles de la Cistella.
+  function eliminarProducte() {
 
+    // Identificar la classe per eliminar un producte.
+    const suprimir = document.querySelectorAll("deleteItem");
+
+    // Cridar POO a la funció per eliminar un producte.
+    cistell.eliminar(articleSofa.id);
+    
+
+    // Afegir esdeveniment al botó de suprimir.
+    suprimir.addEventListener("click", function () {
+      alert("Voleu suprimir?");
+    });
+  }
+  eliminarProducte(articleSofa.id);
+
+  // Funció per canviar quantitats dels productes.
+  function novesQuantitats(articleSofa, quantitat) {
     // Identificar el botó per canviar la quantitat.
-    const botoSelector = document.querySelectorAll("input");
+    let botoSelector = document.querySelectorAll(".itemQuantity");
 
     // Afegir l'esdeveniment al botóSelector.
     botoSelector.addEventListener("change", function () {
       // Cridar POO a la funció per canviar la quantitat d'articles de la Cistella.
-      cistell.canviarQuantitat();
+      cistell.canviarQuantitat(articleSofa[i].quantitat);
 
       // Obtenir la nova quantitat escollida per l'usuari des de la pàgina cistella HTML.
-      let novaQuantitat = parseInt(document.querySelector("itemQuantity"));
+      let novaQuantitat = document.querySelector("itemQuantity");
 
-      // Mostrar en consola la nova quantitat
-      if (!quantitat) {
+      // Mostrar en consola la nova quantitat.
+      if (novaQuantitat != articleSofa[i].quantitat) {
         console.log("Vous avez choisi " + novaQuantitat + " unités");
       }
     });
   }
-  canviDeQuantitats();
+  novesQuantitats();
 }
 
 // =======================================================
-
-// Funció per eliminar articles de la Cistella
-//  const eliminar = document.getElementsByClassName("cart__item__content__settings__delete");
-//  eliminar.addEventListener ("click", (e) => {
-//    cistell.eliminar(articleSofa)
-//  });
 
 // obtenirTotalsNumPreu(numero, importTotal)
 // document.getElementsByClassName("totalQuantity");
@@ -110,4 +120,4 @@ function integrarDades(dades) {
 // Execució de les funcions.
 dadesProducte(urlhost)
   .then((dades) => integrarDades(dades))
-  .then(() => afegirACistella());
+  .then(() => novesQuantitats());
