@@ -30,30 +30,29 @@ function integrarDades(dades, articleSofa) {
          </div>
        </div>
      </article> `;
-
-  // Afegir esdeveniment al botó de suprimir.
-  botoSuprimir.addEventListener("click", ()); 
-
-  // Afegir esdeveniment al botó input selector de quantitat.
-  botoSelector.addEventListener("change", function change()); 
-  
 }
 
-// Identificar la classe per eliminar un producte.
-const botoSuprimir = document.getElementsByClassName("deleteItem");
-click = cistell.eliminar(articleSofa);
+function eliminar() {
+  // Identificar la classe per al botoSuprimir.
+  const botoSuprimir = document.getElementsByClassName("deleteItem");
 
-
-// Identificar la classe per canviar la quantitat.
-const botoSelector = document.getElementsByClassName(".itemQuantity");
-change = cistell.canviarQuantitat();
-
-
+  // Afegir l'esdeveniment al botó d'afegir a la cistella.
+  botoSuprimir.forEach((botoSuprimir) => {
+    botoSuprimir.addEventListener("click", (event) => {
+      cistell.eliminar(articleSofa);
+    });
+  });
+}
 //============================================ OK ^
 
-// Cridar POO a la funció per eliminar un producte.
+// Identificar la classe per canviar la quantitat.
+// const botoSelector = document.getElementsByClassName(".itemQuantity");
+
+// Afegir esdeveniment al botó input selector de quantitat.
+// botoSelector.addEventListener("change", (selectorQuantitat));
 
 //============================================== OK _
+
 // Crear un objecte amb la clase Cistell.
 const cistell = new Cistell();
 
