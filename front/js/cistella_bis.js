@@ -6,49 +6,52 @@ import { dadesProducte } from "./producte.js";
 
 // Funció per integrar les dades de un producte a la pàgina html.
 function integrarDades(dades, articleSofa) {
+  document.querySelector(
+    "#cart__items"
+  ).innerHTML += `<article class="cart__item" data-id="${articleSofa.id}" data-color="${articleSofa.colorSeleccionat}">
+       <div class="cart__item__img">
+         <img src="${dades.imageUrl}" alt="${dades.altTxt}">
+       </div>
+       <div class="cart__item__content">
+         <div class="cart__item__content__description">
+           <h2>"${dades.name}"</h2>
+           <p>"${articleSofa.colorSeleccionat}"</p>
+           <p>"${dades.price}" €</p>
+         </div>
+         <div class="cart__item__content__settings">
+           <div class="cart__item__content__settings__quantity">
+             <p>Qté : </p>
+             <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${articleSofa.quantitat}">
+           </div>
+           <div class="cart__item__content__settings__delete">
+             <br/>
+             <p class="deleteItem">Supprimer</p>
+           </div>
+         </div>
+       </div>
+     </article> `;
+}
 
-  // Definir el bloc per al producte.
-  let blocsDeProducte = document.querySelector("#cart__items");
-
-  // Identificar des de l'Array LocalStorage les característiques de cada producte, integrant-les al html.
-  const identitatArticles = `<article class="cart__item" data-id="${articleSofa.id}" data-color="${articleSofa.colorSeleccionat}">
-    <div class="cart__item__img">
-      <img src="${dades.imageUrl}" alt="${dades.altTxt}">
-    </div>
-    <div class="cart__item__content">
-      <div class="cart__item__content__description">
-        <h2>"${dades.name}"</h2>
-        <p>"${articleSofa.colorSeleccionat}"</p>
-        <p>"${dades.price}" €</p>
-      </div>
-      <div class="cart__item__content__settings">
-        <div class="cart__item__content__settings__quantity">
-          <p>Qté : </p>
-          <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${articleSofa.quantitat}">
-        </div>
-        <div class="cart__item__content__settings__delete">
-          <br/>
-          <p class="deleteItem">Supprimer</p>
-        </div>
-      </div>
-    </div>
-  </article> `;
-  blocsDeProducte.innerHTML += identitatArticles;
-
+function eliminar() {
   // Identificar la classe per al botoSuprimir.
   const botoSuprimir = document.getElementsByClassName("deleteItem");
 
   // Afegir l'esdeveniment al botó d'afegir a la cistella.
-  botoSuprimir.addEventListener("click", cistell.eliminar([]), false);
-
-  window.alert("Acabeu d'eliminar un producte");
+  botoSuprimir.forEach((botoSuprimir) => {
+    botoSuprimir.addEventListener("click", (event) => {
+      console.log("ok");
+      cistell.eliminar();
+    });
+  });
 }
-
 //============================================ OK ^
+
 // Identificar la classe per canviar la quantitat.
 // const botoSelector = document.getElementsByClassName(".itemQuantity");
+
 // Afegir esdeveniment al botó input selector de quantitat.
 // botoSelector.addEventListener("change", (selectorQuantitat));
+
 //============================================== OK _
 
 // Crear un objecte amb la clase Cistell.
