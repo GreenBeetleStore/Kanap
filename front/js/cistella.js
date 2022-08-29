@@ -6,7 +6,6 @@ import { dadesProducte } from "./producte.js";
 
 // Funció per integrar les dades de un producte a la pàgina html.
 function integrarDades(dades, articleSofa) {
-
   // Insertar l'etiqueta <article> dintre la <section>. Crear node.
   const articleCistella = document.createElement("article");
 

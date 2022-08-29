@@ -12,9 +12,12 @@ h2 {
 	text-align: start;
 }
 .deleteItem {
-	padding: 5px 10px;
-	border-radius: 20px ;
-	background-color: #2c3E50;
+	display: flex;
+	position: relative;
+	padding: 5px 15px;
+	/* border-radius: 20px ;
+	background-color: #2c3E50; */
+	top: 15px;
 }
 
 /************/

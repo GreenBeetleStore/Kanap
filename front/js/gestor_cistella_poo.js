@@ -34,7 +34,7 @@ export class Cistell {
   }
   // Funció per canviar la quantitat d'articles de la Cistella
   canviarQuantitat(articleSofa, quantitat) {
-    let trovarProducte = this.panera.find(pr => pr.id == articleSofa.id);
+    let trovarProducte = this.panera.find((pr) => pr.id == articleSofa.id);
     if (trovarProducte != undefined) {
       trovarProducte.quantitat += quantitat;
       if (trovarProducte.quantitat <= 0) {
