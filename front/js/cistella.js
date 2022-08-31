@@ -6,107 +6,68 @@ import { dadesProducte } from "./producte.js";
 
 // Funció per integrar les dades de un producte a la pàgina html.
 function integrarDades(dades, articleSofa) {
+
   // Insertar l'etiqueta <article> dintre la <section>. Crear node.
   const articleCistella = document.createElement("article");
 
   // Selecció de l'element PARE i afegir node ARTICLE.
   document.querySelector("#cart__items").appendChild(articleCistella);
 
-  // Atribuïr la Classe.
+  // Atribuïr la Classe de article.
   articleCistella.className = "cart__item";
 
   // Atribuïr atributs a les etiquetes.
   articleCistella.setAttribute("data-id", articleSofa.id);
   articleCistella.setAttribute("data-color", articleSofa.colorSeleccionat);
 
-  // Crear <div> de la Foto i la seva descripció.
-  const divFoto = document.createElement("div");
-  articleCistella.appendChild(divFoto);
-  divFoto.className = "cart__item__img";
-
-  // Afegir Foto i descripció Alt.
-  const sofaFoto = document.createElement("img");
-  divFoto.appendChild(sofaFoto);
-  sofaFoto.src = dades.imageUrl;
-  sofaFoto.alt = dades.altTxt;
-
-  // Crear <div> dels continguts per al producte.
-  const divContinguts = document.createElement("div");
-  articleCistella.appendChild(divContinguts);
-  divContinguts.className = "cart__item__content";
-
-  // Crear <div> descripció dels continguts.
-  const divContingutsDescripcio = document.createElement("div");
-  divContinguts.appendChild(divContingutsDescripcio);
-  divContingutsDescripcio.className = "cart__item__content__description";
-
-  // Afegir continguts; <h2>.
-  const sofaTitol = document.createElement("h2");
-  divContingutsDescripcio.appendChild(sofaTitol);
-  sofaTitol.append(dades.name);
-  // <p>.
-  const sofaColor = document.createElement("p");
-  divContingutsDescripcio.appendChild(sofaColor);
-  sofaColor.append(articleSofa.colorSeleccionat);
-  // <p>.
-  const sofaPreu = document.createElement("p");
-  divContingutsDescripcio.appendChild(sofaPreu);
-  sofaPreu.append(dades.price + " €");
-
-  // Crear <div> configuració dels continguts.
-  const divContingutsConfiguracio = document.createElement("div");
-  divContinguts.appendChild(divContingutsConfiguracio);
-  divContingutsConfiguracio.className = "cart__item__content__settings";
-
-  // Crear <div> input quantitat.
-  const divContingutsConfiguracioQuantitat = document.createElement("div");
-  divContingutsConfiguracio.appendChild(divContingutsConfiguracioQuantitat);
-  divContingutsConfiguracioQuantitat.className =
-    "cart__item__content__settings__quantity";
-
-  // Afegir configuracions "Quantitat" i "Botó Selector de Canviar Quantitat".
-  const sofaQuantitat = document.createElement("p");
-  divContingutsConfiguracioQuantitat.appendChild(sofaQuantitat);
-  sofaQuantitat.append("Qté :  ");
-  const botoSelector = document.createElement("input");
-  divContingutsConfiguracioQuantitat.appendChild(botoSelector);
-  botoSelector.className = "itemQuantity";
-  botoSelector.setAttribute("type", "number");
-  botoSelector.setAttribute("min", "1");
-  botoSelector.setAttribute("max", "100");
-  botoSelector.setAttribute("name", "itemQuantity");
-  botoSelector.setAttribute("value", articleSofa.quantitat);
+  articleCistella.innerHTML = `<div class="cart__item__img">
+  <img src="${dades.imageUrl}" alt="${dades.altTxt}">
+</div>
+<div class="cart__item__content">
+  <div class="cart__item__content__description">
+    <h2>${dades.name}</h2>
+    <p>${articleSofa.colorSeleccionat}</p>
+    <p>${dades.price} €</p>
+  </div>
+  <div class="cart__item__content__settings">
+    <div class="cart__item__content__settings__quantity">
+      <p>Qté : </p>
+      <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${articleSofa.quantitat}">
+    </div>
+    <div class="cart__item__content__settings__delete">
+      <p class="deleteItem">Supprimer</p>
+    </div>
+  </div>
+</div>`;
 
   // Crear <div> suprimir un producte.
-  const divContingutsConfiguracioSuprimir = document.createElement("div");
-  divContingutsConfiguracio.appendChild(divContingutsConfiguracioSuprimir);
-  divContingutsConfiguracioSuprimir.className =
-    "cart__item__content__settings__delete";
+  const configuracioSuprimir = articleCistella.querySelector(".deleteItem");
 
   // Afegir Botó Suprimir.
-  const botoSuprimir = document.createElement("p");
-  divContingutsConfiguracioSuprimir.appendChild(botoSuprimir);
-  botoSuprimir.className = "deleteItem";
-  botoSuprimir.append(" Supprimer ");
-  divContingutsConfiguracioSuprimir.addEventListener("click", (event) => {
+  configuracioSuprimir.addEventListener("click", (event) => {
     eliminar(articleSofa.id, articleSofa.colorSeleccionat);
+  });
+
+  // Crear botoSelector.
+  const botoSelector = articleCistella.querySelector(".itemQuantity");
+
+  // Afegir botoSelector per canviar Quantitat.
+  botoSelector.addEventListener("change", (event) => {
+    canviarQuantitat(articleSofa.id, articleSofa.colorSeleccionat);
   });
 }
 
-// Funció per eliminar un producte.
+// Funció per eliminar un producte i recaregar la pàgina.
 function eliminar(id, colorSeleccionat) {
-  const productePerEliminar = cistell.panera.find(
-    (pr) => pr.id == id && pr.colorSeleccionat == colorSeleccionat
-  );
-  cistell.eliminar(productePerEliminar);
-  cistell.guardar();
+  cistell.eliminar({ id, colorSeleccionat });
   location.reload();
-  
-  console.log(productePerEliminar);
 
   // Advertir de la supressió del producte.
   alert("Votre article a été supprimé.");
 }
+
+// Funció per canviar les quantitats.
+// function canviarQuantitat(quantitat);
 
 // ================ D'aquí fins a la fí, NO RETOCAR, és OK =====================
 
