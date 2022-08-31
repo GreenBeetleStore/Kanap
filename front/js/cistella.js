@@ -98,8 +98,10 @@ function eliminar(id, colorSeleccionat) {
   const productePerEliminar = cistell.panera.find(
     (pr) => pr.id == id && pr.colorSeleccionat == colorSeleccionat
   );
-  cistell.eliminar(id, colorSeleccionat);
-
+  cistell.eliminar(productePerEliminar);
+  cistell.guardar();
+  location.reload();
+  
   console.log(productePerEliminar);
 
   // Advertir de la supressió del producte.
