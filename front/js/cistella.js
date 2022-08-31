@@ -40,24 +40,24 @@ function integrarDades(dades, articleSofa) {
   </div>
 </div>`;
 
-  // Crear <div> suprimir un producte.
-  const configuracioSuprimir = articleCistella.querySelector(".deleteItem");
+  // Seccionar el botoSuprimir un producte.
+  const botoSuprimir = articleCistella.querySelector(".deleteItem");
 
   // Afegir Botó Suprimir.
-  configuracioSuprimir.addEventListener("click", (event) => {
+  botoSuprimir.addEventListener("click", (event) => {
     eliminar(articleSofa.id, articleSofa.colorSeleccionat);
   });
 
-  // Crear botoSelector.
+  // Seleccionar el botoSelector de quantitat.
   const botoSelector = articleCistella.querySelector(".itemQuantity");
 
-  // Afegir botoSelector per canviar Quantitat.
+  // Afegir botoSelector.
   botoSelector.addEventListener("change", (event) => {
-    canviarQuantitat(articleSofa.id, articleSofa.colorSeleccionat);
+    canviarQuantitat(articleSofa.id, articleSofa.colorSeleccionat,);
   });
 }
 
-// Funció per eliminar un producte i recaregar la pàgina.
+// Funció per eliminar un producte i recarregar la pàgina.
 function eliminar(id, colorSeleccionat) {
   cistell.eliminar({ id, colorSeleccionat });
   location.reload();
@@ -66,8 +66,13 @@ function eliminar(id, colorSeleccionat) {
   alert("Votre article a été supprimé.");
 }
 
-// Funció per canviar les quantitats.
-// function canviarQuantitat(quantitat);
+// Funció per canviar les quantitats en cada producte.
+function canviarQuantitat(quantitat) {
+  cistell.canviarQuantitat( { quantitat} );
+  location.reload();
+
+  console.log(quantitat);
+}
 
 // ================ D'aquí fins a la fí, NO RETOCAR, és OK =====================
 
