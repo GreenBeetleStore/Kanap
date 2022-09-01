@@ -52,8 +52,10 @@ function integrarDades(dades, articleSofa) {
 
   // Afegir botoSelector.
   botoSelector.addEventListener("change", (event) => {
+    const quantitatEscollida = event.target;
+    articleSofa.quantitat = quantitatEscollida.value
     canviarQuantitat(articleSofa.quantitat);
-  });
+  });  
 }
 
 // Funció per eliminar un producte i recarregar la pàgina.
@@ -65,11 +67,10 @@ function eliminar(id, colorSeleccionat) {
 }
 
 // Funció per canviar les quantitats en cada producte.
-function canviarQuantitat(id, colorSeleccionat, quantitat) {
-  cistell.canviarQuantitat( {id, colorSeleccionat, quantitat} );
+function canviarQuantitat(quantitat) {
+  cistell.canviarQuantitat( {quantitat} );
+  cistell.guardar();
   location.reload();
-   
-  console.log(articleSofa.quantitat);
 }
 
 // ================ D'aquí fins a la fí, NO RETOCAR, és OK =====================
