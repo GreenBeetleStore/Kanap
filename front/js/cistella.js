@@ -6,7 +6,6 @@ import { dadesProducte } from "./producte.js";
 
 // Funció per integrar les dades de un producte a la pàgina html.
 function integrarDades(dades, articleSofa) {
-
   // Insertar l'etiqueta <article> dintre la <section>. Crear node.
   const articleCistella = document.createElement("article");
 
@@ -53,7 +52,7 @@ function integrarDades(dades, articleSofa) {
 
   // Afegir botoSelector.
   botoSelector.addEventListener("change", (event) => {
-    canviarQuantitat(articleSofa.id, articleSofa.colorSeleccionat,);
+    canviarQuantitat(articleSofa.quantitat);
   });
 }
 
@@ -61,17 +60,16 @@ function integrarDades(dades, articleSofa) {
 function eliminar(id, colorSeleccionat) {
   cistell.eliminar({ id, colorSeleccionat });
   location.reload();
-
   // Advertir de la supressió del producte.
   alert("Votre article a été supprimé.");
 }
 
 // Funció per canviar les quantitats en cada producte.
-function canviarQuantitat(quantitat) {
-  cistell.canviarQuantitat( { quantitat} );
+function canviarQuantitat(id, colorSeleccionat, quantitat) {
+  cistell.canviarQuantitat( {id, colorSeleccionat, quantitat} );
   location.reload();
-
-  console.log(quantitat);
+   
+  console.log(articleSofa.quantitat);
 }
 
 // ================ D'aquí fins a la fí, NO RETOCAR, és OK =====================
