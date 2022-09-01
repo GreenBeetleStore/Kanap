@@ -69,9 +69,6 @@ function eliminar(id, colorSeleccionat) {
   // Advertir de la supressió del producte.
   alert("Votre article a été supprimé.");
 
-  // Cridar la funció obtenirTotals.
-  obtenirTotals();
-
   // Recarregar la pàgina i retornar valors.
   location.reload();
   return { id, colorSeleccionat };
@@ -83,16 +80,13 @@ function canviarQuantitat(quantitat) {
   // Cridar les funcions canviarQuantitat i guardar del POO.
   cistell.canviarQuantitat({ quantitat });
   cistell.guardar();
-
-  // Cridar la funció obtenirTotals.
-  obtenirTotals();
 }
 
 // Funció per obtenir Quantitat i Import TOTALS.
 function obtenirTotals(quantitatTotal, importTotal) {
   // ...
   // Cridar la funció obtenirTotalsNumPreu del POO.
-  cistell.obtenirTotalsNumPreu({ quantitatTotal, importTotal });
+  cistell.obtenirTotalsNumPreu(quantitatTotal, importTotal);
 
   // Seleccionar els ID de Quantitat i Preu TOTALS per inserció HTML.
   let nombreProductes = document.getElementById("#totalQuantity");
@@ -100,7 +94,12 @@ function obtenirTotals(quantitatTotal, importTotal) {
   // quantitatTotal.innerHTML = getElementById("#totalQuantity");
   let preuTotal = document.getElementById("#totalPrice");
   preuTotal.innerHTML = importTotal;
+
+  obtenirTotals();
+  
+  console.log(quantitatTotal);
 }
+
 
 // ================ D'aquí fins a la fí, NO RETOCAR, és OK =====================
 
