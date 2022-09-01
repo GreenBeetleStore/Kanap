@@ -62,21 +62,45 @@ function integrarDades(dades, articleSofa) {
 
 // Funció per eliminar un producte i recarregar la pàgina.
 function eliminar(id, colorSeleccionat) {
+  // ...
+  // Cridar la funció eliminar del POO.
   cistell.eliminar({ id, colorSeleccionat });
-  
+
   // Advertir de la supressió del producte.
   alert("Votre article a été supprimé.");
 
+  // Cridar la funció obtenirTotals.
+  obtenirTotals();
+
+  // Recarregar la pàgina i retornar valors.
   location.reload();
+  return { id, colorSeleccionat };
 }
 
 // Funció per canviar les quantitats en cada producte.
 function canviarQuantitat(quantitat) {
+  // ...
+  // Cridar les funcions canviarQuantitat i guardar del POO.
   cistell.canviarQuantitat({ quantitat });
   cistell.guardar();
+
+  // Cridar la funció obtenirTotals.
+  obtenirTotals();
 }
 
-// Funció per obtenir
+// Funció per obtenir Quantitat i Import TOTALS.
+function obtenirTotals(quantitatTotal, importTotal) {
+  // ...
+  // Cridar la funció obtenirTotalsNumPreu del POO.
+  cistell.obtenirTotalsNumPreu({ quantitatTotal, importTotal });
+
+  // Seleccionar els ID de Quantitat i Preu TOTALS per inserció HTML.
+  let nombreProductes = document.getElementById("#totalQuantity");
+  nombreProductes.innerHTML = quantitatTotal;
+  // quantitatTotal.innerHTML = getElementById("#totalQuantity");
+  let preuTotal = document.getElementById("#totalPrice");
+  preuTotal.innerHTML = importTotal;
+}
 
 // ================ D'aquí fins a la fí, NO RETOCAR, és OK =====================
 

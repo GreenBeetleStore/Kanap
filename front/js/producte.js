@@ -1,7 +1,7 @@
 // Importar la classe Cistell.
 import { Cistell } from "./gestor_cistella_poo.js";
-// Crear un objecte amb la clase Cistell.
-// Ara podem cridar i utilitzar les diferents funcions de la classe, per exemple: cridar la funció 'cistell.guardar()'.
+
+// Crear un objecte amb la clase Cistell per poder cridar i utilitzar les diferents funcions de la classe, per exemple: cridar la funció 'cistell.guardar()'.
 const cistell = new Cistell();
 
 // Recuperar la URL de la pàgina actual.
@@ -24,6 +24,7 @@ export function dadesProducte(urlhost) {
 
 // Funció per integrar les dades del producte a la pàgina html.
 function integrarDades(dades) {
+  // ...
   // Identificar dins de l'Array, i assignar al codi html la foto i la descripció (alt) de la foto. Html:51.
   let fotoProducte = document.querySelector(".item__img");
   fotoProducte.innerHTML = `<img src="${dades.imageUrl}" alt="${dades.altTxt}">`;

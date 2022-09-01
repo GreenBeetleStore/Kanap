@@ -56,14 +56,14 @@ export class Cistell {
       }
     }
   }
-  
+
   // Funció per calcular la quantitat TOTAL d'articles de la Cistella i Preu TOTAL.
   obtenirTotalsNumPreu() {
     let quantitatTotal = 0;
     let importTotal = 0;
     for (let articleSofa of this.panera) {
       quantitatTotal += articleSofa.quantitat;
-      importTotal += articleSofa.quantitat * articleSofa.preu;
+      importTotal += articleSofa.quantitat * articleSofa.preuProducte;
     }
     return { quantitatTotal, importTotal };
   }
