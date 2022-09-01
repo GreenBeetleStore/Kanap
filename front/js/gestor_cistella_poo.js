@@ -1,6 +1,6 @@
-// Programació Orientada a Objectes (POO) Gestor de la Cistella
+// Programació Orientada a Objectes (POO) Gestor de la Cistella.
 
-// Declarar la class Cistell i crear un constructor
+// Declarar la class Cistell i crear un constructor.
 export class Cistell {
   panera = [];
   constructor() {
@@ -9,11 +9,13 @@ export class Cistell {
       this.panera = JSON.parse(cistell);
     }
   }
-  // Funció per guardar la CLAU(Cistella) i els VALORS(variable: Cistell) de Local Storage
+
+  // Funció per guardar la CLAU(Cistella) i els VALORS(variable: Cistell) de Local Storage.
   guardar() {
     localStorage.setItem("Cistella", JSON.stringify(this.panera));
   }
-  // Funció per afegir articles a la Cistella
+
+  // Funció per afegir articles a la Cistella.
   afegir(articleSofa) {
     let trovarProducte = this.panera.find(
       (pr) =>
@@ -27,14 +29,24 @@ export class Cistell {
     }
     this.guardar();
   }
-  // Funció per eliminar articles de la Cistella
+
+  // Funció per eliminar articles de la Cistella.
   eliminar(articleSofa) {
-    this.panera = this.panera.filter((pr) => pr.id != articleSofa.id);
+    this.panera = this.panera.filter(
+      (pr) =>
+        pr.id !== articleSofa.id &&
+        pr.colorSeleccionat !== articleSofa.colorSeleccionat
+    );
     this.guardar();
   }
-  // Funció per canviar la quantitat d'articles de la Cistella
+
+  // Funció per canviar la quantitat d'articles de la Cistella.
   canviarQuantitat(articleSofa, quantitat) {
-    let trovarProducte = this.panera.find((pr) => pr.id == articleSofa.id);
+    let trovarProducte = this.panera.find(
+      (pr) =>
+        pr.id == articleSofa.id &&
+        pr.colorSeleccionat == articleSofa.colorSeleccionat
+    );
     if (trovarProducte != undefined) {
       trovarProducte.quantitat += quantitat;
       if (trovarProducte.quantitat <= 0) {
@@ -44,7 +56,8 @@ export class Cistell {
       }
     }
   }
-  // Funció per calcular la quantitat d'articles de la Cistella
+  
+  // Funció per calcular la quantitat TOTAL d'articles de la Cistella i Preu TOTAL.
   obtenirTotalsNumPreu() {
     let quantitatTotal = 0;
     let importTotal = 0;
@@ -54,13 +67,4 @@ export class Cistell {
     }
     return { quantitatTotal, importTotal };
   }
-
-  // Funció per calcular el preu total de la Cistella. Ha estat inclosa amb la funció obtenirNumeroDeSofas: línies 51, 54 i 56
-  // obtenirPreuTotal() {
-  //   let importTotal = 0;
-  //   for (let articleSofa of this.panera) {
-  //     importTotal += articleSofa.quantitat * articleSofa.preu;
-  //   }
-  //   return importTotal;
-  // }
 }
