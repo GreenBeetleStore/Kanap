@@ -66,14 +66,13 @@ function integrarDades(dades, articleSofa) {
 function eliminar(id, colorSeleccionat) {
   // ...
   // Cridar la funció eliminar del POO.
-  cistell.eliminar({ id, colorSeleccionat });
+  cistell.eliminar({id, colorSeleccionat});
 
   // Advertir de la supressió del producte.
   alert("Votre article a été supprimé.");
 
   // Recarregar la pàgina i retornar valors.
   location.reload();
-  return { id, colorSeleccionat };
 }
 
 // Funció per canviar les quantitats en cada producte.
