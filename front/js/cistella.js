@@ -45,7 +45,9 @@ function integrarDades(dades, articleSofa) {
 
   // Afegir Botó Suprimir.
   botoSuprimir.addEventListener("click", (event) => {
-    event.preventDefault();
+    const sofaEliminat = event.target;
+    articleSofa.id = sofaEliminat;
+    articleSofa.colorSeleccionat = sofaEliminat;
     eliminar(articleSofa.id, articleSofa.colorSeleccionat);
   });
 
@@ -59,7 +61,6 @@ function integrarDades(dades, articleSofa) {
     articleSofa.quantitat = quantitatEscollida.value;
     canviarQuantitat(articleSofa.quantitat);
   });
-  // obtenirTotalsNumPreu();
 }
 
 // Funció per eliminar un producte i recarregar la pàgina.
@@ -73,6 +74,7 @@ function eliminar(id, colorSeleccionat) {
 
   // Recarregar la pàgina i retornar valors.
   location.reload();
+  
 }
 
 // Funció per canviar les quantitats en cada producte.
