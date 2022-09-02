@@ -58,7 +58,7 @@ export class Cistell {
   }
 
   // Funció per calcular la quantitat TOTAL d'articles de la Cistella i Preu TOTAL.
-  obtenirTotalsNumPreu() {
+  obtenirTotals() {
     let quantitatTotal = 0;
     let importTotal = 0;
     for (let articleSofa of this.panera) {

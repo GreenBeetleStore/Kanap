@@ -61,20 +61,33 @@ function integrarDades(dades, articleSofa) {
     articleSofa.quantitat = quantitatEscollida.value;
     canviarQuantitat(articleSofa.quantitat);
   });
+
+  // Funció per obtenir Quantitat i Import TOTALS.
+  function obtenirTotals(quantitatTotal, importTotal) {
+    // ...
+    // Cridar la funció obtenirTotalsNumPreu del POO.
+    cistell.obtenirTotals({ quantitatTotal, importTotal });
+
+    // Seleccionar els ID de Quantitat i Preu TOTALS per inserció HTML.
+    document.querySelector("#totalQuantity").innerHTML = quantitatTotal;
+    document.querySelector("#totalPrice").innerHTML = importTotal;
+  }
+  
+  // Cridar a la funció per gestionar els TOTALS.
+  obtenirTotals();
 }
 
 // Funció per eliminar un producte i recarregar la pàgina.
 function eliminar(id, colorSeleccionat) {
   // ...
   // Cridar la funció eliminar del POO.
-  cistell.eliminar({id, colorSeleccionat});
+  cistell.eliminar({ id, colorSeleccionat });
 
   // Advertir de la supressió del producte.
   alert("Votre article a été supprimé.");
 
-  // Recarregar la pàgina i retornar valors.
+  // Recarregar la pàgina.
   location.reload();
-  
 }
 
 // Funció per canviar les quantitats en cada producte.
@@ -85,25 +98,16 @@ function canviarQuantitat(quantitat) {
   cistell.guardar();
 }
 
-
+// =========================== TALLER =========================================
+// ...
 // // Funció per obtenir Quantitat i Import TOTALS.
-// function obtenirTotalsNumPreu(quantitatTotal, importTotal) {
+// function obtenirTotals(quantitatTotal, importTotal) {
 //   // ...
 //   // Cridar la funció obtenirTotalsNumPreu del POO.
-//   cistell.obtenirTotalsNumPreu(quantitatTotal, importTotal);
+//   cistell.obtenirTotals();
 
-//   // Seleccionar els ID de Quantitat i Preu TOTALS per inserció HTML.
-//   let nombreProductes = document.getElementById("#totalQuantity");
-//   nombreProductes.innerHTML = quantitatTotal;
-//   // quantitatTotal.innerHTML = getElementById("#totalQuantity");
-//   let preuTotal = document.getElementById("#totalPrice");
-//   preuTotal.innerHTML = importTotal;
-
-  
-  
-//   console.log(quantitatTotal);
+//   // console.log(quantitatTotal, importTotal);
 // }
-
 
 // ================ D'aquí fins a la fí, NO RETOCAR, és OK =====================
 
