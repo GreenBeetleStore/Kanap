@@ -95,14 +95,14 @@ function integrarDades(dades, articleSofa) {
 
 // Funció per eliminar un producte.
 function eliminar(id, colorSeleccionat) {
-  // const productePerEliminar = cistell.panera.find(
-  //   (pr) => pr.id == id && pr.colorSeleccionat == colorSeleccionat
-  // );
+  const productePerEliminar = cistell.panera.find(
+    (pr) => pr.id == id && pr.colorSeleccionat == colorSeleccionat
+  );
   cistell.eliminar({ id, colorSeleccionat });
-  // cistell.guardar();
+  cistell.guardar();
   location.reload();
 
-  // console.log(productePerEliminar);
+  console.log(productePerEliminar);
 
   // Advertir de la supressió del producte.
   alert("Votre article a été supprimé.");

@@ -55,9 +55,11 @@ function integrarDades(dades, articleSofa) {
   // Afegir botoSelector.
   botoSelector.addEventListener("change", (event) => {
     const quantitatEscollida = event.target;
+    event.preventDefault();
     articleSofa.quantitat = quantitatEscollida.value;
     canviarQuantitat(articleSofa.quantitat);
   });
+  // obtenirTotalsNumPreu();
 }
 
 // Funció per eliminar un producte i recarregar la pàgina.
@@ -82,23 +84,24 @@ function canviarQuantitat(quantitat) {
   cistell.guardar();
 }
 
-// Funció per obtenir Quantitat i Import TOTALS.
-function obtenirTotals(quantitatTotal, importTotal) {
-  // ...
-  // Cridar la funció obtenirTotalsNumPreu del POO.
-  cistell.obtenirTotalsNumPreu(quantitatTotal, importTotal);
 
-  // Seleccionar els ID de Quantitat i Preu TOTALS per inserció HTML.
-  let nombreProductes = document.getElementById("#totalQuantity");
-  nombreProductes.innerHTML = quantitatTotal;
-  // quantitatTotal.innerHTML = getElementById("#totalQuantity");
-  let preuTotal = document.getElementById("#totalPrice");
-  preuTotal.innerHTML = importTotal;
+// // Funció per obtenir Quantitat i Import TOTALS.
+// function obtenirTotalsNumPreu(quantitatTotal, importTotal) {
+//   // ...
+//   // Cridar la funció obtenirTotalsNumPreu del POO.
+//   cistell.obtenirTotalsNumPreu(quantitatTotal, importTotal);
 
-  obtenirTotals();
+//   // Seleccionar els ID de Quantitat i Preu TOTALS per inserció HTML.
+//   let nombreProductes = document.getElementById("#totalQuantity");
+//   nombreProductes.innerHTML = quantitatTotal;
+//   // quantitatTotal.innerHTML = getElementById("#totalQuantity");
+//   let preuTotal = document.getElementById("#totalPrice");
+//   preuTotal.innerHTML = importTotal;
+
   
-  console.log(quantitatTotal);
-}
+  
+//   console.log(quantitatTotal);
+// }
 
 
 // ================ D'aquí fins a la fí, NO RETOCAR, és OK =====================
