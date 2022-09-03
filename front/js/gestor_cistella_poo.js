@@ -65,6 +65,7 @@ export class Cistell {
       quantitatTotal += articleSofa.quantitat;
       importTotal += articleSofa.quantitat * articleSofa.preuProducte;
     }
+    console.log("QUANTITAT i PREU",  quantitatTotal, importTotal);
     return { quantitatTotal, importTotal };
   }
 }

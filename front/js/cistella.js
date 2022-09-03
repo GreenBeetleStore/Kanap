@@ -61,18 +61,24 @@ function integrarDades(dades, articleSofa) {
     articleSofa.quantitat = quantitatEscollida.value;
     canviarQuantitat(articleSofa.quantitat);
   });
-
+  
   // Funció per obtenir Quantitat i Import TOTALS.
   function obtenirTotals(quantitatTotal, importTotal) {
     // ...
+    // Recuperar les dades: quantitats i preus.
+    articleSofa.quantitat = parseInt(articleSofa.quantitat);
+    articleSofa.preuProducte = parseInt(dades.price);
+    
     // Cridar la funció obtenirTotalsNumPreu del POO.
-    cistell.obtenirTotals({ quantitatTotal, importTotal });
+    cistell.obtenirTotals();
 
+    console.log("articleSofa: ",  articleSofa);
+    console.log("La quantitat Total es: ", quantitatTotal);
+    
     // Seleccionar els ID de Quantitat i Preu TOTALS per inserció HTML.
     document.querySelector("#totalQuantity").innerHTML = quantitatTotal;
     document.querySelector("#totalPrice").innerHTML = importTotal;
   }
-  
   // Cridar a la funció per gestionar els TOTALS.
   obtenirTotals();
 }
@@ -99,15 +105,7 @@ function canviarQuantitat(quantitat) {
 }
 
 // =========================== TALLER =========================================
-// ...
-// // Funció per obtenir Quantitat i Import TOTALS.
-// function obtenirTotals(quantitatTotal, importTotal) {
-//   // ...
-//   // Cridar la funció obtenirTotalsNumPreu del POO.
-//   cistell.obtenirTotals();
 
-//   // console.log(quantitatTotal, importTotal);
-// }
 
 // ================ D'aquí fins a la fí, NO RETOCAR, és OK =====================
 
@@ -132,3 +130,4 @@ else {
     );
   }
 }
+console.log("Array cistell.panera: ", cistell.panera);
