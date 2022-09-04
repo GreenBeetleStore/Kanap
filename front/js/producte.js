@@ -76,7 +76,7 @@ function afegirACistella() {
       return;
     }
 
-    // Declarar variable del objecte a guardar al LocalStorage.
+    // Declarar variable del objecte i elementos a guardar al LocalStorage.
     let articleSofa = { id, colorSeleccionat, quantitat };
 
     // Cridar POO a la funció afegir producte.

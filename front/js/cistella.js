@@ -1,7 +1,7 @@
 // Importar la classe Cistell.
 import { Cistell } from "./gestor_cistella_poo.js";
 
-// Importar la funció per recuperar les dades dels productes des de l'API.
+// Importar la funció per recuperar les dades dels productes amb fetch des de l'API.
 import { dadesProducte } from "./producte.js";
 
 // Funció per integrar les dades de un producte a la pàgina html.
@@ -20,6 +20,7 @@ function integrarDades(dades, articleSofa) {
   articleCistella.setAttribute("data-id", articleSofa.id);
   articleCistella.setAttribute("data-color", articleSofa.colorSeleccionat);
 
+  // Inserir dades als elements de articleCistella.
   articleCistella.innerHTML = `<div class="cart__item__img">
   <img src="${dades.imageUrl}" alt="${dades.altTxt}">
 </div>
@@ -61,27 +62,31 @@ function integrarDades(dades, articleSofa) {
     articleSofa.quantitat = quantitatEscollida.value;
     canviarQuantitat(articleSofa.quantitat);
   });
-  
+
+  // =========================== TALLER =========================================
+
   // Funció per obtenir Quantitat i Import TOTALS.
   function obtenirTotals(quantitatTotal, importTotal) {
     // ...
-    // Recuperar les dades: quantitats i preus.
+    // Recuperar les dades numèriques de: quantitat i preu individuals.
     articleSofa.quantitat = parseInt(articleSofa.quantitat);
     articleSofa.preuProducte = parseInt(dades.price);
-    
-    // Cridar la funció obtenirTotalsNumPreu del POO.
-    cistell.obtenirTotals();
 
-    console.log("articleSofa: ",  articleSofa);
-    console.log("La quantitat Total es: ", quantitatTotal);
-    
+    // Cridar la funció obtenirTotals del POO.
+    cistell.obtenirTotals({ quantitatTotal, importTotal });
+
     // Seleccionar els ID de Quantitat i Preu TOTALS per inserció HTML.
     document.querySelector("#totalQuantity").innerHTML = quantitatTotal;
     document.querySelector("#totalPrice").innerHTML = importTotal;
+
+    console.log("Objecte: articleSofa; ", articleSofa);
+    console.log("La quantitat Total es: ", quantitatTotal);
   }
   // Cridar a la funció per gestionar els TOTALS.
   obtenirTotals();
 }
+
+// =========================== TALLER =========================================
 
 // Funció per eliminar un producte i recarregar la pàgina.
 function eliminar(id, colorSeleccionat) {
@@ -103,9 +108,6 @@ function canviarQuantitat(quantitat) {
   cistell.canviarQuantitat({ quantitat });
   cistell.guardar();
 }
-
-// =========================== TALLER =========================================
-
 
 // ================ D'aquí fins a la fí, NO RETOCAR, és OK =====================
 
@@ -130,4 +132,4 @@ else {
     );
   }
 }
-console.log("Array cistell.panera: ", cistell.panera);
+console.log("Array: cistell.panera: ", cistell.panera);
