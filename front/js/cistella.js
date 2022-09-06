@@ -85,7 +85,7 @@ function integrarDades(dades, articleSofa) {
 }
 // ^^^^^= Fi de la Funció integrarDades =^^^^^
 
-// Funció per eliminar un producte i recarregar la pàgina.
+// Funció per eliminar un producte.
 function eliminar(id, colorSeleccionat) {
   // ...
   // Cridar la funció eliminar del POO.
