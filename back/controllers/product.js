@@ -38,7 +38,7 @@ exports.getOneProduct = (req, res, next) => {
  * Expects request to contain:
  * contact: {
  *   firstName: string,
- *   lastName: string,
+ *   lastName: string, 
  *   address: string,
  *   city: string,
  *   email: string
