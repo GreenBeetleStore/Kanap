@@ -34,7 +34,7 @@ export class Cistell {
   eliminar(articleSofa) {
     this.panera = this.panera.filter(
       (pr) =>
-        pr.id !== articleSofa.id &&
+        pr.id !== articleSofa.id ||
         pr.colorSeleccionat !== articleSofa.colorSeleccionat
     );
     this.guardar();
@@ -42,11 +42,13 @@ export class Cistell {
 
   // Funció per canviar la quantitat d'articles de la Cistella.
   canviarQuantitat(articleSofa, quantitat) {
+    console.log(articleSofa);
     let trovarProducte = this.panera.find(
       (pr) =>
         pr.id == articleSofa.id &&
         pr.colorSeleccionat == articleSofa.colorSeleccionat
     );
+    console.log(trovarProducte);
     if (trovarProducte != undefined) {
       trovarProducte.quantitat += quantitat;
       if (trovarProducte.quantitat <= 0) {
@@ -66,9 +68,6 @@ export class Cistell {
       importTotal += articleSofa.quantitat * articleSofa.preuProducte;
     }
     this.guardar();
-
-    console.log("QUANTITAT TOTAL", quantitatTotal, "IMPORT TOTAL", importTotal);
-
     return { quantitatTotal, importTotal }; 
   }
 }

@@ -4,7 +4,7 @@ import { Cistell } from "./gestor_cistella_poo.js";
 // Importar la funció per recuperar les dades dels productes amb fetch des de l'API.
 import { dadesProducte } from "./producte.js";
 
-// Funció per integrar les dades de un producte a la pàgina html.
+// ⏬ Funció per integrar les dades de un producte a la pàgina html ⏬.
 function integrarDades(dades, articleSofa) {
   // ...
   // Insertar l'etiqueta <article> dintre la <section>. Crear node.
@@ -63,37 +63,32 @@ function integrarDades(dades, articleSofa) {
     canviarQuantitat(articleSofa.quantitat);
   });
 
-  // =========================== TALLER =========================================
+  // Funció per 🧿calcular la quantitat TOTAL d'articles de la Cistella i Preu TOTAL.
+  function obtenirTotals() {
+    // Recuperar les dades numèriques de: quantitat i preu individuals.
+    articleSofa.quantitat = parseInt(articleSofa.quantitat);
+    articleSofa.preuProducte = parseInt(dades.price);
+    let quantitatTotal = 0;
+    let importTotal = 0;
+    // Bucle per calcular els totals.
+    for (let articleSofa of cistell.panera) {
+      quantitatTotal += articleSofa.quantitat;
+      importTotal += articleSofa.quantitat * articleSofa.preuProducte;
+    }
+    // Integrar les dades al DOM.
+    document.querySelector("#totalQuantity").innerHTML = quantitatTotal;
+    document.querySelector("#totalPrice").innerHTML = importTotal;
 
-  // // Funció per obtenir Quantitat i Import TOTALS.
-  // function obtenirTotals(quantitatTotal, importTotal) {
-  //   // ...
-  //   // Recuperar les dades numèriques de: quantitat i preu individuals.
-  //   articleSofa.quantitat = parseInt(articleSofa.quantitat);
-  //   articleSofa.preuProducte = parseInt(dades.price);
-
-    // Cridar la funció obtenirTotals del POO.
-    cistell.obtenirTotals({ quantitatTotal, importTotal });
-
-  //   // Seleccionar els ID de Quantitat i Preu TOTALS per inserció HTML.
-  //   document.querySelector("#totalQuantity").innerHTML = quantitatTotal;
-  //   document.querySelector("#totalPrice").innerHTML = importTotal;
-
-  //   console.log("Objecte: articleSofa; ", articleSofa);
-  //   console.log("La quantitat Total es: ", quantitatTotal);
-  // }
-  // // Cridar a la funció per gestionar els TOTALS.
-  // obtenirTotals();
-
-  
+    // Recuperar els totals i guardar al localStorage.
+    const totals = [quantitatTotal, importTotal];
+    localStorage.setItem("Totals", JSON.stringify(totals));
+    return { quantitatTotal, importTotal };
   }
   obtenirTotals();
-
-  // =========================== TALLER =========================================
 }
-// ==================== Fi de la Funció integrarDades ===========================
+// ^^^^^^^^^^^^^^^^^^^^^^^⏫= Fi de la Funció integrarDades =⏫^^^^^^^^^^^^^^^^^^^^^^^
 
-// Funció per eliminar un producte i recarregar la pàgina.
+// Funció per ❌eliminar un producte.
 function eliminar(id, colorSeleccionat) {
   // ...
   // Cridar la funció eliminar del POO.
@@ -106,16 +101,54 @@ function eliminar(id, colorSeleccionat) {
   location.reload();
 }
 
-// Funció per canviar les quantitats en cada producte.
+// Funció per 🔄canviar les quantitats en cada producte.
 function canviarQuantitat(quantitat) {
   // ...
   // Cridar les funcions canviarQuantitat i guardar del POO.
   cistell.canviarQuantitat({ quantitat });
   cistell.guardar();
+  // Recarregar la pàgina.
+  location.reload();
 }
 
-// ================ D'aquí fins a la fí, NO RETOCAR, és OK =====================
+/// ==================== 🛠 TALLER 🛠 ==================== ⏳
 
+// Funció per 💹gestionar el formulari.
+function formulari() {
+  // Selecció de bloc de tot el formulari.
+  const blocFormulari = document.querySelector(".cart__order__form");
+
+  // Selecció del Botó per enviar el formulari "botoFormulari".
+  const botoFormulari = document.querySelector("#order");
+
+  // eventListeners: Afegir els camps del formulari a l'escolta d'un esdeveniment.
+
+  // Afegir el botoFormulari a l'escolta d'esdeveniment.
+  botoFormulari.addEventListener("click", () => {
+    event.preventDefault();
+
+    // Capturar els valors introduïts als formulari.
+    const Formulari = {
+      nom: document.getElementById("firstName").value,
+      cognom: document.getElementById("lastName").value,
+      adreça: document.getElementById("address").value,
+      ciutat: document.getElementById("city").value,
+      email: document.getElementById("email"),
+    };
+
+    // Guardar les dades del client al localStorage.
+    localStorage.setItem("DadesClient", JSON.stringify(Formulari));
+
+    // localStorage.setItem("Nom", document.querySelector("#firstName").value);
+
+    console.log(Formulari);
+  });
+}
+formulari();
+
+/// ==================== 🛠 TALLER 🛠 ==================== ⏳
+
+// ❗❗❗ ⬇⬇⬇⬇⬇⬇⬇⬇⬇ 🔰 D'aquí fins a la fí, NO TOCAR 🔰 ⬇⬇⬇⬇⬇⬇⬇⬇⬇ ❗❗❗
 // Crear un objecte amb la clase Cistell.
 const cistell = new Cistell();
 

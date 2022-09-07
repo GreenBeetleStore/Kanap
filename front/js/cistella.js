@@ -4,6 +4,9 @@ import { Cistell } from "./gestor_cistella_poo.js";
 // Importar la funció per recuperar les dades dels productes amb fetch des de l'API.
 import { dadesProducte } from "./producte.js";
 
+let quantitatTotal = 0;
+let importTotal = 0;
+
 // ⏬ Funció per integrar les dades de un producte a la pàgina html ⏬.
 function integrarDades(dades, articleSofa) {
   // ...
@@ -46,10 +49,15 @@ function integrarDades(dades, articleSofa) {
 
   // Afegir Botó Suprimir.
   botoSuprimir.addEventListener("click", (event) => {
-    const sofaEliminat = event.target;
-    articleSofa.id = sofaEliminat;
-    articleSofa.colorSeleccionat = sofaEliminat;
-    eliminar(articleSofa.id, articleSofa.colorSeleccionat);
+    // ...
+    // Crida POO a la funció eliminar producte.
+    cistell.eliminar(articleSofa);
+
+    // Advertir de la supressió del producte.
+    alert("Votre article a été supprimé.");
+
+    // Recarregar la pàgina.
+    location.reload();
   });
 
   // Seleccionar el botoSelector de quantitat.
@@ -57,59 +65,28 @@ function integrarDades(dades, articleSofa) {
 
   // Afegir botoSelector.
   botoSelector.addEventListener("change", (event) => {
+    // ...
+    // Obtenir la quantitat escollida.
     const quantitatEscollida = event.target;
     event.preventDefault();
     articleSofa.quantitat = quantitatEscollida.value;
-    canviarQuantitat(articleSofa.quantitat);
+
+    // Crida POO a la funció guardar.
+    cistell.guardar();
+
+    // Recarregar la pàgina.
+    location.reload();
   });
 
-  // Funció per 🧿calcular la quantitat TOTAL d'articles de la Cistella i Preu TOTAL.
-  function obtenirTotals() {
-    // Recuperar les dades numèriques de: quantitat i preu individuals.
-    articleSofa.quantitat = parseInt(articleSofa.quantitat);
-    articleSofa.preuProducte = parseInt(dades.price);
-    let quantitatTotal = 0;
-    let importTotal = 0;
-    // Bucle per calcular els totals.
-    for (let articleSofa of cistell.panera) {
-      quantitatTotal += articleSofa.quantitat;
-      importTotal += articleSofa.quantitat * articleSofa.preuProducte;
-    }
-    // Integrar les dades al DOM.
-    document.querySelector("#totalQuantity").innerHTML = quantitatTotal;
-    document.querySelector("#totalPrice").innerHTML = importTotal;
+  // Obtenir els valors numèrics dels totals.
+  quantitatTotal += parseInt(articleSofa.quantitat);
+  importTotal += parseInt(articleSofa.quantitat) * dades.price;
 
-    // Recuperar els totals i guardar al localStorage.
-    const totals = [quantitatTotal, importTotal]
-    localStorage.setItem("Totals", JSON.stringify(totals));
-    return { quantitatTotal, importTotal };
-  }
-  obtenirTotals();
+  // Integrar les dades al DOM.
+  document.querySelector("#totalQuantity").innerHTML = quantitatTotal;
+  document.querySelector("#totalPrice").innerHTML = importTotal;
 }
 // ^^^^^^^^^^^^^^^^^^^^^^^⏫= Fi de la Funció integrarDades =⏫^^^^^^^^^^^^^^^^^^^^^^^
-
-// Funció per ❌eliminar un producte.
-function eliminar(id, colorSeleccionat) {
-  // ...
-  // Cridar la funció eliminar del POO.
-  cistell.eliminar({ id, colorSeleccionat });
-
-  // Advertir de la supressió del producte.
-  alert("Votre article a été supprimé.");
-
-  // Recarregar la pàgina.
-  location.reload();
-}
-
-// Funció per 🔄canviar les quantitats en cada producte.
-function canviarQuantitat(quantitat) {
-  // ...
-  // Cridar les funcions canviarQuantitat i guardar del POO.
-  cistell.canviarQuantitat({ quantitat });
-  cistell.guardar();
-  // Recarregar la pàgina.
-  location.reload();
-}
 
 /// ==================== 🛠 TALLER 🛠 ==================== ⏳
 
@@ -133,17 +110,14 @@ function formulari() {
       cognom: document.getElementById("lastName").value,
       adreça: document.getElementById("address").value,
       ciutat: document.getElementById("city").value,
-      email: document.getElementById("email")
-    }
+      email: document.getElementById("email"),
+    };
 
     // Guardar les dades del client al localStorage.
-    localStorage.setItem("DadesClient", JSON.stringify(Formulari));
-
-    // localStorage.setItem("Nom", document.querySelector("#firstName").value);
+    // localStorage.setItem("DadesClient", JSON.stringify(Formulari));
 
     console.log(Formulari);
-  })
-
+  });
 }
 formulari();
 
@@ -165,9 +139,9 @@ else {
   document.getElementById("titolCistella").innerHTML += `Votre panier`;
 
   // Bucle per mostrar els articles de la cistella i integrar les dades de cada producte al HTML.
-  for (let i = 0; i < cistell.panera.length; i++) {
-    dadesProducte(urlhost + cistell.panera[i].id).then((dades) =>
-      integrarDades(dades, cistell.panera[i])
+  for (let articleSofa of cistell.panera) {
+    dadesProducte(urlhost + articleSofa.id).then((dades) =>
+      integrarDades(dades, articleSofa)
     );
   }
 }
