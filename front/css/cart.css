@@ -19,6 +19,9 @@ h2 {
 	background-color: #2c3E50; */
 	top: 15px;
 }
+.text-success {
+	color: greenyellow!important;
+}
 
 /************/
 /*Cart Items*/

@@ -86,42 +86,168 @@ function integrarDades(dades, articleSofa) {
   document.querySelector("#totalQuantity").innerHTML = quantitatTotal;
   document.querySelector("#totalPrice").innerHTML = importTotal;
 }
-// ^^^^^^^^^^^^^^^^^^^^^^^⏫= Fi de la Funció integrarDades =⏫^^^^^^^^^^^^^^^^^^^^^^^
+// 🆗 ^^^^^^^^^^^^^^^^ ⏫ = Fi de la Funció integrarDades = ⏫ ^^^^^^^^^^^^^^^^^ 🆗
 
-/// ==================== 🛠 TALLER 🛠 ==================== ⏳
+// 💹 Selecció del Bloc de tot el Formulari 💹.
+const blocFormulari = document.querySelector(".cart__order__form");
 
-// Funció per 💹gestionar el formulari.
-function formulari() {
-  // Selecció de bloc de tot el formulari.
-  const blocFormulari = document.querySelector(".cart__order__form");
+// 1️⃣ Nom a l'escolta 🎧 d'un esdeveniment 1️⃣.
+blocFormulari.firstName.addEventListener("change", function () {
+  nomValidar(this);
+});
 
-  // Selecció del Botó per enviar el formulari "botoFormulari".
-  const botoFormulari = document.querySelector("#order");
+// Declarar variable Nom i funció per validar.
+const nomValidar = function (inputNom) {
+  // ...
+  // Crear Regex per validar el Nom.
+  let identRegex = /^[A-Za-zÇçÑñáàâéèêíïîóòôúüÁÀÉÈÍÓÒÚ'·ª-]+$/gm;
 
-  // eventListeners: Afegir els camps del formulari a l'escolta d'un esdeveniment.
+  // Selecció de l'element <p> següent al input.
+  let smsNom = inputNom.nextElementSibling;
 
-  // Afegir el botoFormulari a l'escolta d'esdeveniment.
-  botoFormulari.addEventListener("click", () => {
-    event.preventDefault();
+  // Test de l'expressió regular Nom (identRegex).
+  if (identRegex.test(inputNom.value)) {
+    smsNom.innerHTML = "Prénom Valide";
+    smsNom.classList.add("text-success");
+  } else {
+    smsNom.innerHTML = "Prénom Non Valide";
+    smsNom.classList.remove("text-success");
+  }
+};
 
-    // Capturar els valors introduïts als formulari.
-    const Formulari = {
-      nom: document.getElementById("firstName").value,
-      cognom: document.getElementById("lastName").value,
-      adreça: document.getElementById("address").value,
-      ciutat: document.getElementById("city").value,
-      email: document.getElementById("email"),
-    };
+// 2️⃣ Cognom a l'escolta 🎧 d'un esdeveniment 2️⃣.
+blocFormulari.lastName.addEventListener("change", function () {
+  cognomValidar(this);
+});
 
-    // Guardar les dades del client al localStorage.
-    // localStorage.setItem("DadesClient", JSON.stringify(Formulari));
+// Declarar variable Cognom i funció per validar.
+const cognomValidar = function (inputCognom) {
+  // ...
+  // Utilitzar el mateix Regex que per validar el Nom (identRegex).
+  let identRegex = /^[A-Za-zÇçÑñáàâéèêíïîóòôúüÁÀÉÈÍÓÒÚ'·ª-]+$/gm;
 
-    console.log(Formulari);
-  });
-}
-formulari();
+  // Selecció de l'element <p> següent al input.
+  let smsCognom = inputCognom.nextElementSibling;
 
-/// ==================== 🛠 TALLER 🛠 ==================== ⏳
+  // Test de l'expressió regular Cognom (identRegex).
+  if (identRegex.test(inputCognom.value)) {
+    smsCognom.innerHTML = "Nom Valide";
+    smsCognom.classList.add("text-success");
+  } else {
+    smsCognom.innerHTML = "Nom Non Valide";
+    smsCognom.classList.remove("text-success");
+  }
+};
+
+// 3️⃣ Adreça a l'escolta 🎧 d'un esdeveniment 3️⃣.
+blocFormulari.address.addEventListener("change", function () {
+  adreçaValidar(this);
+});
+
+// Declarar variable Adreça i funció per validar.
+const adreçaValidar = function (inputAdreça) {
+  // ...
+  // Crear Regex per validar l'Adreça.
+  let adreçaRegex =
+    /^[0-9]{1,4}(?:(?:[·,._ -]){1}[-a-zA-Z0-9\(\)"ªàáâäéèêëíïîóòôöúùûüÇçÑñ\., ·]+)+$/gm;
+
+  // Selecció de l'element <p> següent al input.
+  let smsAdreça = inputAdreça.nextElementSibling;
+
+  // Test de l'expressió regular Adreça (adreçaRegex).
+  if (adreçaRegex.test(inputAdreça.value)) {
+    smsAdreça.innerHTML = "Adresse Valide";
+    smsAdreça.classList.add("text-success");
+  } else {
+    smsAdreça.innerHTML =
+      "Adresse Non valide! Exemple de format à utiliser: Nº, Type de voie et Nom de voie";
+    smsAdreça.classList.remove("text-success");
+  }
+};
+
+// 4️⃣ Ciutat a l'escolta 🎧 d'un esdeveniment 4️⃣.
+blocFormulari.city.addEventListener("change", function () {
+  ciutatValidar(this);
+});
+
+// Declarar variable Ciutat i funció per validar.
+const ciutatValidar = function (inputCiutat) {
+  // ...
+  // Crear Regex per validar la Ciutat.
+  let ciutatRegex =
+    /^[0-9]{5}(?:(?:[·,._ -]){1}[-a-zA-Z\(\)"ªàáâäéèêëíïîóòôöúùûüÇçÑñ\., ·]+)+$/gm;
+
+  // Selecció de l'element <p> següent al input.
+  let smsCiutat = inputCiutat.nextElementSibling;
+
+  // Test de l'expressió regular Ciutat (ciutatRegex).
+  if (ciutatRegex.test(inputCiutat.value)) {
+    smsCiutat.innerHTML = "Ville Valide";
+    smsCiutat.classList.add("text-success");
+  } else {
+    smsCiutat.innerHTML =
+      "Ville Non valide! Exemple de format à utiliser: Code Postal et Nom de la Ville";
+    smsCiutat.classList.remove("text-success");
+  }
+};
+
+// 5️⃣ Email a l'escolta 🎧 d'un esdeveniment 5️⃣.
+blocFormulari.email.addEventListener("change", function () {
+  emailValidar(this);
+});
+
+// Declarar variable Email i funció per validar.
+const emailValidar = function (inputEmail) {
+  // ...
+  // Crear Regex per validar l'Email.
+  let emailRegex =
+    /^[a-zA-Z0-9-çÇñÑ·.!#$%&'*+\/=?^_`{|}~-]+[@]{1}[a-zA-Z0-9-çÇñÑ·!#$%&'*+\/=?^_`{|}~-]+[.]{1}[a-zA-Z0-9-]{2,10}$/gm;
+
+  // Selecció de l'element <p> següent al input.
+  let smsEmail = inputEmail.nextElementSibling;
+
+  // Test de l'expressió regular Email (emailRegex).
+  if (emailRegex.test(inputEmail.value)) {
+    smsEmail.innerHTML = "Email Valide";
+    smsEmail.classList.add("text-success");
+  } else {
+    smsEmail.innerHTML =
+      "Email Non valide! Veuillez saisir un format d'e-mail valide.";
+    smsEmail.classList.remove("text-success");
+  }
+};
+
+/// ⏳ ==================== 🛠 TALLER 🛠 ==================== ⏳
+
+// Botó Formulari 💹 a l'escolta 🎧 d'esdeveniment per enviar 🔀 dades.
+blocFormulari.addEventListener("submit", function (e) {
+  e.preventDefault();
+  if ()
+  emailValidar(this);
+});
+});
+
+// Declarar l'objecte Formulari amb les variables x capturar els valors introduïts.
+const Formulari = {
+  nom: document.getElementById("firstName").value,
+  cognom: document.getElementById("lastName").value,
+  adreça: document.getElementById("address").value,
+  ciutat: document.getElementById("city").value,
+  email: document.getElementById("email"),
+};
+console.log(Formulari);
+
+// Declarar les expresions regulars REGEX.
+
+// Selecció del Botó per enviar el formulari "botoFormulari".
+const botoFormulari = document.querySelector("#order");
+
+
+
+// No és necessari: Guardar les dades del client al localStorage.
+// localStorage.setItem("DadesClient", JSON.stringify(Formulari));
+
+/// ⏳ ==================== 🛠 TALLER 🛠 ==================== ⏳
 
 // ❗❗❗ ⬇⬇⬇⬇⬇⬇⬇⬇⬇ 🔰 D'aquí fins a la fí, NO TOCAR 🔰 ⬇⬇⬇⬇⬇⬇⬇⬇⬇ ❗❗❗
 // Crear un objecte amb la clase Cistell.
