@@ -109,9 +109,11 @@ const nomValidar = function (inputNom) {
   if (identRegex.test(inputNom.value)) {
     smsNom.innerHTML = "Prénom Valide";
     smsNom.classList.add("text-success");
+    return true;
   } else {
     smsNom.innerHTML = "Prénom Non Valide";
     smsNom.classList.remove("text-success");
+    return false;
   }
 };
 
@@ -133,9 +135,11 @@ const cognomValidar = function (inputCognom) {
   if (identRegex.test(inputCognom.value)) {
     smsCognom.innerHTML = "Nom Valide";
     smsCognom.classList.add("text-success");
+    return true;
   } else {
     smsCognom.innerHTML = "Nom Non Valide";
     smsCognom.classList.remove("text-success");
+    return false;
   }
 };
 
@@ -158,10 +162,12 @@ const adreçaValidar = function (inputAdreça) {
   if (adreçaRegex.test(inputAdreça.value)) {
     smsAdreça.innerHTML = "Adresse Valide";
     smsAdreça.classList.add("text-success");
+    return true;
   } else {
     smsAdreça.innerHTML =
       "Adresse Non valide! Exemple de format à utiliser: Nº, Type de voie et Nom de voie";
     smsAdreça.classList.remove("text-success");
+    return false;
   }
 };
 
@@ -184,10 +190,12 @@ const ciutatValidar = function (inputCiutat) {
   if (ciutatRegex.test(inputCiutat.value)) {
     smsCiutat.innerHTML = "Ville Valide";
     smsCiutat.classList.add("text-success");
+    return true;
   } else {
     smsCiutat.innerHTML =
       "Ville Non valide! Exemple de format à utiliser: Code Postal et Nom de la Ville";
     smsCiutat.classList.remove("text-success");
+    return false;
   }
 };
 
@@ -210,10 +218,12 @@ const emailValidar = function (inputEmail) {
   if (emailRegex.test(inputEmail.value)) {
     smsEmail.innerHTML = "Email Valide";
     smsEmail.classList.add("text-success");
+    return true;
   } else {
     smsEmail.innerHTML =
       "Email Non valide! Veuillez saisir un format d'e-mail valide.";
     smsEmail.classList.remove("text-success");
+    return false;
   }
 };
 
@@ -221,27 +231,14 @@ const emailValidar = function (inputEmail) {
 
 // Botó Formulari 💹 a l'escolta 🎧 d'esdeveniment per enviar 🔀 dades.
 blocFormulari.addEventListener("submit", function (e) {
+  // Ficar en Stand-By l'esdeveniment.
   e.preventDefault();
-  if ()
-  emailValidar(this);
+  // Crear una condició per verificar que totes les dades son correctes.
+  if (nomValidar(blocFormulari.firstName) && cognomValidar(blocFormulari.lastName) && adreçaValidar(blocFormulari.address) && ciutatValidar(blocFormulari.city) && emailValidar(blocFormulari.email)) {
+    blocFormulari.submit()
+    window.location.href = "./confirmation.html";
+  } 
 });
-});
-
-// Declarar l'objecte Formulari amb les variables x capturar els valors introduïts.
-const Formulari = {
-  nom: document.getElementById("firstName").value,
-  cognom: document.getElementById("lastName").value,
-  adreça: document.getElementById("address").value,
-  ciutat: document.getElementById("city").value,
-  email: document.getElementById("email"),
-};
-console.log(Formulari);
-
-// Declarar les expresions regulars REGEX.
-
-// Selecció del Botó per enviar el formulari "botoFormulari".
-const botoFormulari = document.querySelector("#order");
-
 
 
 // No és necessari: Guardar les dades del client al localStorage.
