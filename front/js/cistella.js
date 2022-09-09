@@ -109,6 +109,8 @@ const nomValidar = function (inputNom) {
   if (identRegex.test(inputNom.value)) {
     smsNom.innerHTML = "Prénom Valide";
     smsNom.classList.add("text-success");
+    let firstName = inputNom.value;
+    console.log(firstName);
     return true;
   } else {
     smsNom.innerHTML = "Prénom Non Valide";
@@ -135,6 +137,8 @@ const cognomValidar = function (inputCognom) {
   if (identRegex.test(inputCognom.value)) {
     smsCognom.innerHTML = "Nom Valide";
     smsCognom.classList.add("text-success");
+    let lastName = inputCognom.value;
+    console.log(lastName);
     return true;
   } else {
     smsCognom.innerHTML = "Nom Non Valide";
@@ -162,6 +166,8 @@ const adreçaValidar = function (inputAdreça) {
   if (adreçaRegex.test(inputAdreça.value)) {
     smsAdreça.innerHTML = "Adresse Valide";
     smsAdreça.classList.add("text-success");
+    let address = inputAdreça.value;
+    console.log(address);
     return true;
   } else {
     smsAdreça.innerHTML =
@@ -190,6 +196,8 @@ const ciutatValidar = function (inputCiutat) {
   if (ciutatRegex.test(inputCiutat.value)) {
     smsCiutat.innerHTML = "Ville Valide";
     smsCiutat.classList.add("text-success");
+    let city = inputCiutat.value;
+    console.log(city);
     return true;
   } else {
     smsCiutat.innerHTML =
@@ -218,6 +226,8 @@ const emailValidar = function (inputEmail) {
   if (emailRegex.test(inputEmail.value)) {
     smsEmail.innerHTML = "Email Valide";
     smsEmail.classList.add("text-success");
+    let email = inputEmail.value;
+    console.log(email);
     return true;
   } else {
     smsEmail.innerHTML =
@@ -227,12 +237,11 @@ const emailValidar = function (inputEmail) {
   }
 };
 
-/// ⏳ ==================== 🛠 TALLER 🛠 ==================== ⏳
-
 // Botó Formulari 💹 a l'escolta 🎧 d'esdeveniment per enviar 🔀 dades.
 blocFormulari.addEventListener("submit", function (e) {
   // Ficar en Stand-By l'esdeveniment.
   e.preventDefault();
+
   // Crear una condició per verificar que totes les dades son correctes.
   if (
     nomValidar(blocFormulari.firstName) &&
@@ -241,23 +250,54 @@ blocFormulari.addEventListener("submit", function (e) {
     ciutatValidar(blocFormulari.city) &&
     emailValidar(blocFormulari.email)
   ) {
+    // Presentar les dades.
     blocFormulari.submit();
-    // Conservar les dades ¿localStorage?. Lleigir especificacions tècniques.
-
-    // Sol·licitud POST.
-
-    // Recuperar i conservar l'ID de Comanda(numeroComanda) de la resposta de l'API.
-
-    // Si hem recuperat l'ID de Comanda, anar a la pàgina Confirmació.
-    if (numeroComanda != "") {
-    window.location.href = "./confirmation.html?id=" + numeroComanda;
-    }
-    // Fixar les dades als camps del formulari.
+    // Guardar el formulari al localStorage.
+    localStorage.setItem("blocFormulari", JSON.stringify(blocFormulari));
   }
+
+  /// ⏳ ==================== 🛠 TALLER 🛠 ==================== ⏳
+
+  // Crear l'objecte contact per recopilar dades.
+  // let contact = {
+  //   firstName: "",
+  //   lastName: "",
+  //   address: "",
+  //   city: "",
+  //   email: "",
+  // };
+  // console.log(contact);
+
+  // Sol·licitud POST.
+  // function enviarComanda() {
+  //   const enviarComanda = fetch("http://localhost:3000/api/products/order", {
+  //     method: "POST",
+  //     body: JSON.stringify({ blocFormulari, cistella }),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+      // Recuperar i conservar l'ID de Comanda(numeroComanda) de la resposta de l'API.
+  //     .then((response) => {
+  //       return response.json();
+  //     })
+  //     .then((server) => {
+  //       numeroComanda = server.numeroComanda;
+  //       console.log(numeroComanda);
+  //     });
+
+  //   // Si hem recuperat l'ID de Comanda, anar a la pàgina Confirmació.
+  //   if (numeroComanda != "") {
+  //     location.href = "confirmation.html?id=" + numeroComanda;
+  //   }
+  // }
 });
 
+
+
+// DUBTES:
+// Fixar les dades als camps del formulari?.
 // No és necessari: Guardar les dades del client al localStorage.
-// localStorage.setItem("DadesClient", JSON.stringify(Formulari));
 
 /// ⏳ ==================== 🛠 TALLER 🛠 ==================== ⏳
 
