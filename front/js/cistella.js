@@ -234,12 +234,27 @@ blocFormulari.addEventListener("submit", function (e) {
   // Ficar en Stand-By l'esdeveniment.
   e.preventDefault();
   // Crear una condició per verificar que totes les dades son correctes.
-  if (nomValidar(blocFormulari.firstName) && cognomValidar(blocFormulari.lastName) && adreçaValidar(blocFormulari.address) && ciutatValidar(blocFormulari.city) && emailValidar(blocFormulari.email)) {
-    blocFormulari.submit()
-    window.location.href = "./confirmation.html";
-  } 
-});
+  if (
+    nomValidar(blocFormulari.firstName) &&
+    cognomValidar(blocFormulari.lastName) &&
+    adreçaValidar(blocFormulari.address) &&
+    ciutatValidar(blocFormulari.city) &&
+    emailValidar(blocFormulari.email)
+  ) {
+    blocFormulari.submit();
+    // Conservar les dades ¿localStorage?. Lleigir especificacions tècniques.
 
+    // Sol·licitud POST.
+
+    // Recuperar i conservar l'ID de Comanda(numeroComanda) de la resposta de l'API.
+
+    // Si hem recuperat l'ID de Comanda, anar a la pàgina Confirmació.
+    if (numeroComanda != "") {
+    window.location.href = "./confirmation.html?id=" + numeroComanda;
+    }
+    // Fixar les dades als camps del formulari.
+  }
+});
 
 // No és necessari: Guardar les dades del client al localStorage.
 // localStorage.setItem("DadesClient", JSON.stringify(Formulari));
