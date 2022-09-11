@@ -81,15 +81,25 @@ function integrarDades(dades, articleSofa) {
   // Obtenir els valors numèrics dels totals.
   quantitatTotal += parseInt(articleSofa.quantitat);
   importTotal += parseInt(articleSofa.quantitat) * dades.price;
-
+  console.log(quantitatTotal, importTotal);
+  
   // Integrar les dades al DOM.
   document.querySelector("#totalQuantity").innerHTML = quantitatTotal;
   document.querySelector("#totalPrice").innerHTML = importTotal;
 }
+
 // 🆗 ^^^^^^^^^^^^^^^^ ⏫ = Fi de la Funció integrarDades = ⏫ ^^^^^^^^^^^^^^^^^ 🆗
 
 // 💹 Selecció del Bloc de tot el Formulari 💹.
 const blocFormulari = document.querySelector(".cart__order__form");
+
+// Declarar l'Array objecte Contact buida i les variables dades del formulari.
+let Contact = [];
+let firstName = "";
+let lastName = "";
+let address = "";
+let city = "";
+let email = "";
 
 // 1️⃣ Nom a l'escolta 🎧 d'un esdeveniment 1️⃣.
 blocFormulari.firstName.addEventListener("change", function () {
@@ -109,8 +119,8 @@ const nomValidar = function (inputNom) {
   if (identRegex.test(inputNom.value)) {
     smsNom.innerHTML = "Prénom Valide";
     smsNom.classList.add("text-success");
-    let firstName = inputNom.value;
-    console.log(firstName);
+    let nom = inputNom.value;
+    firstName = nom;
     return true;
   } else {
     smsNom.innerHTML = "Prénom Non Valide";
@@ -137,8 +147,8 @@ const cognomValidar = function (inputCognom) {
   if (identRegex.test(inputCognom.value)) {
     smsCognom.innerHTML = "Nom Valide";
     smsCognom.classList.add("text-success");
-    let lastName = inputCognom.value;
-    console.log(lastName);
+    let cognom = inputCognom.value;
+    lastName = cognom;
     return true;
   } else {
     smsCognom.innerHTML = "Nom Non Valide";
@@ -166,8 +176,8 @@ const adreçaValidar = function (inputAdreça) {
   if (adreçaRegex.test(inputAdreça.value)) {
     smsAdreça.innerHTML = "Adresse Valide";
     smsAdreça.classList.add("text-success");
-    let address = inputAdreça.value;
-    console.log(address);
+    let adreça = inputAdreça.value;
+    address = adreça;
     return true;
   } else {
     smsAdreça.innerHTML =
@@ -196,8 +206,8 @@ const ciutatValidar = function (inputCiutat) {
   if (ciutatRegex.test(inputCiutat.value)) {
     smsCiutat.innerHTML = "Ville Valide";
     smsCiutat.classList.add("text-success");
-    let city = inputCiutat.value;
-    console.log(city);
+    let ciutat = inputCiutat.value;
+    city = ciutat;
     return true;
   } else {
     smsCiutat.innerHTML =
@@ -226,8 +236,8 @@ const emailValidar = function (inputEmail) {
   if (emailRegex.test(inputEmail.value)) {
     smsEmail.innerHTML = "Email Valide";
     smsEmail.classList.add("text-success");
-    let email = inputEmail.value;
-    console.log(email);
+    let correu = inputEmail.value;
+    email = correu;
     return true;
   } else {
     smsEmail.innerHTML =
@@ -252,48 +262,41 @@ blocFormulari.addEventListener("submit", function (e) {
   ) {
     // Presentar les dades.
     blocFormulari.submit();
+
+    // Enviar les dades dintre l'objecte Contact.
+    Contact.push({ firstName, lastName, address, city, email });
+
     // Guardar el formulari al localStorage.
-    localStorage.setItem("blocFormulari", JSON.stringify(blocFormulari));
+    localStorage.setItem("Contact", JSON.stringify(Contact));
   }
 
   /// ⏳ ==================== 🛠 TALLER 🛠 ==================== ⏳
 
-  // Crear l'objecte contact per recopilar dades.
-  // let contact = {
-  //   firstName: "",
-  //   lastName: "",
-  //   address: "",
-  //   city: "",
-  //   email: "",
-  // };
-  // console.log(contact);
-
   // Sol·licitud POST.
-  // function enviarComanda() {
-  //   const enviarComanda = fetch("http://localhost:3000/api/products/order", {
-  //     method: "POST",
-  //     body: JSON.stringify({ blocFormulari, cistella }),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   })
-      // Recuperar i conservar l'ID de Comanda(numeroComanda) de la resposta de l'API.
-  //     .then((response) => {
-  //       return response.json();
-  //     })
-  //     .then((server) => {
-  //       numeroComanda = server.numeroComanda;
-  //       console.log(numeroComanda);
-  //     });
+  function enviarComanda() {
+    const enviarComanda = fetch("http://localhost:3000/api/products/order", {
+      method: "POST",
+      body: JSON.stringify({ Contact, Cistella }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+  // Recuperar i conservar l'ID de Comanda(numeroComanda) de la resposta de l'API.
+      .then((response) => {
+        return response.json();
+      })
+      .then((server) => {
+        numeroComanda = server.numeroComanda;
+        console.log(numeroComanda);
+      });
 
-  //   // Si hem recuperat l'ID de Comanda, anar a la pàgina Confirmació.
-  //   if (numeroComanda != "") {
-  //     location.href = "confirmation.html?id=" + numeroComanda;
-  //   }
-  // }
+    // Si hem recuperat l'ID de Comanda, anar a la pàgina Confirmació.
+    if (numeroComanda != "") {
+      console.log(numeroComanda);
+      location.href = "confirmation.html?id=" + numeroComanda;
+    }
+  }
 });
-
-
 
 // DUBTES:
 // Fixar les dades als camps del formulari?.
@@ -323,4 +326,5 @@ else {
     );
   }
 }
-console.log("Array: cistell.panera: ", cistell.panera);
+const Cistella = cistell.panera;
+console.log(Cistella);
