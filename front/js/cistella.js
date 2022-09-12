@@ -250,10 +250,10 @@ const emailValidar = function (inputEmail) {
 
 // Botó Formulari 💹 a l'escolta 🎧 d'esdeveniment per enviar 🔀 dades.
 blocFormulari.addEventListener("submit", function (e) {
-  // Ficar en Stand-By l'esdeveniment fins obtenir l'esdeveniment.
+  // Ficar en Stand-By fins obtenir l'esdeveniment.
   e.preventDefault();
 
-  // Crear una condició per verificar que totes les dades d'entrada son correctes.
+  // Crear una condició per verificar que totes les dades entrades son correctes.
   if (
     nomValidar(blocFormulari.firstName) &&
     cognomValidar(blocFormulari.lastName) &&
@@ -261,9 +261,8 @@ blocFormulari.addEventListener("submit", function (e) {
     ciutatValidar(blocFormulari.city) &&
     emailValidar(blocFormulari.email)
   ) {
-
     // Presentar les dades.
-    blocFormulari.submit();
+    // blocFormulari.submit();
 
     // Enviar les dades dintre l'objecte contact.
     contact.push({ firstName, lastName, address, city, email });
@@ -275,32 +274,31 @@ blocFormulari.addEventListener("submit", function (e) {
   /// ⏳ ==================== 🛠 TALLER 🛠 ==================== ⏳
 
   // Sol·licitud POST i Recuperar i conservar l'ID de Comanda(numeroComanda) de la resposta de l'API.
-  fetch("http://localhost:3000/api/products/comanda", {
+  fetch(urlhost + comanda, {
     method: "POST",
+    body: JSON.stringify({comanda}),
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      body: JSON.stringify(comanda)
-    }
-  }).then((resposta) => {
-    resposta.json();
-    alert(resposta);
-  }).then((resultat) => {
-    resultat.json();
-    numeroComanda = resultat.comanda;
-    alert(resultat);
-  }).catch((err) => {
-    console.error(err);
-  });
+    },
+  })
+    .then((resposta) => {
+      resposta.json();
+    })
+    .then((resultat) => {
+      numeroComanda = resultat.numeroComanda;
+      console.log(numeroComanda);
+      resultat.json();
+    });
 
   // Si hem recuperat l'ID de Comanda, anar a la pàgina Confirmació.
   if (numeroComanda != "") {
-    location.href = "confirmation.html?id=" + numeroComanda;
+    location.href = "./confirmation.html?id=" + numeroComanda;
     Storage.clear();
-  };
+  }
 });
 
-  /// ⏳ ==================== 🛠 TALLER 🛠 ==================== ⏳
+/// ⏳ ==================== 🛠 TALLER 🛠 ==================== ⏳
 
 // DUBTES:
 // Fixar les dades als camps del formulari?. o ja està fet amb submit?
