@@ -6,7 +6,7 @@ import { dadesProducte } from "./producte.js";
 
 let quantitatTotal = 0;
 let importTotal = 0;
-let numeroComanda = "";
+let idComanda = "";
 
 // ⏬ Funció per integrar les dades de un producte a la pàgina html ⏬.
 function integrarDades(dades, articleSofa) {
@@ -82,7 +82,7 @@ function integrarDades(dades, articleSofa) {
   // Obtenir els valors numèrics dels totals.
   quantitatTotal += parseInt(articleSofa.quantitat);
   importTotal += parseInt(articleSofa.quantitat) * dades.price;
-  console.log(quantitatTotal, importTotal);
+  console.log("Quantitat: " + quantitatTotal, "Import: " + importTotal);
 
   // Integrar les dades al DOM.
   document.querySelector("#totalQuantity").innerHTML = quantitatTotal;
@@ -249,7 +249,7 @@ const emailValidar = function (inputEmail) {
 };
 
 // Botó Formulari 💹 a l'escolta 🎧 d'esdeveniment per enviar 🔀 dades.
-blocFormulari.addEventListener("submit", function (e) {
+blocFormulari.addEventListener("submit", async function (e) {
   // Ficar en Stand-By fins obtenir l'esdeveniment.
   e.preventDefault();
 
@@ -262,47 +262,61 @@ blocFormulari.addEventListener("submit", function (e) {
     emailValidar(blocFormulari.email)
   ) {
     // Presentar les dades.
+    alert("Estàs a punt de confirmar la teva comanda");
     // blocFormulari.submit();
 
     // Enviar les dades dintre l'objecte contact.
     contact.push({ firstName, lastName, address, city, email });
 
     // Guardar el formulari al localStorage. No és necessari ?!
-    localStorage.setItem("contact", JSON.stringify(contact));
-  }
+    localStorage.setItem("Comanda", JSON.stringify(comanda));
+    // }
+    
+console.log(comanda);
 
-  /// ⏳ ==================== 🛠 TALLER 🛠 ==================== ⏳
+    /// ⏳ ==================== 🛠 TALLER 🛠 ==================== ⏳
 
-  // Sol·licitud POST i Recuperar i conservar l'ID de Comanda(numeroComanda) de la resposta de l'API.
-  fetch(urlhost + comanda, {
-    method: "POST",
-    body: JSON.stringify({comanda}),
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  })
-    .then((resposta) => {
-      resposta.json();
+    // Sol·licitud POST i Recuperar i conservar l'ID de Comanda(numeroComanda) de la resposta de l'API.
+    fetch("http://localhost:3000/api/products/order", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(comanda),
     })
-    .then((resultat) => {
-      resultat.json();
-      numeroComanda = resultat.numeroComanda;
-      console.log(numeroComanda);
-    });
+      .then(async (res) => res.json())
+      .catch((error) => console.error("Error: ", error))
+      .then(async (response) => console.log("Resposta: ", response))
+      .then(async (resultat) => ("idComanda", resultat.idComanda));
 
-  // Si hem recuperat l'ID de Comanda, anar a la pàgina Confirmació.
-  if (numeroComanda != "") {
-    location.href = "./confirmation.html?id=" + numeroComanda;
-    Storage.clear();
+    // Si hem recuperat l'ID de Comanda, continuar cap a la pàgina Confirmació.
+    if (idComanda != "") {
+      location.href = "./confirmation.html?id=" + idComanda;
+      // Storage.clear();
+    }
   }
 });
 
 /// ⏳ ==================== 🛠 TALLER 🛠 ==================== ⏳
 
-// DUBTES:
-// Fixar les dades als camps del formulari?. o ja està fet amb submit?
-// No és necessari: Guardar les dades del client al localStorage.
+// DUBTES/ERRORS:
+// ==============
+
+// Console ❌ POST http://localhost:3000/api/products/comanda 404 (Not Found) (anònim) @ cistella.js:278
+
+// Console ❌ Error:  SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON                                    (anònim) @ cistella.js:287
+      // Promise.catch (asíncron)       (anònim) @ cistella.js:287
+
+// Resposta:  undefined ❓               cistella.js:288
+
+// Console ❌ cistella.js:289 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'idComanda')
+    // at cistella.js:289:50            (anònim) @ cistella.js:289
+    // Promise.then (asíncron)          (anònim) @ cistella.js:289
+
+// Cal fixar les dades als camps del formulari?. o ja està fet amb submit?
+
+// No és necessari: Guardar les dades del client al localStorage. ELIMINAR❗
 
 /// ⏳ ==================== 🛠 TALLER 🛠 ==================== ⏳
 
@@ -329,5 +343,5 @@ else {
   }
 }
 const compra = cistell.panera;
-console.log("La vostra compra: ", compra);
+console.log("La vostra llista de la compra: ", compra);
 let comanda = { compra, contact };
