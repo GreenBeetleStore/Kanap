@@ -286,9 +286,9 @@ blocFormulari.addEventListener("submit", function (e) {
       resposta.json();
     })
     .then((resultat) => {
+      resultat.json();
       numeroComanda = resultat.numeroComanda;
       console.log(numeroComanda);
-      resultat.json();
     });
 
   // Si hem recuperat l'ID de Comanda, anar a la pàgina Confirmació.
