@@ -6,6 +6,7 @@ import { dadesProducte } from "./producte.js";
 
 let quantitatTotal = 0;
 let importTotal = 0;
+let numeroComanda = "";
 
 // ⏬ Funció per integrar les dades de un producte a la pàgina html ⏬.
 function integrarDades(dades, articleSofa) {
@@ -82,7 +83,7 @@ function integrarDades(dades, articleSofa) {
   quantitatTotal += parseInt(articleSofa.quantitat);
   importTotal += parseInt(articleSofa.quantitat) * dades.price;
   console.log(quantitatTotal, importTotal);
-  
+
   // Integrar les dades al DOM.
   document.querySelector("#totalQuantity").innerHTML = quantitatTotal;
   document.querySelector("#totalPrice").innerHTML = importTotal;
@@ -93,8 +94,8 @@ function integrarDades(dades, articleSofa) {
 // 💹 Selecció del Bloc de tot el Formulari 💹.
 const blocFormulari = document.querySelector(".cart__order__form");
 
-// Declarar l'Array objecte Contact buida i les variables dades del formulari.
-let Contact = [];
+// Declarar l'Array objecte contact buida i les variables dades del formulari.
+let contact = [];
 let firstName = "";
 let lastName = "";
 let address = "";
@@ -249,10 +250,10 @@ const emailValidar = function (inputEmail) {
 
 // Botó Formulari 💹 a l'escolta 🎧 d'esdeveniment per enviar 🔀 dades.
 blocFormulari.addEventListener("submit", function (e) {
-  // Ficar en Stand-By l'esdeveniment.
+  // Ficar en Stand-By l'esdeveniment fins obtenir l'esdeveniment.
   e.preventDefault();
 
-  // Crear una condició per verificar que totes les dades son correctes.
+  // Crear una condició per verificar que totes les dades d'entrada son correctes.
   if (
     nomValidar(blocFormulari.firstName) &&
     cognomValidar(blocFormulari.lastName) &&
@@ -260,46 +261,49 @@ blocFormulari.addEventListener("submit", function (e) {
     ciutatValidar(blocFormulari.city) &&
     emailValidar(blocFormulari.email)
   ) {
+
     // Presentar les dades.
     blocFormulari.submit();
 
-    // Enviar les dades dintre l'objecte Contact.
-    Contact.push({ firstName, lastName, address, city, email });
+    // Enviar les dades dintre l'objecte contact.
+    contact.push({ firstName, lastName, address, city, email });
 
-    // Guardar el formulari al localStorage.
-    localStorage.setItem("Contact", JSON.stringify(Contact));
+    // Guardar el formulari al localStorage. No és necessari ?!
+    localStorage.setItem("contact", JSON.stringify(contact));
   }
 
   /// ⏳ ==================== 🛠 TALLER 🛠 ==================== ⏳
 
-  // Sol·licitud POST.
-  function enviarComanda() {
-    const enviarComanda = fetch("http://localhost:3000/api/products/order", {
-      method: "POST",
-      body: JSON.stringify({ Contact, Cistella }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-  // Recuperar i conservar l'ID de Comanda(numeroComanda) de la resposta de l'API.
-      .then((response) => {
-        return response.json();
-      })
-      .then((server) => {
-        numeroComanda = server.numeroComanda;
-        console.log(numeroComanda);
-      });
-
-    // Si hem recuperat l'ID de Comanda, anar a la pàgina Confirmació.
-    if (numeroComanda != "") {
-      console.log(numeroComanda);
-      location.href = "confirmation.html?id=" + numeroComanda;
+  // Sol·licitud POST i Recuperar i conservar l'ID de Comanda(numeroComanda) de la resposta de l'API.
+  fetch("http://localhost:3000/api/products/comanda", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      body: JSON.stringify(comanda)
     }
-  }
+  }).then((resposta) => {
+    resposta.json();
+    alert(resposta);
+  }).then((resultat) => {
+    resultat.json();
+    numeroComanda = resultat.comanda;
+    alert(resultat);
+  }).catch((err) => {
+    console.error(err);
+  });
+
+  // Si hem recuperat l'ID de Comanda, anar a la pàgina Confirmació.
+  if (numeroComanda != "") {
+    location.href = "confirmation.html?id=" + numeroComanda;
+    Storage.clear();
+  };
 });
 
+  /// ⏳ ==================== 🛠 TALLER 🛠 ==================== ⏳
+
 // DUBTES:
-// Fixar les dades als camps del formulari?.
+// Fixar les dades als camps del formulari?. o ja està fet amb submit?
 // No és necessari: Guardar les dades del client al localStorage.
 
 /// ⏳ ==================== 🛠 TALLER 🛠 ==================== ⏳
@@ -308,7 +312,7 @@ blocFormulari.addEventListener("submit", function (e) {
 // Crear un objecte amb la clase Cistell.
 const cistell = new Cistell();
 
-// Adreça API + id.
+// Adreça API.
 const urlhost = "http://localhost:3000/api/products/";
 
 // Si la cistella està buida canviar el títol <h1>.
@@ -326,5 +330,6 @@ else {
     );
   }
 }
-const Cistella = cistell.panera;
-console.log(Cistella);
+const compra = cistell.panera;
+console.log("La vostra compra: ", compra);
+let comanda = { compra, contact };
