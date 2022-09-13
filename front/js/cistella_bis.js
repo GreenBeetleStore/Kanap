@@ -287,19 +287,17 @@ blocFormulari.addEventListener("submit", async function (e) {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({contact, productes})
+        body: JSON.stringify(comanda),
       })
-        .then(async (response) => {
-          orderId = response.orderId;
-          console.log("Resposta: ", orderId);
-        })
-        .then(async (orderId) => ("orderId", orderId))
-        .catch((error) => console.error("Error: ", error));
+        .then(async (response) => response.json())
+        .catch((error) => console.error("Error: ", error))
+        .then(async (response) => console.log("Resposta: ", response))
+        .then(async (orderId) => ("orderId", orderId));
 
       // Si hem recuperat l'ID de Comanda, continuar cap a la pàgina Confirmació.
       if (orderId != "") {
         alert("El vostre número de comanda és: ", orderId);
-        window.location.href = "../html/confirmation.html" + orderId;
+        window.location.href = "./confirmation.html?id=" + orderId;
         // Storage.clear();
       }
     }
