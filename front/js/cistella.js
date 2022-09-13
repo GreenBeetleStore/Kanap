@@ -269,7 +269,7 @@ blocFormulari.addEventListener("submit", async function (e) {
       "La teva comanda ha estat confirmada.   Els vostres productes i les vostres dades son:    " +
         JSON.stringify(comanda)
     );
-    // blocFormulari.submit();
+    blocFormulari.submit();
 
     // Cridem a la funció.
     fetchPost();
@@ -287,11 +287,12 @@ blocFormulari.addEventListener("submit", async function (e) {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({contact, productes})
+        body: JSON.stringify({comanda})  // comanda = contact, productes
       })
         .then(async (response) => {
           orderId = response.orderId;
           console.log("Resposta: ", orderId);
+          return response.json();
         })
         .then(async (orderId) => ("orderId", orderId))
         .catch((error) => console.error("Error: ", error));
@@ -299,7 +300,7 @@ blocFormulari.addEventListener("submit", async function (e) {
       // Si hem recuperat l'ID de Comanda, continuar cap a la pàgina Confirmació.
       if (orderId != "") {
         alert("El vostre número de comanda és: ", orderId);
-        window.location.href = "../html/confirmation.html" + orderId;
+        window.location.href = "confirmation.html?id=" + orderId;
         // Storage.clear();
       }
     }
