@@ -6,7 +6,7 @@ import { dadesProducte } from "./producte.js";
 
 let quantitatTotal = 0;
 let importTotal = 0;
-let idComanda = "";
+let orderId = "";
 
 // ⏬ Funció per integrar les dades de un producte a la pàgina html ⏬.
 function integrarDades(dades, articleSofa) {
@@ -82,7 +82,7 @@ function integrarDades(dades, articleSofa) {
   // Obtenir els valors numèrics dels totals.
   quantitatTotal += parseInt(articleSofa.quantitat);
   importTotal += parseInt(articleSofa.quantitat) * dades.price;
-  console.log("Quantitat: " + quantitatTotal, "Import: " + importTotal);
+  // console.log("Quantitat: " + quantitatTotal, "Import: " + importTotal);
 
   // Integrar les dades al DOM.
   document.querySelector("#totalQuantity").innerHTML = quantitatTotal;
@@ -261,39 +261,45 @@ blocFormulari.addEventListener("submit", async function (e) {
     ciutatValidar(blocFormulari.city) &&
     emailValidar(blocFormulari.email)
   ) {
-    // Presentar les dades.
-    alert("Estàs a punt de confirmar la teva comanda");
-    // blocFormulari.submit();
-
     // Enviar les dades dintre l'objecte contact.
     contact.push({ firstName, lastName, address, city, email });
 
+    // Presentar les dades.
+    alert(
+      "La teva comanda ha estat confirmada.   Els vostres productes i les vostres dades son:    " +
+        JSON.stringify(comanda)
+    );
+    // blocFormulari.submit();
+
+    // Cridem a la funció.
+    fetchPost();
+
     // Guardar el formulari al localStorage. No és necessari ?!
     localStorage.setItem("Comanda", JSON.stringify(comanda));
-    // }
-    
-console.log(comanda);
 
     /// ⏳ ==================== 🛠 TALLER 🛠 ==================== ⏳
-
+    
     // Sol·licitud POST i Recuperar i conservar l'ID de Comanda(numeroComanda) de la resposta de l'API.
-    fetch("http://localhost:3000/api/products/order", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(comanda),
-    })
-      .then(async (res) => res.json())
-      .catch((error) => console.error("Error: ", error))
-      .then(async (response) => console.log("Resposta: ", response))
-      .then(async (resultat) => ("idComanda", resultat.idComanda));
+    function fetchPost() {
+      fetch("http://localhost:3000/api/products/order/", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(comanda),
+      })
+        .then(async (response) => response.json())
+        .catch((error) => console.error("Error: ", error))
+        .then(async (response) => console.log("Resposta: ", response))
+        .then(async (orderId) => ("orderId", orderId));
 
-    // Si hem recuperat l'ID de Comanda, continuar cap a la pàgina Confirmació.
-    if (idComanda != "") {
-      location.href = "./confirmation.html?id=" + idComanda;
-      // Storage.clear();
+      // Si hem recuperat l'ID de Comanda, continuar cap a la pàgina Confirmació.
+      if (orderId != "") {
+        alert("El vostre número de comanda és: ", orderId);
+        window.location.href = "./confirmation.html?id=" + orderId;
+        // Storage.clear();
+      }
     }
   }
 });
@@ -303,16 +309,7 @@ console.log(comanda);
 // DUBTES/ERRORS:
 // ==============
 
-// Console ❌ POST http://localhost:3000/api/products/comanda 404 (Not Found) (anònim) @ cistella.js:278
-
-// Console ❌ Error:  SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON                                    (anònim) @ cistella.js:287
-      // Promise.catch (asíncron)       (anònim) @ cistella.js:287
-
-// Resposta:  undefined ❓               cistella.js:288
-
-// Console ❌ cistella.js:289 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'idComanda')
-    // at cistella.js:289:50            (anònim) @ cistella.js:289
-    // Promise.then (asíncron)          (anònim) @ cistella.js:289
+// Console ❌ POST http://localhost:3000/api/products/order 400 (Bad Request)                      @ cistella.js:284
 
 // Cal fixar les dades als camps del formulari?. o ja està fet amb submit?
 
@@ -327,6 +324,9 @@ const cistell = new Cistell();
 // Adreça API.
 const urlhost = "http://localhost:3000/api/products/";
 
+// Delarar l'array per recollir només les ID Producte.
+let productes = [];
+
 // Si la cistella està buida canviar el títol <h1>.
 if (cistell.panera.length == 0) {
   document.getElementById("titolCistella").innerHTML += `Votre panier est vide`;
@@ -340,8 +340,9 @@ else {
     dadesProducte(urlhost + articleSofa.id).then((dades) =>
       integrarDades(dades, articleSofa)
     );
+    productes.push(articleSofa.id);
   }
 }
-const compra = cistell.panera;
-console.log("La vostra llista de la compra: ", compra);
-let comanda = { compra, contact };
+
+// Agrupar les dues Arrays per enviar a l'API.
+let comanda = { productes, contact };
