@@ -260,6 +260,7 @@ blocFormulari.addEventListener("submit", async function (e) {
     ciutatValidar(blocFormulari.city) &&
     emailValidar(blocFormulari.email)
   ) {
+
     // Agrupar les dues Arrays per enviar a l'API.
     let comanda = {
       products,
@@ -268,15 +269,11 @@ blocFormulari.addEventListener("submit", async function (e) {
 
     // Presentar les dades.
     alert(
-      "La teva comanda ha estat confirmada.   Els vostres productes i les vostres dades son:    " +
-        JSON.stringify(comanda)
+      "Votre commande a été confirmée.\nLes Id de vos produits et vos coordonnées sont :\n" +JSON.stringify(comanda)
     );
 
     // Cridem a la funció.
     fetchPost(comanda);
-
-    // // Guardar el formulari al localStorage. No és necessari ?!
-    // localStorage.setItem("Comanda", JSON.stringify(comanda));
   }
 });
 
@@ -296,7 +293,7 @@ function fetchPost(comanda) {
     .then((respostajson) => {
       console.log(respostajson);
       const orderId = respostajson.orderId;
-      alert("Votre Nº de commande est: " + orderId);
+      alert("Votre Nº de commande est: \n\n" + orderId);
 
       // Si hem recuperat l'ID de Comanda, continuar cap a la pàgina Confirmació.
       window.location.href = "confirmation.html?id=" + orderId;
