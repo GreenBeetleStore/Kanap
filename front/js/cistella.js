@@ -6,7 +6,6 @@ import { dadesProducte } from "./producte.js";
 
 let quantitatTotal = 0;
 let importTotal = 0;
-let orderId = "";
 
 // ⏬ Funció per integrar les dades de un producte a la pàgina html ⏬.
 function integrarDades(dades, articleSofa) {
@@ -95,7 +94,7 @@ function integrarDades(dades, articleSofa) {
 const blocFormulari = document.querySelector(".cart__order__form");
 
 // Declarar l'Array objecte contact buida i les variables dades del formulari.
-let contact = [];
+let contact = {};
 let firstName = "";
 let lastName = "";
 let address = "";
@@ -261,66 +260,51 @@ blocFormulari.addEventListener("submit", async function (e) {
     ciutatValidar(blocFormulari.city) &&
     emailValidar(blocFormulari.email)
   ) {
-    // Enviar les dades dintre l'objecte contact.
-    contact.push({ firstName, lastName, address, city, email });
+    // Agrupar les dues Arrays per enviar a l'API.
+    let comanda = {
+      products,
+      contact: { firstName, lastName, address, city, email },
+    };
 
     // Presentar les dades.
     alert(
       "La teva comanda ha estat confirmada.   Els vostres productes i les vostres dades son:    " +
         JSON.stringify(comanda)
     );
-    blocFormulari.submit();
 
     // Cridem a la funció.
-    fetchPost();
+    fetchPost(comanda);
 
-    // Guardar el formulari al localStorage. No és necessari ?!
-    localStorage.setItem("Comanda", JSON.stringify(comanda));
-
-    /// ⏳ ==================== 🛠 TALLER 🛠 ==================== ⏳
-
-    // Sol·licitud POST i Recuperar i conservar l'ID de Comanda(numeroComanda) de la resposta de l'API.
-    function fetchPost() {
-      fetch("http://localhost:3000/api/products/order/", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({comanda})  // comanda = contact, productes
-      })
-        .then(async (response) => {
-          orderId = response.orderId;
-          console.log("Resposta: ", orderId);
-          return response.json();
-        })
-        .then(async (orderId) => ("orderId", orderId))
-        .catch((error) => console.error("Error: ", error));
-
-      // Si hem recuperat l'ID de Comanda, continuar cap a la pàgina Confirmació.
-      if (orderId != "") {
-        alert("El vostre número de comanda és: ", orderId);
-        window.location.href = "confirmation.html?id=" + orderId;
-        // Storage.clear();
-      }
-    }
+    // // Guardar el formulari al localStorage. No és necessari ?!
+    // localStorage.setItem("Comanda", JSON.stringify(comanda));
   }
 });
 
-/// ⏳ ==================== 🛠 TALLER 🛠 ==================== ⏳
+// Sol·licitud POST, Recuperar i conservar l'ID de Comanda(numeroComanda) de la resposta de l'API.
+function fetchPost(comanda) {
+  fetch("http://localhost:3000/api/products/order/", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(comanda), // comanda = contact, productes
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((respostajson) => {
+      console.log(respostajson);
+      const orderId = respostajson.orderId;
+      alert("Votre Nº de commande est: " + orderId);
 
-// DUBTES/ERRORS:
-// ==============
+      // Si hem recuperat l'ID de Comanda, continuar cap a la pàgina Confirmació.
+      window.location.href = "confirmation.html?id=" + orderId;
+      Storage.clear();
+    })
+    .catch((error) => console.error("Error: ", error));
+}
 
-// Console ❌ POST http://localhost:3000/api/products/order 400 (Bad Request)                      @ cistella.js:284
-
-// Cal fixar les dades als camps del formulari?. o ja està fet amb submit?
-
-// No és necessari: Guardar les dades del client al localStorage. ELIMINAR❗
-
-/// ⏳ ==================== 🛠 TALLER 🛠 ==================== ⏳
-
-// ❗❗❗ ⬇⬇⬇⬇⬇⬇⬇⬇⬇ 🔰 D'aquí fins a la fí, NO TOCAR 🔰 ⬇⬇⬇⬇⬇⬇⬇⬇⬇ ❗❗❗
 // Crear un objecte amb la clase Cistell.
 const cistell = new Cistell();
 
@@ -328,7 +312,7 @@ const cistell = new Cistell();
 const urlhost = "http://localhost:3000/api/products/";
 
 // Delarar l'array per recollir només les ID Producte.
-let productes = [];
+let products = [];
 
 // Si la cistella està buida canviar el títol <h1>.
 if (cistell.panera.length == 0) {
@@ -343,9 +327,6 @@ else {
     dadesProducte(urlhost + articleSofa.id).then((dades) =>
       integrarDades(dades, articleSofa)
     );
-    productes.push(articleSofa.id);
+    products.push(articleSofa.id);
   }
 }
-
-// Agrupar les dues Arrays per enviar a l'API.
-let comanda = { productes, contact };
