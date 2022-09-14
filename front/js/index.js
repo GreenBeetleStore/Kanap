@@ -1,14 +1,14 @@
-// Declarar una constant amb l'url de l'API
+// Declarar una constant amb l'url de l'API.
 const urlhost = "http://localhost:3000/api/products/";
 
-// Funció per capturar les dades dels productes amb l'API Fetch
+// Funció per capturar les dades dels productes amb l'API Fetch.
 let dadesRecull = function () {
   fetch(urlhost)
     .then((resposta) => resposta.json())
     .then((dades) => {
       console.log(dades);
 
-      // Identificar dins d'una Array, i assignar al codi html les diferents característiques del productes
+      // Identificar dins d'una Array, i assignar al HTML les característiques dels productes.
       let caracteristiques = document.getElementById("items");
       for (i = 0; i < dades.length; i++) {
         const identitatProducte = `<a href="./product.html?id=${dades[i]._id}">

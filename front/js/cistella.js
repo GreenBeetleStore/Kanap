@@ -4,6 +4,7 @@ import { Cistell } from "./gestor_cistella_poo.js";
 // Importar la funció per recuperar les dades dels productes amb fetch des de l'API.
 import { dadesProducte } from "./producte.js";
 
+// Declarar les variables buides.
 let quantitatTotal = 0;
 let importTotal = 0;
 
@@ -81,27 +82,24 @@ function integrarDades(dades, articleSofa) {
   // Obtenir els valors numèrics dels totals.
   quantitatTotal += parseInt(articleSofa.quantitat);
   importTotal += parseInt(articleSofa.quantitat) * dades.price;
-  // console.log("Quantitat: " + quantitatTotal, "Import: " + importTotal);
 
   // Integrar les dades al DOM.
   document.querySelector("#totalQuantity").innerHTML = quantitatTotal;
   document.querySelector("#totalPrice").innerHTML = importTotal;
 }
-
-// 🆗 ^^^^^^^^^^^^^^^^ ⏫ = Fi de la Funció integrarDades = ⏫ ^^^^^^^^^^^^^^^^^ 🆗
+// 🆗 ^^^^^^ ⏫ = Fi de la Funció integrarDades = ⏫ ^^^^^^^ 🆗
 
 // 💹 Selecció del Bloc de tot el Formulari 💹.
 const blocFormulari = document.querySelector(".cart__order__form");
 
-// Declarar l'Array objecte contact buida i les variables dades del formulari.
-let contact = {};
+// Declarar les variables dades de contacte.
 let firstName = "";
 let lastName = "";
 let address = "";
 let city = "";
 let email = "";
 
-// 1️⃣ Nom a l'escolta 🎧 d'un esdeveniment 1️⃣.
+// 1️⃣ Nom a l'escolta 🎧 d'un esdeveniment 1️⃣. Prénom.
 blocFormulari.firstName.addEventListener("change", function () {
   nomValidar(this);
 });
@@ -129,7 +127,7 @@ const nomValidar = function (inputNom) {
   }
 };
 
-// 2️⃣ Cognom a l'escolta 🎧 d'un esdeveniment 2️⃣.
+// 2️⃣ Cognom a l'escolta 🎧 d'un esdeveniment 2️⃣. Nom.
 blocFormulari.lastName.addEventListener("change", function () {
   cognomValidar(this);
 });
@@ -157,7 +155,7 @@ const cognomValidar = function (inputCognom) {
   }
 };
 
-// 3️⃣ Adreça a l'escolta 🎧 d'un esdeveniment 3️⃣.
+// 3️⃣ Adreça a l'escolta 🎧 d'un esdeveniment 3️⃣. Adresse.
 blocFormulari.address.addEventListener("change", function () {
   adreçaValidar(this);
 });
@@ -187,7 +185,7 @@ const adreçaValidar = function (inputAdreça) {
   }
 };
 
-// 4️⃣ Ciutat a l'escolta 🎧 d'un esdeveniment 4️⃣.
+// 4️⃣ Ciutat a l'escolta 🎧 d'un esdeveniment 4️⃣. Ville.
 blocFormulari.city.addEventListener("change", function () {
   ciutatValidar(this);
 });
@@ -217,7 +215,7 @@ const ciutatValidar = function (inputCiutat) {
   }
 };
 
-// 5️⃣ Email a l'escolta 🎧 d'un esdeveniment 5️⃣.
+// 5️⃣ Email a l'escolta 🎧 d'un esdeveniment 5️⃣. Email.
 blocFormulari.email.addEventListener("change", function () {
   emailValidar(this);
 });
@@ -260,7 +258,6 @@ blocFormulari.addEventListener("submit", async function (e) {
     ciutatValidar(blocFormulari.city) &&
     emailValidar(blocFormulari.email)
   ) {
-
     // Agrupar les dues Arrays per enviar a l'API.
     let comanda = {
       products,
@@ -269,7 +266,8 @@ blocFormulari.addEventListener("submit", async function (e) {
 
     // Presentar les dades.
     alert(
-      "Votre commande a été confirmée.\nLes Id de vos produits et vos coordonnées sont :\n" +JSON.stringify(comanda)
+      "Votre commande a été confirmée.\nLes Id de vos produits et vos coordonnées sont :\n" +
+        JSON.stringify(comanda)
     );
 
     // Cridem a la funció.
@@ -285,7 +283,7 @@ function fetchPost(comanda) {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(comanda), // comanda = contact, productes
+    body: JSON.stringify(comanda),
   })
     .then((response) => {
       return response.json();
@@ -295,7 +293,7 @@ function fetchPost(comanda) {
       const orderId = respostajson.orderId;
       alert("Votre Nº de commande est: \n\n" + orderId);
 
-      // Si hem recuperat l'ID de Comanda, continuar cap a la pàgina Confirmació.
+      // Continuar cap a la pàgina Confirmació enviant id=orderId per l'URL.
       window.location.href = "confirmation.html?id=" + orderId;
       Storage.clear();
     })
@@ -324,6 +322,7 @@ else {
     dadesProducte(urlhost + articleSofa.id).then((dades) =>
       integrarDades(dades, articleSofa)
     );
+    // Recuperar només les id de producte i afegir-ho a products.
     products.push(articleSofa.id);
   }
 }
