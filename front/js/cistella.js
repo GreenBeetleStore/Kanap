@@ -115,13 +115,13 @@ const nomValidar = function (inputNom) {
 
   // Test de l'expressió regular Nom (identRegex).
   if (identRegex.test(inputNom.value)) {
-    smsNom.innerHTML = "Prénom Valide";
+    smsNom.innerHTML = "Prénom Valide.";
     smsNom.classList.add("text-success");
     let nom = inputNom.value;
     firstName = nom;
     return true;
   } else {
-    smsNom.innerHTML = "Prénom Non Valide";
+    smsNom.innerHTML = "Prénom Non Valide.";
     smsNom.classList.remove("text-success");
     return false;
   }
@@ -143,13 +143,13 @@ const cognomValidar = function (inputCognom) {
 
   // Test de l'expressió regular Cognom (identRegex).
   if (identRegex.test(inputCognom.value)) {
-    smsCognom.innerHTML = "Nom Valide";
+    smsCognom.innerHTML = "Nom Valide.";
     smsCognom.classList.add("text-success");
     let cognom = inputCognom.value;
     lastName = cognom;
     return true;
   } else {
-    smsCognom.innerHTML = "Nom Non Valide";
+    smsCognom.innerHTML = "Nom Non Valide.";
     smsCognom.classList.remove("text-success");
     return false;
   }
@@ -172,14 +172,14 @@ const adreçaValidar = function (inputAdreça) {
 
   // Test de l'expressió regular Adreça (adreçaRegex).
   if (adreçaRegex.test(inputAdreça.value)) {
-    smsAdreça.innerHTML = "Adresse Valide";
+    smsAdreça.innerHTML = "Adresse Valide.";
     smsAdreça.classList.add("text-success");
     let adreça = inputAdreça.value;
     address = adreça;
     return true;
   } else {
     smsAdreça.innerHTML =
-      "Adresse Non valide! Exemple de format à utiliser: Nº, Type de voie et Nom de voie";
+      "Adresse Non valide!. Exemple de format à utiliser: Nº, Type de voie et Nom de voie.";
     smsAdreça.classList.remove("text-success");
     return false;
   }
@@ -202,14 +202,14 @@ const ciutatValidar = function (inputCiutat) {
 
   // Test de l'expressió regular Ciutat (ciutatRegex).
   if (ciutatRegex.test(inputCiutat.value)) {
-    smsCiutat.innerHTML = "Ville Valide";
+    smsCiutat.innerHTML = "Ville Valide.";
     smsCiutat.classList.add("text-success");
     let ciutat = inputCiutat.value;
     city = ciutat;
     return true;
   } else {
     smsCiutat.innerHTML =
-      "Ville Non valide! Exemple de format à utiliser: Code Postal et Nom de la Ville";
+      "Ville Non valide!. Exemple de format à utiliser: Code Postal et Nom de la Ville.";
     smsCiutat.classList.remove("text-success");
     return false;
   }
@@ -232,14 +232,14 @@ const emailValidar = function (inputEmail) {
 
   // Test de l'expressió regular Email (emailRegex).
   if (emailRegex.test(inputEmail.value)) {
-    smsEmail.innerHTML = "Email Valide";
+    smsEmail.innerHTML = "Email Valide.";
     smsEmail.classList.add("text-success");
     let correu = inputEmail.value;
     email = correu;
     return true;
   } else {
     smsEmail.innerHTML =
-      "Email Non valide! Veuillez saisir un format d'e-mail valide.";
+      "Email Non valide!. Veuillez saisir un format d'e-mail valide.";
     smsEmail.classList.remove("text-success");
     return false;
   }

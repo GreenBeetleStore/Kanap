@@ -63,7 +63,7 @@ function afegirACistella() {
 
     // Mostra finestra ADVERTÈNCIA COLOR NO SELECCIONAT.
     if (!colorSeleccionat) {
-      alert("Vous devez choisir un couleur");
+      alert("Vous devez choisir une couleur !");
       return;
     }
 
@@ -72,7 +72,7 @@ function afegirACistella() {
 
     // Mostra finestra ADVERTÈNCIA INTRODUÏR QUANTITAT.
     if (!(quantitat > 0 && quantitat <= 100)) {
-      alert("Vous devez choisir une quantité comprise entre 1 et 100");
+      alert("Vous devez choisir une quantité comprise entre 1 et 100 !");
       return;
     }
 
