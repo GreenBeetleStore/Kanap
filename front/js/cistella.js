@@ -275,7 +275,7 @@ blocFormulari.addEventListener("submit", async function (e) {
   }
 });
 
-// Sol·licitud POST, Recuperar i conservar l'ID de Comanda(numeroComanda) de la resposta de l'API.
+// Sol·licitud POST per enviar "contact i products". Recuperar l'ID de Comanda dintre de l'API.
 function fetchPost(comanda) {
   fetch("http://localhost:3000/api/products/order/", {
     method: "POST",
@@ -288,12 +288,12 @@ function fetchPost(comanda) {
     .then((response) => {
       return response.json();
     })
-    .then((respostajson) => {
-      console.log(respostajson);
-      const orderId = respostajson.orderId;
+    .then((respostaJson) => {
+      console.log(respostaJson);
+      const orderId = respostaJson.orderId;
       alert("Votre Nº de commande est: \n\n" + orderId);
 
-      // Continuar cap a la pàgina Confirmació enviant id=orderId per l'URL.
+      // Continuar cap a la pàgina Confirmació enviant id=orderId per a l'URL.
       window.location.href = "confirmation.html?id=" + orderId;
       Storage.clear();
     })
