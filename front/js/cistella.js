@@ -327,5 +327,5 @@ else {
   }
 }
 // Crida POO a la funció ordenar.
-cistell.ordenar(cistell.panera);
+cistell.ordenar();
 console.log(cistell.panera);
