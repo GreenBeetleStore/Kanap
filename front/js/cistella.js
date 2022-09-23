@@ -326,3 +326,24 @@ else {
     products.push(articleSofa.id);
   }
 }
+// Crida POO a la funció ordenar.
+cistell.ordenar();
+
+// // Funció per ordenar els articles segons l'ID i colorSeleccionat.
+// cistell.panera.sort((a, b) => {
+//   if (a.id > b.id) {
+//     return 1;
+//   }
+//   if (a.id < b.id) {
+//     return -1;
+//   }
+//   if (a.colorSeleccionat > b.colorSeleccionat) {
+//     return 1;
+//   }
+//   if (a.colorSeleccionat < b.colorSeleccionat) {
+//     return -1;
+//   }
+//   return 0;
+// });
+// console.log(cistell.panera);
+// console.log(cistell);
