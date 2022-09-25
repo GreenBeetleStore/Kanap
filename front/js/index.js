@@ -20,7 +20,9 @@ let dadesRecull = function () {
             </a>`;
         caracteristiques.innerHTML += identitatProducte;
       }
-    });
+    })
+    .catch(err => alert("Désolés !\nL'API n'est pas disponible pour le moment. \nVeuillez réessayer plus tard."));
 };
 // Crida a la variable dadesRecull
 dadesRecull();
+

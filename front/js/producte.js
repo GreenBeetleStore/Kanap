@@ -3,7 +3,6 @@ import { Cistell } from "./gestor_cistella_poo.js";
 
 // Crear un objecte amb la clase Cistell per poder cridar i utilitzar les diferents funcions de la classe, per exemple: cridar la funció 'cistell.guardar()'.
 const cistell = new Cistell();
-cistell.ordenar();
 
 // Recuperar la URL en la pàgina actual.
 const consultaStringUrlId = window.location.href;
@@ -19,7 +18,13 @@ const urlhost = "http://localhost:3000/api/products/" + id;
 
 // Exportem aquesta funció, que recupera les dades del producte des de l'API, per poder reutilitzar-la des de qualsevol altre script.
 export function dadesProducte(urlhost) {
-  return fetch(urlhost).then((resposta) => resposta.json());
+  return fetch(urlhost)
+    .then((resposta) => resposta.json())
+    .catch((err) =>
+      alert(
+        "Désolés !\nL'API n'est pas disponible pour le moment. \nVeuillez réessayer plus tard."
+      )
+    );
 }
 
 // Funció per integrar les dades del producte al HTML.
@@ -80,6 +85,9 @@ function afegirACistella() {
     // Declarar variable del objecte amb els elements a guardar al LocalStorage.
     let articleSofa = { id, colorSeleccionat, quantitat };
 
+    // Crida POO a la funció ordenar.
+    cistell.ordenar();
+
     // Cridar POO a la funció afegir producte.
     cistell.afegir(articleSofa);
 
@@ -96,6 +104,9 @@ function finestraConfirmació() {
     )
   ) {
     // ...
+    // Crida POO a la funció ordenar.
+    cistell.ordenar();
+
     // Opció per anar a la pàgina de la cistella.
     window.location.href = "./cart.html";
 

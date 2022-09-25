@@ -12,7 +12,6 @@ export class Cistell {
 
   // Funció per guardar la CLAU(Cistella) i els VALORS(variable: Cistell) de Local Storage.
   guardar() {
-    this.ordenar();
     localStorage.setItem("Cistella", JSON.stringify(this.panera));
   }
 
@@ -27,7 +26,6 @@ export class Cistell {
       trovarProducte.quantitat += articleSofa.quantitat;
     } else {
       this.panera.push(articleSofa);
-      this.ordenar();
     }
     this.guardar();
   }
@@ -87,7 +85,7 @@ export class Cistell {
       }
     });
     // this.panera.sort((a, b) => {
-    //   return a.id - b.id;
-    // });    
+    //   return a.id-b.id;
+    // });
   }
 }
