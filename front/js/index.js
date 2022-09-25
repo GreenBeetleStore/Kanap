@@ -1,4 +1,4 @@
-// Declarar una constant amb l'url de l'API.
+// Declarar una constant amb l'URL de l'API.
 const urlhost = "http://localhost:3000/api/products/";
 
 // Funció per capturar les dades dels productes amb l'API Fetch.
@@ -23,6 +23,5 @@ let dadesRecull = function () {
     })
     .catch(err => alert("Désolés !\nL'API n'est pas disponible pour le moment. \nVeuillez réessayer plus tard."));
 };
-// Crida a la variable dadesRecull
+// Crida a la variable dadesRecull.
 dadesRecull();
-
