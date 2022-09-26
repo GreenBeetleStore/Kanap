@@ -86,7 +86,7 @@ function afegirACistella() {
     let articleSofa = { id, colorSeleccionat, quantitat };
 
     // Crida POO a la funció ordenar.
-    cistell.ordenar();
+    // cistell.ordenar();
 
     // Cridar POO a la funció afegir producte.
     cistell.afegir(articleSofa);
@@ -105,7 +105,7 @@ function finestraConfirmació() {
   ) {
     // ...
     // Crida POO a la funció ordenar.
-    cistell.ordenar();
+    // cistell.ordenar();
 
     // Opció per anar a la pàgina de la cistella.
     window.location.href = "./cart.html";

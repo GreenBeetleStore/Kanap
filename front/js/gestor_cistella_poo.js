@@ -27,6 +27,7 @@ export class Cistell {
     } else {
       this.panera.push(articleSofa);
     }
+    this.ordenar(articleSofa);
     this.guardar();
   }
 
