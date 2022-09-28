@@ -83,7 +83,7 @@ function integrarDades(dades, articleSofa) {
   quantitatTotal += parseInt(articleSofa.quantitat);
   importTotal += parseInt(articleSofa.quantitat) * dades.price;
 
-  // Integrar les dades al DOM.
+  // Integrar les dades dels totals al DOM.
   document.querySelector("#totalQuantity").innerHTML = quantitatTotal;
   document.querySelector("#totalPrice").innerHTML = importTotal;
 }
