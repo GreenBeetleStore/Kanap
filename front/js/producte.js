@@ -1,7 +1,7 @@
 // Importar la classe Cistell.
 import { Cistell } from "./gestor_cistella_poo.js";
 
-// Crear un objecte amb la clase Cistell per poder cridar i utilitzar les diferents funcions de la classe, per exemple: cridar la funció 'cistell.guardar()'.
+// Crear l'objecte amb la classe Cistell per poder utilitzar les seves funcions, per exemple cridar la funció: 'cistell.guardar()'.
 const cistell = new Cistell();
 
 // Recuperar la URL en la pàgina actual.
