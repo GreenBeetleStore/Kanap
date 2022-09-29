@@ -9,7 +9,7 @@ let quantitatTotal = 0;
 let importTotal = 0;
 
 // ⏬ Funció per integrar les dades de un producte a la pàgina html ⏬.
-function integrarDades(dades, articleSofa) {
+function integrarDades(articleSofa) {
   // ...
   // Insertar l'etiqueta <article> dintre la <section>. Crear node.
   const articleCistella = document.createElement("article");
@@ -24,8 +24,11 @@ function integrarDades(dades, articleSofa) {
   articleCistella.setAttribute("data-id", articleSofa.id);
   articleCistella.setAttribute("data-color", articleSofa.colorSeleccionat);
 
-  // Inserir dades als elements de articleCistella.
-  articleCistella.innerHTML = `<div class="cart__item__img">
+  // Consultar l'API per recuperar les dades integrant-les en ordre.
+  dadesProducte(urlhost + articleSofa.id).then((dades) => {
+    //..
+    // Inserir dades als elements de articleCistella.
+    articleCistella.innerHTML = `<div class="cart__item__img">
   <img src="${dades.imageUrl}" alt="${dades.altTxt}">
 </div>
 <div class="cart__item__content">
@@ -45,47 +48,48 @@ function integrarDades(dades, articleSofa) {
   </div>
 </div>`;
 
-  // Seccionar el botoSuprimir un producte.
-  const botoSuprimir = articleCistella.querySelector(".deleteItem");
+    // Seccionar el botoSuprimir un producte.
+    const botoSuprimir = articleCistella.querySelector(".deleteItem");
 
-  // Afegir Botó Suprimir.
-  botoSuprimir.addEventListener("click", (event) => {
-    // ...
-    // Crida POO a la funció eliminar producte.
-    cistell.eliminar(articleSofa);
+    // Afegir Botó Suprimir.
+    botoSuprimir.addEventListener("click", (event) => {
+      // ...
+      // Crida POO a la funció eliminar producte.
+      cistell.eliminar(articleSofa);
 
-    // Advertir de la supressió del producte.
-    alert("Votre article a été supprimé.");
+      // Advertir de la supressió del producte.
+      alert("Votre article a été supprimé.");
 
-    // Recarregar la pàgina.
-    location.reload();
+      // Recarregar la pàgina.
+      location.reload();
+    });
+
+    // Seleccionar el botoSelector de quantitat.
+    const botoSelector = articleCistella.querySelector(".itemQuantity");
+
+    // Afegir botoSelector.
+    botoSelector.addEventListener("change", (event) => {
+      // ...
+      // Obtenir la quantitat escollida.
+      const quantitatEscollida = event.target;
+      event.preventDefault();
+      articleSofa.quantitat = quantitatEscollida.value;
+
+      // Crida POO a la funció guardar.
+      cistell.guardar();
+
+      // Recarregar la pàgina.
+      location.reload();
+    });
+
+    // Obtenir els valors numèrics dels totals.
+    quantitatTotal += parseInt(articleSofa.quantitat);
+    importTotal += parseInt(articleSofa.quantitat) * dades.price;
+
+    // Integrar les dades dels totals al DOM.
+    document.querySelector("#totalQuantity").innerHTML = quantitatTotal;
+    document.querySelector("#totalPrice").innerHTML = importTotal;
   });
-
-  // Seleccionar el botoSelector de quantitat.
-  const botoSelector = articleCistella.querySelector(".itemQuantity");
-
-  // Afegir botoSelector.
-  botoSelector.addEventListener("change", (event) => {
-    // ...
-    // Obtenir la quantitat escollida.
-    const quantitatEscollida = event.target;
-    event.preventDefault();
-    articleSofa.quantitat = quantitatEscollida.value;
-
-    // Crida POO a la funció guardar.
-    cistell.guardar();
-
-    // Recarregar la pàgina.
-    location.reload();
-  });
-
-  // Obtenir els valors numèrics dels totals.
-  quantitatTotal += parseInt(articleSofa.quantitat);
-  importTotal += parseInt(articleSofa.quantitat) * dades.price;
-
-  // Integrar les dades dels totals al DOM.
-  document.querySelector("#totalQuantity").innerHTML = quantitatTotal;
-  document.querySelector("#totalPrice").innerHTML = importTotal;
 }
 // 🆗 ^^^^^^ ⏫ = Fi de la Funció integrarDades = ⏫ ^^^^^^^ 🆗
 
@@ -294,7 +298,7 @@ function fetchPost(comanda) {
       alert("Votre Nº de commande est: \n\n" + orderId);
 
       // Continuar cap a la pàgina Confirmació enviant id=orderId per a l'URL.
-      window.location.href = "confirmation.html?id=" + orderId;
+      window.location.href = "confirmacio.html?id=" + orderId;
       Storage.clear();
     })
     .catch((error) => console.error("Error: ", error));
@@ -319,13 +323,11 @@ else {
 
   // Bucle per mostrar els articles de la cistella i integrar les dades de cada producte al HTML.
   for (let articleSofa of cistell.panera) {
-    dadesProducte(urlhost + articleSofa.id).then((dades) =>
-      integrarDades(dades, articleSofa)
-    );
+    integrarDades(articleSofa);
+
     // Recuperar només les id de producte i afegir-ho a products.
     products.push(articleSofa.id);
   }
 }
-// Crida POO a la funció ordenar.
-cistell.ordenar();
+// Mostrar en consola els productes ordenats.
 console.log(cistell.panera);

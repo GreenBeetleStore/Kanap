@@ -85,8 +85,10 @@ export class Cistell {
         return 1;
       }
     });
-    // this.panera.sort((a, b) => {
-    //   return a.id-b.id;
-    // });
+    /** Idem de la funció ordenar abreviada.
+     * this.panera.sort((a, b) => {
+     * return a.id-b.id;
+     * });
+     */
   }
 }

@@ -85,9 +85,6 @@ function afegirACistella() {
     // Declarar variable del objecte amb els elements a guardar al LocalStorage.
     let articleSofa = { id, colorSeleccionat, quantitat };
 
-    // Crida POO a la funció ordenar.
-    // cistell.ordenar();
-
     // Cridar POO a la funció afegir producte.
     cistell.afegir(articleSofa);
 
@@ -103,10 +100,6 @@ function finestraConfirmació() {
       "Votre article a bien été ajouté au Panier !.\nPour aller directement au panier appuyez sur:      Accepter.\nOu si vous souhaitez continuer vos achats, appuyez sur:     Annuler"
     )
   ) {
-    // ...
-    // Crida POO a la funció ordenar.
-    // cistell.ordenar();
-
     // Opció per anar a la pàgina de la cistella.
     window.location.href = "./cart.html";
 
