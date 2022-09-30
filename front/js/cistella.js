@@ -48,7 +48,7 @@ function integrarDades(articleSofa) {
   </div>
 </div>`;
 
-    // Seccionar el botoSuprimir un producte.
+    // Seleccionar el botoSuprimir un producte.
     const botoSuprimir = articleCistella.querySelector(".deleteItem");
 
     // Afegir Botó Suprimir.
