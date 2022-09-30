@@ -281,7 +281,7 @@ Recommandations générales
   ● Attention à bien vérifier par deux fois la requête attendue par l’API, aucune erreur ne sera tolérée par celle-ci.
   ● Attention, si le numéro doit être affiché, celui-ci ne doit pas être conservé / stocké.
   
-<h2> Étape 12 : Mettre en place le plan de test d’acceptation <h2>
+<h2> Étape 12 : Mettre en place le plan de test d’acceptation </h2>
 100 % d’avancement
 
   Le site web étant en place, il est maintenant l’heure de mettre en place un plan de test dans le but de vérifier que toutes les fonctionnalités ont bien été           implémentées, et que celles-ci sont fonctionnelles.
