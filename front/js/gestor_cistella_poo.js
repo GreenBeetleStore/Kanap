@@ -72,7 +72,7 @@ export class Cistell {
     return { quantitatTotal, importTotal };
   }
 
-  // Funció per ordenar els articles segons l'ID.
+  // Funció per classificar els articles de la cistella segons l'ID.
   ordenar() {
     this.panera.sort((a, b) => {
       if (a.id < b.id) {
