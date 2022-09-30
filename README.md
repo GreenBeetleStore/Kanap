@@ -300,13 +300,13 @@ Recommandations générales
   
 📃 Ressources :
 
-  ● Vous pouvez trouver de nombreuses documentations concernant les différents tests, et notamment les tests d’acceptation. Voici un article sur les tests               d’acceptations.
+  ● Vous pouvez trouver de nombreuses documentations concernant les différents tests, et notamment les tests d’acceptation. 
   
 <h2> 🎉 Projet terminé ! </h2>
 
 =======================================================================================================
 
-<h2> MVP – Spécifications fonctionnelles et techniques du site de Kanap <h2>
+<h2> MVP – Spécifications fonctionnelles et techniques du site de Kanap </h2>
 https://course.oc-static.com/projects/DWJ_FR_P5/DW+P5+-+Specifications+fonctionnelles.pdf
 
 <h3> SOMMAIRE </h3> 
