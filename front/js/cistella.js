@@ -310,7 +310,7 @@ const cistell = new Cistell();
 // Adreça API.
 const urlhost = "http://localhost:3000/api/products/";
 
-// Delarar l'array per recollir només les ID Producte.
+// Declarar l'array per recollir només les ID Producte.
 let products = [];
 
 // Si la cistella està buida canviar el títol <h1>.
