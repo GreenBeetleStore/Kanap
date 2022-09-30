@@ -304,7 +304,7 @@ function fetchPost(comanda) {
     .catch((error) => console.error("Error: ", error));
 }
 
-// Crear un objecte amb la clase Cistell.
+// Crear un objecte amb la classe Cistell.
 const cistell = new Cistell();
 
 // Adreça API.
