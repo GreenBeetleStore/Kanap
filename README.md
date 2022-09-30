@@ -208,7 +208,7 @@ Recommandations générales
 
   ● À nouveau, le chapitre “Utilisez la bonne boucle pour répéter les tâches (for, while)” du cours “Apprenez à programmer avec JavaScript” devrait vous aider.
   
-<h2> Étape 9 : Gérer la modification et la suppression de produits dans la page Panier <h2>
+<h2> Étape 9 : Gérer la modification et la suppression de produits dans la page Panier </h2>
 75 % d’avancement
 
   Les produits présents dans le panier sont affichés sur la page Panier.
