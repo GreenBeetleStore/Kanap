@@ -298,7 +298,7 @@ function fetchPost(comanda) {
       alert("Votre Nº de commande est: \n\n" + orderId);
 
       // Continuar cap a la pàgina Confirmació enviant id=orderId per a l'URL.
-      window.location.href = "confirmacio.html?id=" + orderId;
+      window.location.href = "confirmation.html?id=" + orderId;
       Storage.clear();
     })
     .catch((error) => console.error("Error: ", error));
