@@ -1,5 +1,7 @@
 # Kanap #
 
+<img scr="./frontend/images/logo.png"/>
+
   This is the front end and back end server for Project 5 of the Web Developer path.
 
 ### Back end Prerequisites ###
